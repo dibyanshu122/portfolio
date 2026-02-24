@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dibyanshu | Full Stack Architect</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<style>
+:root{
+--accent:#00f2ff;
+--accent-gradient:linear-gradient(45deg,#00f2ff,#0062ff);
+--bg:#030712;
+--glass-bg:rgba(255,255,255,0.03);
+--glass-border:rgba(255,255,255,0.08);
+--glass-blur:blur(15px);
+--glass-hover-bg:rgba(255,255,255,0.07);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+
+body{
+background-color:var(--bg);
+color:#f8fafc;
+font-family:'Poppins',sans-serif;
+overflow-x:hidden;
+cursor:none;
+}
+
+/* ===== FULL 3D GALAXY CANVAS ===== */
+#bgCanvas{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-2;
+}
+
+/* Scroll DNA */
+.scroll-container{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:3px;
+z-index:3000;
+}
+.scroll-dna{
+height:3px;
+width:0%;
+background:var(--accent-gradient);
+}
+
+/* Cursor */
+.cursor{
+position:fixed;
+width:12px;
+height:12px;
+background:var(--accent);
+border-radius:50%;
+pointer-events:none;
+z-index:4000;
+box-shadow:0 0 15px var(--accent);
+}
+.cursor-trail{
+position:fixed;
+width:30px;
+height:30px;
+border:1px solid var(--accent);
+border-radius:50%;
+pointer-events:none;
+z-index:3999;
+opacity:0.5;
+}
+
+/* Header */
+header{
+position:fixed;
+top:0;
+width:100%;
+padding:1.2rem 10%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:2000;
+background:rgba(3,7,18,0.6);
+backdrop-filter:var(--glass-blur);
+border-bottom:1px solid var(--glass-border);
+}
+.logo{
+font-family:'Space Grotesk';
+font-size:1.8rem;
+font-weight:700;
+letter-spacing:2px;
+text-decoration:none;
+color:white;
+}
+.logo span{color:var(--accent)}
+nav a{
+color:#94a3b8;
+text-decoration:none;
+margin-left:2rem;
+transition:.3s;
+font-size:.9rem;
+text-transform:uppercase;
+}
+nav a:hover{
+color:var(--accent);
+text-shadow:0 0 10px var(--accent);
+}
+
+/* Hero Section Refined */
+.hero{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:150px 20px 80px 20px;
+}
+.hero h1{
+font-family:'Space Grotesk';
+font-size:clamp(3.5rem,10vw,6.5rem);
+margin-bottom:15px;
+color:white;
+}
+.hero p{
+font-size:1.1rem;
+color:#94a3b8;
+max-width:800px;
+}
+.hero-links a{
+color:var(--accent);
+text-decoration:none;
+margin: 0 10px;
+font-weight:500;
+transition:0.3s;
+}
+.hero-links a:hover{text-shadow:0 0 10px var(--accent);}
+
+section{padding:100px 10%}
+h2{
+font-family:'Space Grotesk';
+font-size:2.8rem;
+margin-bottom:4rem;
+text-align:center;
+text-transform:uppercase;
+letter-spacing:2px;
+}
+
+footer{
+padding:4rem 10%;
+border-top:1px solid var(--glass-border);
+text-align:center;
+}
+
+/* ===== Grid Layout ===== */
+.grid{
+display:grid;
+gap:2rem;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+}
+
+/* ===== Glass Card ===== */
+.card{
+background:var(--glass-bg);
+border:1px solid var(--glass-border);
+backdrop-filter:var(--glass-blur);
+padding:2.5rem;
+border-radius:24px;
+transition:.4s;
+display:flex;
+flex-direction:column;
+height:100%;
+}
+.card:hover{
+transform:translateY(-8px);
+background:var(--glass-hover-bg);
+border-color:var(--accent);
+box-shadow:0 0 30px rgba(0,242,255,0.1);
+}
+
+.card h3{
+margin-bottom:1.2rem;
+color:var(--accent);
+font-family:'Space Grotesk';
+font-size:1.4rem;
+}
+
+.card p{
+color:#cbd5e1;
+font-size:.95rem;
+line-height:1.7;
+}
+
+.card strong{
+color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="bgCanvas"></canvas>
+<div class="scroll-container"><div class="scroll-dna"></div></div>
+<div class="cursor"></div>
+<div class="cursor-trail"></div>
+
+<header>
+<a href="#" class="logo">DIBYAN<span>SHU</span></a>
+<nav>
+<a href="#home">Home</a>
+<a href="#skills">Skills</a>
+<a href="#experience">Experience</a>
+<a href="#projects">Projects</a>
+<a href="#education">Education</a>
+<a href="#certifications">Certifications</a>
+</nav>
+</header>
+
+<section class="hero" id="home">
+<p style="letter-spacing:5px;color:var(--accent);font-weight:600;font-size:.8rem;margin-bottom:10px;">
+ENGINEERING THE DIGITAL FUTURE
+</p>
+<h1>Architecting <br><span class="gradient-text">Elegance</span></h1>
+<p>
+Hi, I'm Dibyanshu. I turn complex logic into high-performance web solutions with Backend Mastery & AI integration.
+</p>
+<p data-aos="fade-up" style="margin-bottom:20px; color:white; font-weight:500;">
++91-9628954948 | ddibyanshu2@gmail.com
+</p>
+<div class="hero-links" data-aos="fade-up" data-aos-delay="200">
+<a href="https://www.linkedin.com/in/dibyanshu-286ba723a">LinkedIn</a> | <a href="https://github.com/dibyanshu122">GitHub</a> | <a href="https://www.hackerrank.com/profile/ddibyanshu2">HackerRank</a>
+</div>
+</section>
+
+<section id="skills">
+<h2 data-aos="fade-up">Technical Skills</h2>
+<div class="grid">
+<div class="card" data-aos="fade-up">
+<h3>Frontend</h3>
+<p>React.js, Next.js, HTML5, CSS3, JavaScript (ES6+), Data Visualization (Power BI)</p>
+</div>
+<div class="card" data-aos="fade-up" data-aos-delay="100">
+<h3>Backend</h3>
+<p>Python (Django), Node.js, REST APIs, App Script, OAuth, Razorpay Integration</p>
+</div>
+<div class="card" data-aos="fade-up" data-aos-delay="200">
+<h3>Database</h3>
+<p>PostgreSQL, MongoDB, MySQL, Redis</p>
+</div>
+<div class="card" data-aos="fade-up" data-aos-delay="300">
+<h3>Cloud & Tools</h3>
+<p>AWS (EC2/S3), Vercel, Render, Google Cloud (GCP), Git/GitHub, VPS (Hostinger)</p>
+</div>
+</div>
+</section>
+
+<section id="experience">
+<h2 data-aos="fade-up">Work Experience</h2>
+<div class="grid">
+<div class="card" data-aos="fade-up">
+<h3>Full Stack Developer</h3>
+<p><strong>Anantya.ai Pvt. Ltd.</strong> | Sep 2025 – Present</p>
+<p style="margin-top:10px;">
+• Architected real-time data flow using Webhooks (Salesforce, Zoho, IndiaMART).<br>
+• Built full-stack modules (React UI, Node APIs, PostgreSQL schemas).<br>
+• Resolved API data flow errors and system-level bugs.
+</p>
+</div>
+<div class="card" data-aos="fade-up" data-aos-delay="100">
+<h3>Backend Developer</h3>
+<p><strong>Phero Health Care Pvt. Ltd.</strong> | Aug 2023 – Sep 2025</p>
+<p style="margin-top:10px;">
+• Designed scalable backend architectures (Django & Node.js).<br>
+• Optimized MySQL & MongoDB improving performance by 30%.<br>
+• Deployed modules on AWS EC2 with secure configurations.
+</p>
+</div>
+<div class="card" data-aos="fade-up" data-aos-delay="200">
+<h3>Data Analytics Simulation</h3>
+<p><strong>Accenture (Forage)</strong> | May 2024</p>
+<p style="margin-top:10px;">
+• Cleaned & modeled 7+ datasets to uncover trends.<br>
+• Built Power BI dashboards & presented insights.
+</p>
+</div>
+</div>
+</section>
+
+<section id="projects">
+<h2 data-aos="fade-up">Technical Projects</h2>
+<div class="grid">
+<div class="card" data-aos="fade-up">
+<h3>Full-Stack Authentication & CRM Portal</h3>
+<p>
+• Google OAuth login with Next.js API Routes & PostgreSQL<br>
+• Automated onboarding using Nodemailer<br>
+• Secure sessions with HTTP-only cookies<br>
+• Rozgar Pay API integration for real-time payment tracking
+</p>
+</div>
+<div class="card" data-aos="fade-up" data-aos-delay="100">
+<h3>Enterprise System Integration</h3>
+<p>
+• IndiaMART & Shopify automated integrations<br>
+• WhatsApp Chatbot for lead automation<br>
+• API syncing for business workflow automation
+</p>
+</div>
+</div>
+</section>
+
+<section id="education">
+<h2 data-aos="fade-up">Education</h2>
+<div class="grid">
+<div class="card" data-aos="fade-up">
+<h3>B.Tech (Computer Science)</h3>
+<p>
+<strong>Rameshwaram Institute of Technology & Management</strong><br>
+2019 – 2023 | CGPA: 8.05/10
+</p>
+</div>
+<div class="card" data-aos="fade-up" data-aos-delay="100">
+<h3>Higher Secondary (12th)</h3>
+<p>
+<strong>U.P. Board</strong> | 2018
+</p>
+</div>
+</div>
+</section>
+
+<section id="certifications">
+<h2 data-aos="fade-up">Certifications</h2>
+<div class="grid">
+<div class="card" data-aos="fade-up">
+<h3>Python Programming</h3>
+<p>IIT Kanpur</p>
+</div>
+<div class="card" data-aos="fade-up" data-aos-delay="100">
+<h3>Google Analytics IQ</h3>
+<p>Google Certified</p>
+</div>
+</div>
+</section>
+
+<footer>
+<p style="margin-top:2rem;color:#64748b;font-size:.85rem;">
+DESIGNED & ENGINEERED BY DIBYANSHU © 2026
+</p>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({duration:1000,once:true});
+
+/* ============================= */
+/* ===== IMMERSIVE GALAXY ===== */
+/* ============================= */
+
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
+const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('bgCanvas'),alpha:true,antialias:true});
+renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+camera.position.z=8;
+
+function createLayer(count,spread,size){
+const geometry=new THREE.BufferGeometry();
+const positions=new Float32Array(count*3);
+for(let i=0;i<count*3;i++){positions[i]=(Math.random()-0.5)*spread;}
+geometry.setAttribute('position',new THREE.BufferAttribute(positions,3));
+const material=new THREE.PointsMaterial({color:0x00f2ff,size:size,transparent:true,opacity:0.8});
+return new THREE.Points(geometry,material);
+}
+
+const farLayer=createLayer(4000,90,0.05);
+const midLayer=createLayer(3000,60,0.08);
+const nearLayer=createLayer(2000,40,0.12);
+scene.add(farLayer);scene.add(midLayer);scene.add(nearLayer);
+
+let scrollY=0;
+window.addEventListener("scroll",()=>{
+scrollY=window.scrollY;
+let percent=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+document.querySelector(".scroll-dna").style.width=percent+"%";
+});
+
+document.addEventListener("mousemove",(e)=>{
+camera.position.x=(e.clientX/window.innerWidth-0.5)*1.5;
+camera.position.y=-(e.clientY/window.innerHeight-0.5)*1.5;
+});
+
+const cursor=document.querySelector(".cursor");
+const trail=document.querySelector(".cursor-trail");
+document.addEventListener("mousemove",e=>{
+cursor.style.left=e.clientX+"px";
+cursor.style.top=e.clientY+"px";
+trail.style.left=e.clientX-10+"px";
+trail.style.top=e.clientY-10+"px";
+});
+
+function animate(){
+requestAnimationFrame(animate);
+camera.position.z=8-scrollY*0.001;
+farLayer.rotation.y+=0.0003;
+midLayer.rotation.y+=0.0006;
+nearLayer.rotation.y+=0.001;
+renderer.render(scene,camera);
+}
+animate();
+
+window.addEventListener("resize",()=>{
+camera.aspect=window.innerWidth/window.innerHeight;
+camera.updateProjectionMatrix();
+renderer.setSize(window.innerWidth,window.innerHeight);
+});
+</script>
+
+</body>
+</html>
