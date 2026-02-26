@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dibyanshu | Full Stack Architect</title>
 
-<script src="config.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -531,38 +530,25 @@ async function callGemini(userInput) {
     const responseContainer = document.getElementById("ai-response");
     const status = document.getElementById("ai-status");
     
-    // Nayi API Key yahan dalo
-    const API_KEY = CONFIG.GEMINI_API_KEY;
-    status.innerHTML = "THINKING (HIGH)...";
-    responseContainer.innerHTML = "> Activating Gemini 3 Neural Core...";
+    status.innerHTML = "THINKING...";
 
     try {
-        // v1beta endpoint is used for latest preview models
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`;
-        
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ 
-                    parts: [{ text: "You are Dibyanshu's Portfolio AI. Answer briefly: " + userInput }] 
-                }],
-            
-            })
-        });
+        // ✅ Ab hum Google ko nahi, apne hi Vercel API ko call kar rahe hain
+        const response = await fetch('/api/gemini', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' }, // Ye header zaroori hai
+    body: JSON.stringify({ userInput: userInput })
+});
 
         const data = await response.json();
 
-        if (data.candidates && data.candidates[0].content) {
+        if (data.candidates) {
             const aiText = data.candidates[0].content.parts[0].text;
             displayAIResponse(aiText);
-        } else {
-            throw new Error(data.error ? data.error.message : "Handshake Failed");
+            status.innerHTML = "ONLINE";
         }
-
     } catch (error) {
-        console.error("Gemini Error:", error);
-        responseContainer.innerHTML = `> SYSTEM ERROR: ${error.message}`;
+        responseContainer.innerHTML = "> SYSTEM ERROR: Connection Lost.";
         status.innerHTML = "OFFLINE";
         status.style.color = "#ff4444";
     }
@@ -648,7 +634,6 @@ VanillaTilt.init(document.querySelectorAll(".card"), {
     "max-glare": 0.2,
 });
 </script>
-
 
 </body>
 </html>
