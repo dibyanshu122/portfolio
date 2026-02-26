@@ -534,10 +534,12 @@ async function callGemini(userInput) {
 
     try {
         // ✅ Ab hum Google ko nahi, apne hi Vercel API ko call kar rahe hain
-        const response = await fetch('/api/gemini', {
+       const response = await fetch('/api/gemini', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' }, // Ye header zaroori hai
-    body: JSON.stringify({ userInput: userInput })
+    headers: { 
+        'Content-Type': 'application/json' 
+    },
+    body: JSON.stringify({ userInput: userInput }) // Yahan 'userInput' hi hona chahiye
 });
 
         const data = await response.json();
