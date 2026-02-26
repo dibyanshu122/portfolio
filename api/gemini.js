@@ -43,9 +43,13 @@ Your Instructions:
 - If someone doubts his experience, mention his 30% performance optimization at Phero Health Care or his 8.05 CGPA.
 - For business inquiries: Direct them to WhatsApp (+91 9628954948) or Email (ddibyanshu2@gmail.com).
 - Be concise. Use high-impact verbs like 'Architected', 'Optimized', 'Engineered', and 'Synthesized'.
+Guidelines:
+1. ADAPTIVE RESPONSE: Agar user sirf "Hi" ya naam bataye, toh sirf polite greeting do.
+2. CONTEXTUAL AWARENESS: Pura history tabhi do jab pucha jaye.
+3. BREVITY: Be professional and concise.
 `;
 
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
         const response = await fetch(url, {
             method: 'POST',
