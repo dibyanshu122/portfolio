@@ -509,15 +509,67 @@ let count = 0; let index = 0; let currentText = ""; let letter = "";
     if (letter.length === currentText.length) { count++; index = 0; setTimeout(type, 2000); }
     else setTimeout(type, 150);
 }());
+async function callGemini(userInput) {
+    const responseContainer = document.getElementById("ai-response");
+    const status = document.getElementById("ai-status");
+    
+    // 1. Pehle User ka Question screen par dikhao
+    responseContainer.innerHTML = `<span style="color: #ffffff;">> You: ${userInput}</span><br><br>`;
+    
+    // 2. Status ko THINKING karo
+    status.innerHTML = "THINKING...";
+    status.style.color = "#ffcc00"; // Halka yellow color thinking ke liye
+    
+    // 3. Ek temporary "Thinking" line add karo
+    const thinkingText = document.createElement("div");
+    thinkingText.id = "temp-thinking";
+    thinkingText.innerHTML = "> Processing through Neural Core...";
+    thinkingText.style.color = "#00f2ff";
+    responseContainer.appendChild(thinkingText);
+
+    try {
+        const response = await fetch('/api/gemini', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userInput: userInput })
+        });
+
+        const data = await response.json();
+
+        // 4. Thinking line ko hatao aur asli answer dikhao
+        document.getElementById("temp-thinking").remove();
+
+        if (data.candidates && data.candidates[0].content) {
+            const aiText = data.candidates[0].content.parts[0].text;
+            displayAIResponse(aiText); // Ye function purana wala hi use hoga
+        } else {
+            throw new Error("Handshake Failed");
+        }
+
+    } catch (error) {
+        if(document.getElementById("temp-thinking")) document.getElementById("temp-thinking").remove();
+        responseContainer.innerHTML += `<br><span style="color: #ff4444;">> SYSTEM ERROR: Connection Lost.</span>`;
+        status.innerHTML = "OFFLINE";
+        status.style.color = "#ff4444";
+    }
+}
+
+// Display function (Isme maine thoda update kiya hai taaki purana text na mite)
 function displayAIResponse(text) {
     const responseContainer = document.getElementById("ai-response");
     const status = document.getElementById("ai-status");
-    responseContainer.innerHTML = "> ";
+    
+    const answerDiv = document.createElement("div");
+    answerDiv.innerHTML = "> ";
+    responseContainer.appendChild(answerDiv);
+    
     let i = 0;
     function typeEffect() {
         if (i < text.length) {
-            responseContainer.innerHTML += text.charAt(i);
+            answerDiv.innerHTML += text.charAt(i);
             i++;
+            // Terminal automatically scroll niche karega
+            responseContainer.scrollTop = responseContainer.scrollHeight;
             setTimeout(typeEffect, 25);
         } else {
             status.innerHTML = "ONLINE";
@@ -525,35 +577,6 @@ function displayAIResponse(text) {
         }
     }
     typeEffect();
-}
-async function callGemini(userInput) {
-    const responseContainer = document.getElementById("ai-response");
-    const status = document.getElementById("ai-status");
-    
-    status.innerHTML = "THINKING...";
-
-    try {
-        // ✅ Ab hum Google ko nahi, apne hi Vercel API ko call kar rahe hain
-       const response = await fetch('/api/gemini', {
-    method: 'POST',
-    headers: { 
-        'Content-Type': 'application/json' 
-    },
-    body: JSON.stringify({ userInput: userInput }) // Yahan 'userInput' hi hona chahiye
-});
-
-        const data = await response.json();
-
-        if (data.candidates) {
-            const aiText = data.candidates[0].content.parts[0].text;
-            displayAIResponse(aiText);
-            status.innerHTML = "ONLINE";
-        }
-    } catch (error) {
-        responseContainer.innerHTML = "> SYSTEM ERROR: Connection Lost.";
-        status.innerHTML = "OFFLINE";
-        status.style.color = "#ff4444";
-    }
 }
 document.getElementById("send-btn").addEventListener("click", () => {
     const input = document.getElementById("user-input");
