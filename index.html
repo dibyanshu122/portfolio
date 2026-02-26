@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 <style>
 :root{
 --accent:#00f2ff;
@@ -40,6 +40,7 @@ width:100%;
 height:100%;
 z-index:-2;
 }
+
 
 /* Scroll DNA */
 .scroll-container{
@@ -246,6 +247,42 @@ padding: 20px 0; border-top: 1px solid var(--glass-border); border-bottom: 1px s
     transform: scale(1.3) translateY(-5px); 
     filter: drop-shadow(0 0 15px var(--accent)); /* Strong neon glow on hover */
 }
+
+/* Floating Actions - Forces to Bottom Right */
+.floating-actions {
+    position: fixed !important; 
+    right: 25px !important;      
+    bottom: 30px !important;     /* Ise bottom par force kiya */
+    top: auto !important;        /* Purani top property ko cancel kiya */
+    transform: none !important;  /* Purani centering logic ko khatam kiya */
+    display: flex !important; 
+    flex-direction: column !important; 
+    gap: 15px !important; 
+    z-index: 9999 !important;    /* Sabse upar dikhega */
+}
+
+.action-icon {
+    width: 48px; 
+    height: 48px; 
+    background: var(--glass-bg); 
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur); 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center;
+    justify-content: center; 
+    color: var(--accent); 
+    transition: 0.3s ease; 
+    text-decoration: none;
+}
+
+.action-icon:hover { 
+    background: var(--accent); 
+    color: var(--bg); 
+    box-shadow: 0 0 20px var(--accent); 
+    transform: translateY(-5px); 
+}
+
 </style>
 </head>
 
@@ -276,12 +313,6 @@ Full Stack Developer
 <p>
 Hi, I'm Dibyanshu. I turn complex logic into high-performance web solutions with Backend Mastery & AI integration.
 </p>
-<p data-aos="fade-up" style="margin-bottom:20px; color:white; font-weight:500;">
-+91-9628954948 | ddibyanshu2@gmail.com
-</p>
-<div class="hero-links" data-aos="fade-up" data-aos-delay="200">
-<a href="https://www.linkedin.com/in/dibyanshu-286ba723a">LinkedIn</a> | <a href="https://github.com/dibyanshu122">GitHub</a> | <a href="https://www.hackerrank.com/profile/ddibyanshu2">HackerRank</a>
-</div>
 </section>
 
 <div class="marquee">
@@ -314,27 +345,20 @@ Hi, I'm Dibyanshu. I turn complex logic into high-performance web solutions with
     </div>
 </div>
 
-<!-- <section id="skills">
-<h2 data-aos="fade-up">Technical Skills</h2>
-<div class="grid">
-<div class="card" data-aos="fade-up">
-<h3>Frontend</h3>
-<p>React.js, Next.js, HTML5, CSS3, JavaScript (ES6+), Data Visualization (Power BI)</p>
+<div class="floating-actions" style="position: fixed; right: 25px; bottom: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 9999;">
+    <a href="https://wa.me/919628954948" target="_blank" class="action-icon">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <a href="https://www.linkedin.com/in/dibyanshu-286ba723a" target="_blank" class="action-icon">
+        <i class="fab fa-linkedin-in"></i>
+    </a>
+    
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ddibyanshu2@gmail.com" target="_blank" class="action-icon">
+        <i class="far fa-envelope"></i>
+    </a>
 </div>
-<div class="card" data-aos="fade-up" data-aos-delay="100">
-<h3>Backend</h3>
-<p>Python (Django), Node.js, REST APIs, App Script, OAuth, Razorpay Integration</p>
-</div>
-<div class="card" data-aos="fade-up" data-aos-delay="200">
-<h3>Database</h3>
-<p>PostgreSQL, MongoDB, MySQL, Redis</p>
-</div>
-<div class="card" data-aos="fade-up" data-aos-delay="300">
-<h3>Cloud & Tools</h3>
-<p>AWS (EC2/S3), Vercel, Render, Google Cloud (GCP), Git/GitHub, VPS (Hostinger)</p>
-</div>
-</div>
-</section> -->
+
 <section id="skills">
 <h2 data-aos="fade-up">Technical Skills</h2>
 <div class="grid">
@@ -419,25 +443,10 @@ Hi, I'm Dibyanshu. I turn complex logic into high-performance web solutions with
 </div>
 </section>
 
-<!-- <section id="certifications">
-<h2 data-aos="fade-up">Certifications</h2>
-<div class="grid">
-<div class="card" data-aos="fade-up">
-<h3>Python Programming</h3>
-<p>IIT Kanpur</p>
-</div>
-<div class="card" data-aos="fade-up" data-aos-delay="100">
-<h3>Google Analytics IQ</h3>
-<p>Google Certified</p>
-</div>
-</div>
-</section> -->
-
 <section id="certifications">
     <h2 data-aos="fade-up">Certifications</h2>
     <div class="grid">
-        
-        <div class="card" data-aos="fade-up" style="align-items: center; text-align: center; border-color: rgba(0, 242, 255, 0.2);">
+        <div class="card js-tilt" data-aos="fade-up" style="align-items: center; text-align: center;">
             <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 1px solid var(--accent); box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);">
                 <i class="fab fa-python" style="font-size: 2.5rem; color: var(--accent);"></i>
             </div>
@@ -446,7 +455,7 @@ Hi, I'm Dibyanshu. I turn complex logic into high-performance web solutions with
             <p style="font-size: 0.8rem; opacity: 0.7;">Advanced Scripting & Backend Logic Expertise</p>
         </div>
 
-        <div class="card" data-aos="fade-up" data-aos-delay="100" style="align-items: center; text-align: center; border-color: rgba(0, 242, 255, 0.2);">
+        <div class="card js-tilt" data-aos="fade-up" data-aos-delay="100" style="align-items: center; text-align: center;">
             <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 1px solid var(--accent); box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);">
                 <i class="fab fa-google" style="font-size: 2.5rem; color: var(--accent);"></i>
             </div>
@@ -454,9 +463,32 @@ Hi, I'm Dibyanshu. I turn complex logic into high-performance web solutions with
             <p style="color: var(--accent); font-weight: 600; margin-bottom: 5px;">Google Certified</p>
             <p style="font-size: 0.8rem; opacity: 0.7;">Individual Qualification in Digital Analytics</p>
         </div>
-
     </div>
 </section>
+
+<section id="terminal">
+    <h2 data-aos="fade-up">Dibyanshu AI Core</h2>
+    <div class="card terminal-window js-tilt" data-aos="zoom-in" style="border: 1px solid var(--accent) !important;">
+        <div style="border-bottom: 1px solid #222; margin-bottom: 10px; font-size: 0.7rem; color: var(--accent); display: flex; justify-content: space-between;">
+            <span>AI ENGINE: GEMINI-1.5-FLASH</span>
+            <span id="ai-status">ONLINE</span>
+        </div>
+        
+        <div id="ai-response" style="font-family: 'Courier New', monospace; font-size: 0.9rem; line-height: 1.6; color: #0f0; margin-bottom: 15px;">
+            > Hyy I am Dibyanshu, I am a Full Stack Developer. Ask me anything...
+        </div>
+
+        <div style="display: flex; gap: 10px; border-top: 1px solid #222; padding-top: 10px;">
+            <span style="color: #0f0;">></span>
+            <input type="text" id="user-input" placeholder="Type a message..." 
+                style="background: transparent; border: none; color: #0f0; outline: none; width: 100%; font-family: 'Courier New', monospace;">
+            <button id="send-btn" style="background: transparent; border: none; color: var(--accent); cursor: pointer;">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
 <footer>
 <p style="margin-top:2rem;color:#64748b;font-size:.85rem;">
 DESIGNED & ENGINEERED BY DIBYANSHU © 2026
@@ -477,6 +509,75 @@ let count = 0; let index = 0; let currentText = ""; let letter = "";
     if (letter.length === currentText.length) { count++; index = 0; setTimeout(type, 2000); }
     else setTimeout(type, 150);
 }());
+function displayAIResponse(text) {
+    const responseContainer = document.getElementById("ai-response");
+    const status = document.getElementById("ai-status");
+    responseContainer.innerHTML = "> ";
+    let i = 0;
+    function typeEffect() {
+        if (i < text.length) {
+            responseContainer.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeEffect, 25);
+        } else {
+            status.innerHTML = "ONLINE";
+            status.style.color = "#22c55e";
+        }
+    }
+    typeEffect();
+}
+async function callGemini(userInput) {
+    const responseContainer = document.getElementById("ai-response");
+    const status = document.getElementById("ai-status");
+    
+    // Nayi API Key yahan dalo
+    const API_KEY = "AIzaSyAVWbmOY9HLTvFg_i2jsci1PjgMo2v7ve4"; 
+
+    status.innerHTML = "THINKING (HIGH)...";
+    responseContainer.innerHTML = "> Activating Gemini 3 Neural Core...";
+
+    try {
+        // v1beta endpoint is used for latest preview models
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`;
+        
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ 
+                    parts: [{ text: "You are Dibyanshu's Portfolio AI. Answer briefly: " + userInput }] 
+                }],
+            
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.candidates && data.candidates[0].content) {
+            const aiText = data.candidates[0].content.parts[0].text;
+            displayAIResponse(aiText);
+        } else {
+            throw new Error(data.error ? data.error.message : "Handshake Failed");
+        }
+
+    } catch (error) {
+        console.error("Gemini Error:", error);
+        responseContainer.innerHTML = `> SYSTEM ERROR: ${error.message}`;
+        status.innerHTML = "OFFLINE";
+        status.style.color = "#ff4444";
+    }
+}
+document.getElementById("send-btn").addEventListener("click", () => {
+    const input = document.getElementById("user-input");
+    if(input.value.trim() !== "") {
+        callGemini(input.value);
+        input.value = "";
+    }
+});
+
+document.getElementById("user-input").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") { document.getElementById("send-btn").click(); }
+});
 
 /* ===== IMMERSIVE GALAXY ===== */
 
@@ -537,6 +638,14 @@ window.addEventListener("resize",()=>{
 camera.aspect=window.innerWidth/window.innerHeight;
 camera.updateProjectionMatrix();
 renderer.setSize(window.innerWidth,window.innerHeight);
+});
+
+// Har card par tilt effect active karega
+VanillaTilt.init(document.querySelectorAll(".card"), {
+    max: 15,
+    speed: 400,
+    glare: true,
+    "max-glare": 0.2,
 });
 </script>
 
