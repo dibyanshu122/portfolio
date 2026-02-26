@@ -494,7 +494,7 @@ Hi, I'm Dibyanshu. I turn complex logic into high-performance web solutions with
 DESIGNED & ENGINEERED BY DIBYANSHU © 2026
 </p>
 </footer>
-
+<script src="config.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
 AOS.init({duration:1000,once:true});
@@ -531,8 +531,7 @@ async function callGemini(userInput) {
     const status = document.getElementById("ai-status");
     
     // Nayi API Key yahan dalo
-    const API_KEY = "AIzaSyAVWbmOY9HLTvFg_i2jsci1PjgMo2v7ve4"; 
-
+    const API_KEY = CONFIG.GEMINI_API_KEY;
     status.innerHTML = "THINKING (HIGH)...";
     responseContainer.innerHTML = "> Activating Gemini 3 Neural Core...";
 
@@ -648,6 +647,7 @@ VanillaTilt.init(document.querySelectorAll(".card"), {
     "max-glare": 0.2,
 });
 </script>
+
 
 </body>
 </html>
