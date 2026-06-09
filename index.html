@@ -1,675 +1,632 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dibyanshu | Full Stack Architect</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Dibyanshu — Full Stack & AI Developer, SaaS Founder. Built B9 Automation: India's first WhatsApp AI Agency Platform. Expert in FastAPI, Next.js, LangChain, Agentic AI systems." />
+  <meta name="keywords" content="Dibyanshu, Full Stack Developer, AI Developer, SaaS Founder, B9 Automation, WhatsApp AI, LangChain, FastAPI, Next.js, Agentic AI, India" />
+  <meta name="author" content="Dibyanshu" />
+  <meta property="og:title" content="Dibyanshu | Full Stack & AI Developer" />
+  <meta property="og:description" content="Founder of B9 Automation — India's first WhatsApp AI Agency Platform. Building autonomous AI systems & production SaaS." />
+  <meta property="og:type" content="website" />
+  <title>Dibyanshu | Full Stack & AI Developer · SaaS Founder</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-<style>
-:root{
---accent:#00f2ff;
---accent-gradient:linear-gradient(45deg,#00f2ff,#0062ff);
---bg:#030712;
---glass-bg:rgba(255,255,255,0.03);
---glass-border:rgba(255,255,255,0.08);
---glass-blur:blur(15px);
---glass-hover-bg:rgba(255,255,255,0.07);
-}
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-body{
-background-color:var(--bg);
-color:#f8fafc;
-font-family:'Poppins',sans-serif;
-overflow-x:hidden;
-cursor:none;
-}
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
 
-/* ===== FULL 3D GALAXY CANVAS ===== */
-#bgCanvas{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-2;
-}
-
-
-/* Scroll DNA */
-.scroll-container{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:3px;
-z-index:3000;
-}
-.scroll-dna{
-height:3px;
-width:0%;
-background:var(--accent-gradient);
-}
-
-/* Cursor */
-.cursor{
-position:fixed;
-width:12px;
-height:12px;
-background:var(--accent);
-border-radius:50%;
-pointer-events:none;
-z-index:4000;
-box-shadow:0 0 15px var(--accent);
-}
-.cursor-trail{
-position:fixed;
-width:30px;
-height:30px;
-border:1px solid var(--accent);
-border-radius:50%;
-pointer-events:none;
-z-index:3999;
-opacity:0.5;
-}
-
-/* Header */
-header{
-position:fixed;
-top:0;
-width:100%;
-padding:1.2rem 10%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-z-index:2000;
-background:rgba(3,7,18,0.6);
-backdrop-filter:var(--glass-blur);
-border-bottom:1px solid var(--glass-border);
-}
-.logo{
-font-family:'Space Grotesk';
-font-size:1.8rem;
-font-weight:700;
-letter-spacing:2px;
-text-decoration:none;
-color:white;
-}
-.logo span{color:var(--accent)}
-nav a{
-color:#94a3b8;
-text-decoration:none;
-margin-left:2rem;
-transition:.3s;
-font-size:.9rem;
-text-transform:uppercase;
-}
-nav a:hover{
-color:var(--accent);
-text-shadow:0 0 10px var(--accent);
-}
-
-/* Hero Section Refined */
-.hero{
-min-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:150px 20px 80px 20px;
-}
-.hero h1{
-font-family:'Space Grotesk';
-font-size:clamp(3.5rem,10vw,6.5rem);
-margin-bottom:15px;
-color:white;
-}
-.hero p{
-font-size:1.1rem;
-color:#94a3b8;
-max-width:800px;
-}
-.hero-links a{
-color:var(--accent);
-text-decoration:none;
-margin: 0 10px;
-font-weight:500;
-transition:0.3s;
-}
-.hero-links a:hover{text-shadow:0 0 10px var(--accent);}
-
-section{padding:100px 10%}
-h2{
-font-family:'Space Grotesk';
-font-size:2.8rem;
-margin-bottom:4rem;
-text-align:center;
-text-transform:uppercase;
-letter-spacing:2px;
-}
-
-footer{
-padding:4rem 10%;
-border-top:1px solid var(--glass-border);
-text-align:center;
-}
-
-#typewriter {
-    font-size: 0.8em; /* Is value ko 0.5 ya 0.7 karke aap size adjust kar sakte hain */
-}
-/* ===== Grid Layout ===== */
-.grid{
-display:grid;
-gap:2rem;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-}
-
-/* ===== Glass Card ===== */
-.card{
-background:var(--glass-bg);
-border:1px solid var(--glass-border);
-backdrop-filter:var(--glass-blur);
-padding:2.5rem;
-border-radius:24px;
-transition:.4s;
-display:flex;
-flex-direction:column;
-height:100%;
-}
-.card:hover{
-transform:translateY(-8px);
-background:var(--glass-hover-bg);
-border-color:var(--accent);
-box-shadow:0 0 30px rgba(0,242,255,0.1);
-}
-
-.gradient-text{
-background:var(--accent-gradient);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.card h3{
-margin-bottom:1.2rem;
-color:var(--accent);
-font-family:'Space Grotesk';
-font-size:1.4rem;
-}
-
-.card p{
-color:#cbd5e1;
-font-size:.95rem;
-line-height:1.7;
-}
-
-.card strong{
-color:white;
-}
-
-.marquee {
-display: flex; overflow: hidden; user-select: none; gap: 40px;
-padding: 20px 0; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);
-}
-/* .marquee-content { display: flex; gap: 60px; animation: scroll 20s linear infinite; }
-@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.tool-icon { font-size: 2.5rem; color: #94a3b8; transition: 0.3s; }
-.tool-icon:hover { color: var(--accent); transform: scale(1.2); } */
-
-.marquee-content { 
-    display: flex; 
-    gap: 60px; 
-    animation: scroll 25s linear infinite; /* Speed thodi slow ki hai taaki readable rahe */
-}
-
-@keyframes scroll { 
-    from { transform: translateX(0); } 
-    to { transform: translateX(-50%); } 
-}
-
-.tool-icon { 
-    font-size: 2.5rem; 
-    color: var(--accent); /* Iconic Cyan color */
-    opacity: 0.6; /* Halka transparent professional look ke liye */
-    transition: all 0.4s ease;
-    filter: drop-shadow(0 0 5px rgba(0, 242, 255, 0.2)); /* Halka neon glow */
-}
-
-.tool-icon:hover { 
-    opacity: 1; 
-    color: #ffffff; /* Hover par white glow */
-    transform: scale(1.3) translateY(-5px); 
-    filter: drop-shadow(0 0 15px var(--accent)); /* Strong neon glow on hover */
-}
-
-/* Floating Actions - Forces to Bottom Right */
-.floating-actions {
-    position: fixed !important; 
-    right: 25px !important;      
-    bottom: 30px !important;     /* Ise bottom par force kiya */
-    top: auto !important;        /* Purani top property ko cancel kiya */
-    transform: none !important;  /* Purani centering logic ko khatam kiya */
-    display: flex !important; 
-    flex-direction: column !important; 
-    gap: 15px !important; 
-    z-index: 9999 !important;    /* Sabse upar dikhega */
-}
-
-.action-icon {
-    width: 48px; 
-    height: 48px; 
-    background: var(--glass-bg); 
-    border: 1px solid var(--glass-border);
-    backdrop-filter: var(--glass-blur); 
-    border-radius: 50%; 
-    display: flex; 
-    align-items: center;
-    justify-content: center; 
-    color: var(--accent); 
-    transition: 0.3s ease; 
-    text-decoration: none;
-}
-
-.action-icon:hover { 
-    background: var(--accent); 
-    color: var(--bg); 
-    box-shadow: 0 0 20px var(--accent); 
-    transform: translateY(-5px); 
-}
-
-</style>
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- VanillaTilt -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 </head>
-
 <body>
 
-<canvas id="bgCanvas"></canvas>
-<div class="scroll-container"><div class="scroll-dna"></div></div>
-<div class="cursor"></div>
-<div class="cursor-trail"></div>
+  <!-- 3D Background Canvas -->
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
-<header>
-<a href="#" class="logo">DIBYAN<span>SHU</span></a>
-<nav>
-<a href="#home">Home</a>
-<a href="#skills">Skills</a>
-<a href="#experience">Experience</a>
-<a href="#projects">Projects</a>
-<a href="#education">Education</a>
-<a href="#certifications">Certifications</a>
-</nav>
-</header>
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" aria-hidden="true">
+    <div class="scroll-progress-bar" id="scrollBar"></div>
+  </div>
 
-<section class="hero" id="home">
-<p style="letter-spacing:5px;color:var(--accent);font-weight:600;font-size:.8rem;margin-bottom:10px;">
-Full Stack Developer
-</p>
-<h1>Architecting <br><span class="gradient-text" id="typewriter"></span></h1>
-<p>
-Hi, I'm Dibyanshu. I turn complex logic into high-performance web solutions with Backend Mastery & AI integration.
-</p>
-</section>
+  <!-- Custom Cursor -->
+  <div class="cursor-dot"   id="cursorDot"  aria-hidden="true"></div>
+  <div class="cursor-ring"  id="cursorRing" aria-hidden="true"></div>
 
-<div class="marquee">
-    <div class="marquee-content">
-        <i class="fab fa-react tool-icon" style="font-size: 2.5rem;" title="React.js"></i>
-        <i class="fab fa-js tool-icon" style="font-size: 2.5rem;" title="JavaScript"></i>
-        <i class="fab fa-html5 tool-icon" style="font-size: 2.5rem;" title="HTML5"></i>
-        <i class="fas fa-chart-bar tool-icon" style="font-size: 2.5rem;" title="Power BI"></i>
-        
-        <i class="fab fa-python tool-icon" style="font-size: 2.5rem;" title="Python/Django"></i>
-        <i class="fab fa-node-js tool-icon" style="font-size: 2.5rem;" title="Node.js"></i>
-        <i class="fas fa-api tool-icon" style="font-size: 2.5rem;" title="REST APIs"></i>
-        <i class="fas fa-shield-alt tool-icon" style="font-size: 2.5rem;" title="OAuth"></i>
-        
-        <i class="fas fa-database tool-icon" style="font-size: 2.5rem;" title="PostgreSQL/MySQL"></i>
-        <i class="fas fa-leaf tool-icon" style="font-size: 2.5rem;" title="MongoDB"></i>
-        <i class="fas fa-memory tool-icon" style="font-size: 2.5rem;" title="Redis"></i>
-        
-        <i class="fab fa-aws tool-icon" style="font-size: 2.5rem;" title="AWS"></i>
-        <i class="fas fa-cloud-upload-alt tool-icon" style="font-size: 2.5rem;" title="Vercel"></i>
-        <i class="fab fa-git-alt tool-icon" style="font-size: 2.5rem;" title="Git"></i>
-        <i class="fas fa-server tool-icon" style="font-size: 2.5rem;" title="VPS Hosting"></i>
+  <!-- ═══════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════ -->
+  <header class="nav" id="navbar" role="banner">
+    <a href="#home" class="nav__logo" aria-label="Dibyanshu Home">DIBYAN<span>SHU</span></a>
+    <nav aria-label="Primary navigation">
+      <ul class="nav__links" role="list">
+        <li><a href="#home"           class="active">Home</a></li>
+        <li><a href="#skills">        Skills</a></li>
+        <li><a href="#experience">    Experience</a></li>
+        <li><a href="#projects">      Projects</a></li>
+        <li><a href="#education">     Education</a></li>
+        <li><a href="#terminal">      AI Chat</a></li>
+      </ul>
+    </nav>
+    <a href="mailto:ddibyanshu2@gmail.com" class="nav__cta" id="nav-cta">
+      <i class="fas fa-paper-plane" aria-hidden="true"></i> Hire Me
+    </a>
+  </header>
 
-        <i class="fab fa-react tool-icon" style="font-size: 2.5rem;"></i>
-        <i class="fab fa-python tool-icon" style="font-size: 2.5rem;"></i>
-        <i class="fab fa-node-js tool-icon" style="font-size: 2.5rem;"></i>
-        <i class="fab fa-aws tool-icon" style="font-size: 2.5rem;"></i>
-        <i class="fas fa-database tool-icon" style="font-size: 2.5rem;"></i>
-        <i class="fab fa-git-alt tool-icon" style="font-size: 2.5rem;"></i>
+  <!-- ═══════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════ -->
+  <main>
+  <section class="hero" id="home" aria-labelledby="hero-title">
+
+    <!-- Aura blobs -->
+    <div class="hero__aura" aria-hidden="true">
+      <div class="hero__aura-blob hero__aura-blob--1"></div>
+      <div class="hero__aura-blob hero__aura-blob--2"></div>
     </div>
-</div>
 
-<div class="floating-actions" style="position: fixed; right: 25px; bottom: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 9999;">
-    <a href="https://wa.me/919628954948" target="_blank" class="action-icon">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-    
-    <a href="https://www.linkedin.com/in/dibyanshu-286ba723a" target="_blank" class="action-icon">
-        <i class="fab fa-linkedin-in"></i>
-    </a>
-    
-    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ddibyanshu2@gmail.com" target="_blank" class="action-icon">
-        <i class="far fa-envelope"></i>
-    </a>
-</div>
+    <span class="hero__badge" role="status">
+      <span>Available for freelance & full-time</span>
+    </span>
 
-<section id="skills">
-<h2 data-aos="fade-up">Technical Skills</h2>
-<div class="grid">
-<div class="card" data-aos="fade-up"><h3>Frontend</h3><p>React.js, Next.js, HTML5, JavaScript, Power BI</p></div>
-<div class="card" data-aos="fade-up" data-aos-delay="100"><h3>Backend</h3><p>Python (Django), Node.js, REST APIs, OAuth</p></div>
-<div class="card" data-aos="fade-up" data-aos-delay="200"><h3>Database</h3><p>PostgreSQL, MongoDB, MySQL, Redis</p></div>
-<div class="card" data-aos="fade-up" data-aos-delay="300"><h3>Infrastructure</h3><p>AWS, Vercel, Git, VPS Hosting</p></div>
-</div>
-</section>
+    <h1 class="hero__title" id="hero-title">
+      Full Stack &amp; AI<br>
+      <span class="line-2">
+        <span class="hero__typewriter" id="typewriter" aria-live="polite"></span>
+      </span>
+    </h1>
 
-<section id="experience">
-<h2 data-aos="fade-up">Work Experience</h2>
-<div class="grid">
-<div class="card" data-aos="fade-up">
-<h3>Full Stack Developer</h3>
-<p><strong>Anantya.ai Pvt. Ltd.</strong> | Sep 2025 – Present</p>
-<p style="margin-top:10px;">
-• Architected real-time data flow using Webhooks (Salesforce, Zoho, IndiaMART).<br>
-• Built full-stack modules (React UI, Node APIs, PostgreSQL schemas).<br>
-• Resolved API data flow errors and system-level bugs.
-</p>
-</div>
-<div class="card" data-aos="fade-up" data-aos-delay="100">
-<h3>Backend Developer</h3>
-<p><strong>Phero Health Care Pvt. Ltd.</strong> | Aug 2023 – Sep 2025</p>
-<p style="margin-top:10px;">
-• Designed scalable backend architectures (Django & Node.js).<br>
-• Optimized MySQL & MongoDB improving performance by 30%.<br>
-• Deployed modules on AWS EC2 with secure configurations.
-</p>
-</div>
-<div class="card" data-aos="fade-up" data-aos-delay="200">
-<h3>Data Analytics Simulation</h3>
-<p><strong>Accenture (Forage)</strong> | May 2024</p>
-<p style="margin-top:10px;">
-• Cleaned & modeled 7+ datasets to uncover trends.<br>
-• Built Power BI dashboards & presented insights.
-</p>
-</div>
-</div>
-</section>
+    <p class="hero__subtitle">
+      Hi, I'm <strong>Dibyanshu</strong> — Founder of <strong>B9 Automation</strong>, India's first WhatsApp AI Agency Platform.
+      I build autonomous AI agents, RAG pipelines, and production-grade SaaS systems that serve 100+ businesses.
+    </p>
 
-<section id="projects">
-<h2 data-aos="fade-up">Technical Projects</h2>
-<div class="grid">
-<div class="card" data-aos="fade-up">
-<h3>Full-Stack Authentication & CRM Portal</h3>
-<p>
-• Google OAuth login with Next.js API Routes & PostgreSQL<br>
-• Automated onboarding using Nodemailer<br>
-• Secure sessions with HTTP-only cookies<br>
-• Rozgar Pay API integration for real-time payment tracking
-</p>
-</div>
-<div class="card" data-aos="fade-up" data-aos-delay="100">
-<h3>Enterprise System Integration</h3>
-<p>
-• IndiaMART & Shopify automated integrations<br>
-• WhatsApp Chatbot for lead automation<br>
-• API syncing for business workflow automation
-</p>
-</div>
-</div>
-</section>
+    <div class="hero__actions">
+      <a href="#projects"  class="btn--primary" id="btn-projects">
+        <i class="fas fa-rocket" aria-hidden="true"></i> View Projects
+      </a>
+      <a href="https://b9-automation-frontend.vercel.app" target="_blank" rel="noopener noreferrer" class="btn--ghost" id="btn-b9">
+        <i class="fas fa-external-link-alt" aria-hidden="true"></i> B9 Automation
+      </a>
+      <a href="mailto:ddibyanshu2@gmail.com" class="btn--ghost" id="btn-email">
+        <i class="fas fa-envelope" aria-hidden="true"></i> Get In Touch
+      </a>
+    </div>
 
-<section id="education">
-<h2 data-aos="fade-up">Education</h2>
-<div class="grid">
-<div class="card" data-aos="fade-up">
-<h3>B.Tech (Computer Science)</h3>
-<p>
-<strong>Rameshwaram Institute of Technology & Management</strong><br>
-2019 – 2023 | CGPA: 8.05/10
-</p>
-</div>
-<div class="card" data-aos="fade-up" data-aos-delay="100">
-<h3>Higher Secondary (12th)</h3>
-<p>
-<strong>U.P. Board</strong> | 2018
-</p>
-</div>
-</div>
-</section>
+    <!-- Quick Stats -->
+    <div class="hero__stats" style="display:flex;gap:2.5rem;flex-wrap:wrap;justify-content:center;margin-top:1rem;">
+      <div class="hero__stat" style="text-align:center;">
+        <div style="font-family:var(--font-display);font-size:2rem;font-weight:700;background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">100+</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;">Businesses Served</div>
+      </div>
+      <div style="width:1px;background:var(--glass-border);"></div>
+      <div class="hero__stat" style="text-align:center;">
+        <div style="font-family:var(--font-display);font-size:2rem;font-weight:700;background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">86+</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;">API Endpoints</div>
+      </div>
+      <div style="width:1px;background:var(--glass-border);"></div>
+      <div class="hero__stat" style="text-align:center;">
+        <div style="font-family:var(--font-display);font-size:2rem;font-weight:700;background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">2+</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;">Years Experience</div>
+      </div>
+      <div style="width:1px;background:var(--glass-border);"></div>
+      <div class="hero__stat" style="text-align:center;">
+        <div style="font-family:var(--font-display);font-size:2rem;font-weight:700;background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">95%</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;">Retention Rate</div>
+      </div>
+    </div>
 
-<section id="certifications">
-    <h2 data-aos="fade-up">Certifications</h2>
-    <div class="grid">
-        <div class="card js-tilt" data-aos="fade-up" style="align-items: center; text-align: center;">
-            <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 1px solid var(--accent); box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);">
-                <i class="fab fa-python" style="font-size: 2.5rem; color: var(--accent);"></i>
+    <!-- Scroll Hint -->
+    <div class="hero__scroll-hint" style="margin-top:3rem;">
+      <div class="hero__scroll-mouse">
+        <div class="hero__scroll-wheel"></div>
+      </div>
+      <span>Scroll to explore</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       TECH MARQUEE
+  ═══════════════════════════════════════ -->
+  <div class="marquee-wrapper" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack">
+      <!-- Set 1 -->
+      <span class="marquee-item"><i class="fab fa-python"></i> Python</span>
+      <span class="marquee-item"><i class="fas fa-bolt"></i> FastAPI</span>
+      <span class="marquee-item"><i class="fab fa-react"></i> Next.js 15</span>
+      <span class="marquee-item"><i class="fas fa-brain"></i> LangChain</span>
+      <span class="marquee-item"><i class="fas fa-robot"></i> Agentic AI</span>
+      <span class="marquee-item"><i class="fab fa-node-js"></i> Node.js</span>
+      <span class="marquee-item"><i class="fas fa-database"></i> PostgreSQL</span>
+      <span class="marquee-item"><i class="fas fa-memory"></i> Redis</span>
+      <span class="marquee-item"><i class="fab fa-aws"></i> AWS</span>
+      <span class="marquee-item"><i class="fas fa-layer-group"></i> LangGraph</span>
+      <span class="marquee-item"><i class="fas fa-leaf"></i> MongoDB</span>
+      <span class="marquee-item"><i class="fab fa-docker"></i> Docker</span>
+      <span class="marquee-item"><i class="fas fa-shield-alt"></i> RAG Pipelines</span>
+      <span class="marquee-item"><i class="fas fa-chart-bar"></i> Recharts</span>
+      <span class="marquee-item"><i class="fab fa-git-alt"></i> Git</span>
+      <span class="marquee-item"><i class="fab fa-whatsapp"></i> WhatsApp API</span>
+      <!-- Set 2 (duplicate for seamless loop) -->
+      <span class="marquee-item"><i class="fab fa-python"></i> Python</span>
+      <span class="marquee-item"><i class="fas fa-bolt"></i> FastAPI</span>
+      <span class="marquee-item"><i class="fab fa-react"></i> Next.js 15</span>
+      <span class="marquee-item"><i class="fas fa-brain"></i> LangChain</span>
+      <span class="marquee-item"><i class="fas fa-robot"></i> Agentic AI</span>
+      <span class="marquee-item"><i class="fab fa-node-js"></i> Node.js</span>
+      <span class="marquee-item"><i class="fas fa-database"></i> PostgreSQL</span>
+      <span class="marquee-item"><i class="fas fa-memory"></i> Redis</span>
+      <span class="marquee-item"><i class="fab fa-aws"></i> AWS</span>
+      <span class="marquee-item"><i class="fas fa-layer-group"></i> LangGraph</span>
+      <span class="marquee-item"><i class="fas fa-leaf"></i> MongoDB</span>
+      <span class="marquee-item"><i class="fab fa-docker"></i> Docker</span>
+      <span class="marquee-item"><i class="fas fa-shield-alt"></i> RAG Pipelines</span>
+      <span class="marquee-item"><i class="fas fa-chart-bar"></i> Recharts</span>
+      <span class="marquee-item"><i class="fab fa-git-alt"></i> Git</span>
+      <span class="marquee-item"><i class="fab fa-whatsapp"></i> WhatsApp API</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SKILLS SECTION
+  ═══════════════════════════════════════ -->
+  <section class="section" id="skills" aria-labelledby="skills-title">
+    <div class="section__header reveal">
+      <span class="section__tag">What I work with</span>
+      <h2 class="section__title" id="skills-title">Technical Stack</h2>
+      <div class="section__line"></div>
+    </div>
+
+    <div class="grid grid--4">
+
+      <article class="card skill-card reveal js-tilt" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="card__accent-bar"></div>
+        <div class="skill-card__icon"><i class="fas fa-bolt" aria-hidden="true"></i></div>
+        <h3>Backend</h3>
+        <p>FastAPI · Python · Django · Node.js · SQLAlchemy · Alembic · Celery · Pydantic · Pytest</p>
+      </article>
+
+      <article class="card skill-card reveal js-tilt" style="transition-delay:0.1s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="card__accent-bar"></div>
+        <div class="skill-card__icon"><i class="fab fa-react" aria-hidden="true"></i></div>
+        <h3>Frontend</h3>
+        <p>Next.js 15 · React · TypeScript · Tailwind CSS · Zustand · Recharts · Framer Motion</p>
+      </article>
+
+      <article class="card skill-card reveal js-tilt" style="transition-delay:0.2s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="card__accent-bar"></div>
+        <div class="skill-card__icon"><i class="fas fa-brain" aria-hidden="true"></i></div>
+        <h3>Agentic AI</h3>
+        <p>LangChain · LangGraph · Multi-Agent Systems · Tool-Use · Self-Correcting Agents · Prompt Safety</p>
+      </article>
+
+      <article class="card skill-card reveal js-tilt" style="transition-delay:0.3s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="card__accent-bar"></div>
+        <div class="skill-card__icon"><i class="fas fa-microchip" aria-hidden="true"></i></div>
+        <h3>AI / LLM</h3>
+        <p>Groq Llama 3.3 · Gemini 2.0 Flash · Claude AI · RAG Pipelines · Vector Embeddings · Lead Scoring</p>
+      </article>
+
+      <article class="card skill-card reveal js-tilt" style="transition-delay:0.4s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="card__accent-bar"></div>
+        <div class="skill-card__icon"><i class="fas fa-database" aria-hidden="true"></i></div>
+        <h3>Databases</h3>
+        <p>PostgreSQL · Supabase · MongoDB · MySQL · Redis · Pinecone Vector DB</p>
+      </article>
+
+      <article class="card skill-card reveal js-tilt" style="transition-delay:0.5s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="card__accent-bar"></div>
+        <div class="skill-card__icon"><i class="fab fa-aws" aria-hidden="true"></i></div>
+        <h3>Cloud / DevOps</h3>
+        <p>AWS EC2/S3/RDS · Vercel · Render · Docker · GitHub Actions · CI/CD Pipelines</p>
+      </article>
+
+      <article class="card skill-card reveal js-tilt" style="transition-delay:0.6s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="card__accent-bar"></div>
+        <div class="skill-card__icon"><i class="fab fa-whatsapp" aria-hidden="true"></i></div>
+        <h3>Integrations</h3>
+        <p>Meta WhatsApp Cloud API · Razorpay · Shopify · IndiaMART · Instagram · Facebook Ads · Telegram</p>
+      </article>
+
+      <article class="card skill-card reveal js-tilt" style="transition-delay:0.7s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="card__accent-bar"></div>
+        <div class="skill-card__icon"><i class="fas fa-shield-halved" aria-hidden="true"></i></div>
+        <h3>Security</h3>
+        <p>JWT · Fernet AES-128-CBC · OAuth 2.0 · RBAC · HIPAA Compliance · AES-256 Encryption</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       EXPERIENCE SECTION
+  ═══════════════════════════════════════ -->
+  <section class="section" id="experience" aria-labelledby="exp-title">
+    <div class="section__header reveal">
+      <span class="section__tag">Where I've built</span>
+      <h2 class="section__title" id="exp-title">Work Experience</h2>
+      <div class="section__line"></div>
+    </div>
+
+    <div class="grid grid--2" style="gap:2rem;">
+
+      <!-- B9 Automation -->
+      <article class="card exp-card reveal js-tilt" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+        <div class="card__accent-bar"></div>
+        <div class="exp-card__header">
+          <div>
+            <div class="exp-card__title">Founder &amp; Full Stack Developer</div>
+            <div class="exp-card__company">
+              <i class="fas fa-building" aria-hidden="true"></i>
+              B9 Automation &mdash; India's First WhatsApp AI Platform
             </div>
-            <h3>Python Programming</h3>
-            <p style="color: var(--accent); font-weight: 600; margin-bottom: 5px;">IIT Kanpur</p>
-            <p style="font-size: 0.8rem; opacity: 0.7;">Advanced Scripting & Backend Logic Expertise</p>
+          </div>
+          <span class="exp-card__badge exp-card__badge--current">
+            <i class="fas fa-circle" style="font-size:0.5rem;"></i> Mar 2026 – Present
+          </span>
         </div>
+        <div class="exp-card__divider"></div>
+        <ul class="exp-card__list">
+          <li>Architected full production SaaS: 86+ FastAPI REST endpoints, 62+ PostgreSQL models, multi-tenant JWT + Fernet AES-128-CBC auth — handling 100K+ requests/day on AWS EC2</li>
+          <li>Built end-to-end Agentic AI system: autonomous agent builder that designs, deploys, and self-corrects WhatsApp conversation flows with zero human intervention after launch</li>
+          <li>Engineered RAG pipeline (Groq Llama 3.3 + Gemini 2.0 Flash dynamic failover) — sub-1s response time across 1,000+ concurrent sessions</li>
+          <li>Designed agentic loop orchestration with AI-generated template builders, lead scoring engine, next-best-action suggestions, and prompt safety guardrails</li>
+          <li>Built real-time infra: SSE typing indicators, Celery + Redis async campaign processor, APScheduler cron workflows; 9 live integrations (Shopify, IndiaMART, Facebook Ads…)</li>
+          <li>Launched tiered SaaS subscription (Starter / Pro / Enterprise via Razorpay) — scaled to 100+ active businesses with 95%+ retention rate</li>
+        </ul>
+        <div style="margin-top:1.5rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <span class="tag">FastAPI</span><span class="tag">Next.js 15</span><span class="tag">LangChain</span>
+          <span class="tag">LangGraph</span><span class="tag">Groq</span><span class="tag">Gemini 2.0</span>
+          <span class="tag">Celery</span><span class="tag">AWS</span><span class="tag">Razorpay</span>
+        </div>
+      </article>
 
-        <div class="card js-tilt" data-aos="fade-up" data-aos-delay="100" style="align-items: center; text-align: center;">
-            <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 1px solid var(--accent); box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);">
-                <i class="fab fa-google" style="font-size: 2.5rem; color: var(--accent);"></i>
+      <!-- RingPass -->
+      <article class="card exp-card reveal js-tilt" style="transition-delay:0.15s" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+        <div class="card__accent-bar"></div>
+        <div class="exp-card__header">
+          <div>
+            <div class="exp-card__title">Full Stack Developer</div>
+            <div class="exp-card__company">
+              <i class="fas fa-building" aria-hidden="true"></i>
+              RingPass Services Pvt. Ltd. — Enterprise CRM &amp; AI
             </div>
-            <h3>Google Analytics IQ</h3>
-            <p style="color: var(--accent); font-weight: 600; margin-bottom: 5px;">Google Certified</p>
-            <p style="font-size: 0.8rem; opacity: 0.7;">Individual Qualification in Digital Analytics</p>
+          </div>
+          <span class="exp-card__badge exp-card__badge--current">
+            <i class="fas fa-circle" style="font-size:0.5rem;"></i> Sep 2025 – Present
+          </span>
         </div>
+        <div class="exp-card__divider"></div>
+        <ul class="exp-card__list">
+          <li>Architected Next.js + PostgreSQL enterprise CRM with Google OAuth 2.0, RBAC (Admin/Manager/User/Viewer), HTTP-only cookies — reduced manual setup time by 80%</li>
+          <li>Built 3-tier AI multi-agent pipeline (Researcher → Critic → Writer) using LangChain + LangGraph; integrated Pinecone vector DB for persistent RAG memory</li>
+          <li>Integrated Razorpay + Rozgar Pay with webhook-driven retry logic (exponential backoff) — 99.8% transaction success rate across 10K+ daily active users</li>
+          <li>Optimised PostgreSQL performance by 45% via query planner analysis, strategic indexing, connection pooling, and N+1 → JOIN refactoring</li>
+        </ul>
+        <div style="margin-top:1.5rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <span class="tag">Next.js</span><span class="tag">PostgreSQL</span><span class="tag">LangGraph</span>
+          <span class="tag">Pinecone</span><span class="tag">OAuth 2.0</span><span class="tag">Razorpay</span>
+        </div>
+      </article>
+
+      <!-- Phero Health -->
+      <article class="card exp-card reveal js-tilt" style="transition-delay:0.3s" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+        <div class="card__accent-bar"></div>
+        <div class="exp-card__header">
+          <div>
+            <div class="exp-card__title">Backend Developer</div>
+            <div class="exp-card__company">
+              <i class="fas fa-building" aria-hidden="true"></i>
+              Phero Health Care Pvt. Ltd. — Healthcare Microservices
+            </div>
+          </div>
+          <span class="exp-card__badge">Oct 2023 – Sep 2025</span>
+        </div>
+        <div class="exp-card__divider"></div>
+        <ul class="exp-card__list">
+          <li>Designed Django + Node.js microservices for 50K+ monthly active users — 100K+ daily API requests with 99.5% uptime and AES-256 encryption at rest</li>
+          <li>Led MySQL → MongoDB migration with sharding strategy — cut average query time from 500ms to 350ms (30% performance gain)</li>
+          <li>Delivered HIPAA-compliant RBAC, audit logging, and AWS EC2/RDS auto-scaling — zero data breach incidents over 2 years</li>
+        </ul>
+        <div style="margin-top:1.5rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <span class="tag">Django</span><span class="tag">Node.js</span><span class="tag">MongoDB</span>
+          <span class="tag">MySQL</span><span class="tag">AWS EC2</span><span class="tag">HIPAA</span>
+        </div>
+      </article>
+
+      <!-- Accenture -->
+      <article class="card exp-card reveal js-tilt" style="transition-delay:0.45s" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+        <div class="card__accent-bar"></div>
+        <div class="exp-card__header">
+          <div>
+            <div class="exp-card__title">Data Analytics Simulation</div>
+            <div class="exp-card__company">
+              <i class="fas fa-chart-line" aria-hidden="true"></i>
+              Accenture (via Forage)
+            </div>
+          </div>
+          <span class="exp-card__badge">May 2024</span>
+        </div>
+        <div class="exp-card__divider"></div>
+        <ul class="exp-card__list">
+          <li>Cleaned &amp; modelled 7+ enterprise datasets to uncover key business trends and actionable insights</li>
+          <li>Built Power BI dashboards and presented data-driven findings to simulated stakeholders</li>
+          <li>Applied statistical analysis and data visualisation best practices across diverse data sources</li>
+        </ul>
+        <div style="margin-top:1.5rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <span class="tag">Power BI</span><span class="tag">Python</span><span class="tag">Data Analytics</span>
+        </div>
+      </article>
+
     </div>
-</section>
+  </section>
 
-<section id="terminal">
-    <h2 data-aos="fade-up">Dibyanshu AI Core</h2>
-    <div class="card terminal-window js-tilt" data-aos="zoom-in" style="border: 1px solid var(--accent) !important;">
-        <div style="border-bottom: 1px solid #222; margin-bottom: 10px; font-size: 0.7rem; color: var(--accent); display: flex; justify-content: space-between;">
-            <span>AI ENGINE: GEMINI-1.5-FLASH</span>
-            <span id="ai-status">ONLINE</span>
-        </div>
-        
-        <div id="ai-response" style="font-family: 'Courier New', monospace; font-size: 0.9rem; line-height: 1.6; color: #0f0; margin-bottom: 15px;">
-            > Hyy I am Dibyanshu, I am a Full Stack Developer. Ask me anything...
-        </div>
-
-        <div style="display: flex; gap: 10px; border-top: 1px solid #222; padding-top: 10px;">
-            <span style="color: #0f0;">></span>
-            <input type="text" id="user-input" placeholder="Type a message..." 
-                style="background: transparent; border: none; color: #0f0; outline: none; width: 100%; font-family: 'Courier New', monospace;">
-            <button id="send-btn" style="background: transparent; border: none; color: var(--accent); cursor: pointer;">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
+  <!-- ═══════════════════════════════════════
+       PROJECTS SECTION
+  ═══════════════════════════════════════ -->
+  <section class="section" id="projects" aria-labelledby="proj-title">
+    <div class="section__header reveal">
+      <span class="section__tag">What I've shipped</span>
+      <h2 class="section__title" id="proj-title">Featured Projects</h2>
+      <div class="section__line"></div>
     </div>
-</section>
 
-<footer>
-<p style="margin-top:2rem;color:#64748b;font-size:.85rem;">
-DESIGNED & ENGINEERED BY DIBYANSHU © 2026
-</p>
-</footer>
+    <div class="grid grid--2" style="gap:2rem;">
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-AOS.init({duration:1000,once:true});
+      <!-- B9 Automation -->
+      <article class="card project-card reveal js-tilt" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.12" style="border-color:rgba(0,212,255,0.18);">
+        <div class="card__accent-bar"></div>
+        <div class="project-card__top">
+          <div class="project-card__icon"><i class="fab fa-whatsapp" aria-hidden="true"></i></div>
+          <div class="project-card__links">
+            <a href="https://b9-automation-frontend.vercel.app" target="_blank" rel="noopener" class="project-card__link" aria-label="B9 Automation Live Demo">
+              <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+            </a>
+            <a href="https://github.com/dibyanshu122" target="_blank" rel="noopener" class="project-card__link" aria-label="B9 Automation GitHub">
+              <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.25rem 0.75rem;border-radius:50px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:#22c55e;font-size:0.7rem;font-weight:700;letter-spacing:1px;margin-bottom:0.75rem;">
+          <span style="width:6px;height:6px;border-radius:50%;background:#22c55e;animation:blink 1.5s infinite;"></span> LIVE &amp; SERVING 100+ BUSINESSES
+        </div>
+        <h3>B9 Automation — WhatsApp AI SaaS Platform</h3>
+        <p>India's first WhatsApp AI Agency Platform. Businesses deploy AI agents on WhatsApp with zero code using a visual drag-and-drop flow builder with 40+ canvas nodes. Features RAG over uploaded docs, agentic loop orchestration, AI-generated automation templates, lead scoring, and next-best-action engine.</p>
+        <div class="project-card__tags">
+          <span class="tag">Next.js 15</span><span class="tag">FastAPI</span><span class="tag">PostgreSQL</span>
+          <span class="tag">Groq Llama 3.3</span><span class="tag">Gemini 2.0</span><span class="tag">RAG</span>
+          <span class="tag">LangChain</span><span class="tag">Celery</span><span class="tag">Redis</span><span class="tag">AWS</span>
+        </div>
+      </article>
 
-const text = ["Elegance", "Neural Futures", "Scalable Logic", "AI Excellence"];
-let count = 0; let index = 0; let currentText = ""; let letter = "";
-(function type() {
-    if (count === text.length) count = 0;
-    currentText = text[count];
-    letter = currentText.slice(0, ++index);
-    document.getElementById("typewriter").textContent = letter;
-    if (letter.length === currentText.length) { count++; index = 0; setTimeout(type, 2000); }
-    else setTimeout(type, 150);
-}());
-async function callGemini(userInput) {
-    const responseContainer = document.getElementById("ai-response");
-    const status = document.getElementById("ai-status");
-    
-    // 1. PURANA CONTENT DELETE MAT KARO, bas naya text append karo
-    const userDiv = document.createElement("div");
-    userDiv.style.color = "#ffffff";
-    userDiv.style.marginBottom = "10px";
-    userDiv.innerHTML = `> You: ${userInput}`;
-    responseContainer.appendChild(userDiv);
-    
-    // 2. Status ko THINKING karo
-    status.innerHTML = "THINKING...";
-    status.style.color = "#ffcc00"; 
-    
-    // 3. Temporary "Thinking" line
-    const thinkingText = document.createElement("div");
-    thinkingText.id = "temp-thinking";
-    thinkingText.innerHTML = "> Processing through Neural Core...";
-    thinkingText.style.color = "#00f2ff";
-    responseContainer.appendChild(thinkingText);
+      <!-- Nexus AI -->
+      <article class="card project-card reveal js-tilt" style="transition-delay:0.15s;" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.12">
+        <div class="card__accent-bar"></div>
+        <div class="project-card__top">
+          <div class="project-card__icon"><i class="fas fa-brain" aria-hidden="true"></i></div>
+          <div class="project-card__links">
+            <a href="#" class="project-card__link" aria-label="Nexus AI Live Demo"><i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+            <a href="https://github.com/dibyanshu122" target="_blank" rel="noopener" class="project-card__link" aria-label="Nexus AI GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <h3>Nexus AI Insight Engine</h3>
+        <p>Multi-agent AI research platform with a 3-tier autonomous pipeline: Researcher (live web search via Tavily) → Critic (fact validation) → Writer (professional report synthesis). LangGraph state machine manages agent handoffs, retries, and quality control loops. Pinecone vector DB for semantic memory with sub-2s response time.</p>
+        <div class="project-card__tags">
+          <span class="tag">Next.js</span><span class="tag">FastAPI</span><span class="tag">LangChain</span>
+          <span class="tag">LangGraph</span><span class="tag">Gemini 1.5</span><span class="tag">Pinecone</span><span class="tag">Tavily AI</span>
+        </div>
+      </article>
 
-    // Scroll automatically
-    responseContainer.scrollTop = responseContainer.scrollHeight;
+      <!-- CRM Portal -->
+      <article class="card project-card reveal js-tilt" style="transition-delay:0.3s;" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.12">
+        <div class="card__accent-bar"></div>
+        <div class="project-card__top">
+          <div class="project-card__icon"><i class="fas fa-shield-halved" aria-hidden="true"></i></div>
+          <div class="project-card__links">
+            <a href="#" class="project-card__link" aria-label="CRM Portal Live"><i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+            <a href="https://github.com/dibyanshu122" target="_blank" rel="noopener" class="project-card__link" aria-label="CRM GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <h3>Full-Stack Auth &amp; CRM Portal</h3>
+        <p>Enterprise-grade CRM with Google OAuth 2.0 (256-bit encryption), HTTP-only CSRF-protected cookies, and role-based access control (Admin / Manager / User / Viewer). Real-time Razorpay payment processing, automated Nodemailer credential delivery, admin analytics dashboard, and connection pooling — zero security incidents since launch.</p>
+        <div class="project-card__tags">
+          <span class="tag">Next.js</span><span class="tag">Node.js</span><span class="tag">PostgreSQL</span>
+          <span class="tag">Google OAuth 2.0</span><span class="tag">Razorpay</span><span class="tag">Nodemailer</span>
+        </div>
+      </article>
 
-    try {
-        const response = await fetch('/api/gemini', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userInput: userInput })
-        });
+      <!-- Healthcare Microservices -->
+      <article class="card project-card reveal js-tilt" style="transition-delay:0.45s;" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.12">
+        <div class="card__accent-bar"></div>
+        <div class="project-card__top">
+          <div class="project-card__icon"><i class="fas fa-heartbeat" aria-hidden="true"></i></div>
+          <div class="project-card__links">
+            <a href="#" class="project-card__link" aria-label="Healthcare project"><i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+            <a href="https://github.com/dibyanshu122" target="_blank" rel="noopener" class="project-card__link" aria-label="Healthcare GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <h3>Healthcare Microservices Backend</h3>
+        <p>Scalable Django + Node.js microservices serving 50K+ MAU with 100K+ daily API requests at 99.5% uptime. HIPAA-compliant architecture with AES-256 encryption, RBAC, audit logging, and AWS auto-scaling. Led MySQL → MongoDB migration that cut query time by 30%.</p>
+        <div class="project-card__tags">
+          <span class="tag">Django</span><span class="tag">Node.js</span><span class="tag">MongoDB</span>
+          <span class="tag">MySQL</span><span class="tag">AWS EC2/RDS</span><span class="tag">HIPAA</span>
+        </div>
+      </article>
 
-        const data = await response.json();
+    </div>
+  </section>
 
-        // Thinking line ko hatao
-        if(document.getElementById("temp-thinking")) {
-            document.getElementById("temp-thinking").remove();
-        }
+  <!-- ═══════════════════════════════════════
+       EDUCATION SECTION
+  ═══════════════════════════════════════ -->
+  <section class="section" id="education" aria-labelledby="edu-title">
+    <div class="section__header reveal">
+      <span class="section__tag">Academic background</span>
+      <h2 class="section__title" id="edu-title">Education</h2>
+      <div class="section__line"></div>
+    </div>
 
-        if (data.candidates && data.candidates[0].content) {
-            const aiText = data.candidates[0].content.parts[0].text;
-            displayAIResponse(aiText); 
-        } else {
-            throw new Error("Handshake Failed");
-        }
+    <div class="grid grid--2" style="max-width:860px;margin:0 auto;gap:1.5rem;">
 
-    } catch (error) {
-        if(document.getElementById("temp-thinking")) document.getElementById("temp-thinking").remove();
-        const errorDiv = document.createElement("div");
-        errorDiv.style.color = "#ff4444";
-        errorDiv.innerHTML = "> SYSTEM ERROR: Connection Lost.";
-        responseContainer.appendChild(errorDiv);
-        status.innerHTML = "OFFLINE";
-        status.style.color = "#ff4444";
-    }
-}
-// Display function (Isme maine thoda update kiya hai taaki purana text na mite)
-function displayAIResponse(text) {
-    const responseContainer = document.getElementById("ai-response");
-    const status = document.getElementById("ai-status");
-    
-    const answerDiv = document.createElement("div");
-    answerDiv.innerHTML = "> ";
-    responseContainer.appendChild(answerDiv);
-    
-    let i = 0;
-    function typeEffect() {
-        if (i < text.length) {
-            answerDiv.innerHTML += text.charAt(i);
-            i++;
-            // Terminal automatically scroll niche karega
-            responseContainer.scrollTop = responseContainer.scrollHeight;
-            setTimeout(typeEffect, 25);
-        } else {
-            status.innerHTML = "ONLINE";
-            status.style.color = "#22c55e";
-        }
-    }
-    typeEffect();
-}
-document.getElementById("send-btn").addEventListener("click", () => {
-    const input = document.getElementById("user-input");
-    if(input.value.trim() !== "") {
-        callGemini(input.value);
-        input.value = "";
-    }
-});
+      <article class="card edu-card reveal js-tilt" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.12">
+        <div class="card__accent-bar"></div>
+        <div class="edu-card__year">Jul 2019 – May 2023</div>
+        <h3>B.Tech in Computer Science &amp; Engineering</h3>
+        <p>Rameshwaram Institute of Technology &amp; Management, Lucknow</p>
+        <div style="margin-top:0.75rem;font-size:0.8rem;color:var(--text-muted);line-height:1.7;">
+          <strong style="color:var(--text-secondary);">Coursework:</strong> DSA · DBMS · Web Development · Machine Learning · Cloud Computing
+        </div>
+        <span class="edu-card__grade"><i class="fas fa-star" aria-hidden="true"></i> CGPA: 8.05 / 10</span>
+      </article>
 
-document.getElementById("user-input").addEventListener("keypress", (e) => {
-    if (e.key === "Enter") { document.getElementById("send-btn").click(); }
-});
+      <article class="card edu-card reveal js-tilt" style="transition-delay:0.15s;" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.12">
+        <div class="card__accent-bar"></div>
+        <div class="edu-card__year">2018</div>
+        <h3>Higher Secondary — 12th Grade</h3>
+        <p>U.P. Board, Uttar Pradesh</p>
+      </article>
 
-/* ===== IMMERSIVE GALAXY ===== */
+    </div>
 
+    <!-- Certifications -->
+    <div class="section__header reveal" style="margin-top:5rem;margin-bottom:2.5rem;">
+      <span class="section__tag">Validated expertise</span>
+      <h2 class="section__title" style="font-size:clamp(1.6rem,3vw,2.2rem);">Certifications &amp; Achievements</h2>
+      <div class="section__line"></div>
+    </div>
 
-const scene=new THREE.Scene();
-const camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
-const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('bgCanvas'),alpha:true,antialias:true});
-renderer.setSize(window.innerWidth,window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
-camera.position.z=8;
+    <div class="grid grid--4" style="gap:1.5rem;">
 
-function createLayer(count,spread,size){
-const geometry=new THREE.BufferGeometry();
-const positions=new Float32Array(count*3);
-for(let i=0;i<count*3;i++){positions[i]=(Math.random()-0.5)*spread;}
-geometry.setAttribute('position',new THREE.BufferAttribute(positions,3));
-const material=new THREE.PointsMaterial({color:0x00f2ff,size:size,transparent:true,opacity:0.8});
-return new THREE.Points(geometry,material);
-}
+      <article class="card cert-card reveal js-tilt" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="card__accent-bar"></div>
+        <div class="cert-card__ring"><i class="fab fa-python" aria-hidden="true"></i></div>
+        <h3>Python Programming</h3>
+        <div class="cert-card__issuer">IIT Kanpur</div>
+        <p class="cert-card__desc">Advanced Scripting &amp; Backend Logic — 2024</p>
+      </article>
 
-const farLayer=createLayer(4000,90,0.05);
-const midLayer=createLayer(3000,60,0.08);
-const nearLayer=createLayer(2000,40,0.12);
-scene.add(farLayer);scene.add(midLayer);scene.add(nearLayer);
+      <article class="card cert-card reveal js-tilt" style="transition-delay:0.1s;" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="card__accent-bar"></div>
+        <div class="cert-card__ring"><i class="fab fa-google" aria-hidden="true"></i></div>
+        <h3>Google Analytics IQ</h3>
+        <div class="cert-card__issuer">Google Certified</div>
+        <p class="cert-card__desc">GAIQ — Individual Qualification in Digital Analytics — 2024</p>
+      </article>
 
-let scrollY=0;
-window.addEventListener("scroll",()=>{
-scrollY=window.scrollY;
-let percent=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
-document.querySelector(".scroll-dna").style.width=percent+"%";
-});
+      <article class="card cert-card reveal js-tilt" style="transition-delay:0.2s;" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="card__accent-bar"></div>
+        <div class="cert-card__ring"><i class="fas fa-chart-pie" aria-hidden="true"></i></div>
+        <h3>Data Analytics</h3>
+        <div class="cert-card__issuer">Accenture / Forage</div>
+        <p class="cert-card__desc">Data Analytics &amp; Visualization Simulation — 2024</p>
+      </article>
 
-document.addEventListener("mousemove",(e)=>{
-camera.position.x=(e.clientX/window.innerWidth-0.5)*1.5;
-camera.position.y=-(e.clientY/window.innerHeight-0.5)*1.5;
-});
+      <article class="card cert-card reveal js-tilt" style="transition-delay:0.3s;" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="card__accent-bar"></div>
+        <div class="cert-card__ring"><i class="fab fa-hackerrank" aria-hidden="true"></i></div>
+        <h3>HackerRank 5-Star</h3>
+        <div class="cert-card__issuer">HackerRank</div>
+        <p class="cert-card__desc">Data Structures &amp; Algorithms — Active</p>
+      </article>
 
-const cursor=document.querySelector(".cursor");
-const trail=document.querySelector(".cursor-trail");
-document.addEventListener("mousemove",e=>{
-cursor.style.left=e.clientX+"px";
-cursor.style.top=e.clientY+"px";
-trail.style.left=e.clientX-10+"px";
-trail.style.top=e.clientY-10+"px";
-});
+    </div>
+  </section>
 
-function animate(){
-requestAnimationFrame(animate);
-camera.position.z=8-scrollY*0.001;
-farLayer.rotation.y+=0.0003;
-midLayer.rotation.y+=0.0006;
-nearLayer.rotation.y+=0.001;
-renderer.render(scene,camera);
-}
-animate();
+  <!-- ═══════════════════════════════════════
+       AI TERMINAL CHAT
+  ═══════════════════════════════════════ -->
+  <section class="section" id="terminal" aria-labelledby="terminal-title">
+    <div class="section__header reveal">
+      <span class="section__tag">Powered by Gemini</span>
+      <h2 class="section__title" id="terminal-title">Dibyanshu AI Core</h2>
+      <div class="section__line"></div>
+    </div>
 
-window.addEventListener("resize",()=>{
-camera.aspect=window.innerWidth/window.innerHeight;
-camera.updateProjectionMatrix();
-renderer.setSize(window.innerWidth,window.innerHeight);
-});
+    <article class="card terminal-card reveal" role="region" aria-label="AI Chat Terminal">
+      <div class="card__accent-bar" style="transform:scaleX(1);"></div>
+      <div class="terminal__titlebar">
+        <div class="terminal__dots" aria-hidden="true">
+          <div class="terminal__dot terminal__dot--red"></div>
+          <div class="terminal__dot terminal__dot--yellow"></div>
+          <div class="terminal__dot terminal__dot--green"></div>
+        </div>
+        <div class="terminal__label">
+          <i class="fas fa-circle-dot" style="color:#22c55e;font-size:0.6rem;animation:blink 1.5s infinite;" aria-hidden="true"></i>
+          DIBYANSHU-AI-CORE · GEMINI ENGINE
+        </div>
+        <div class="terminal__status" id="ai-status" aria-live="polite">ONLINE</div>
+      </div>
 
-// Har card par tilt effect active karega
-VanillaTilt.init(document.querySelectorAll(".card"), {
-    max: 15,
-    speed: 400,
-    glare: true,
-    "max-glare": 0.2,
-});
-</script>
+      <div class="terminal__body" id="ai-response" role="log" aria-label="AI conversation">
+        <div style="color:#00d4ff;">&gt; Initializing Dibyanshu AI Core...</div>
+        <div style="color:#22c55e;margin-top:0.5rem;">&gt; Hey! I'm Dibyanshu's AI assistant. Ask me anything about his skills, projects, or experience. I'm powered by Gemini Flash.</div>
+      </div>
 
+      <div class="terminal__input-row">
+        <span class="terminal__prompt" aria-hidden="true">&gt;</span>
+        <input
+          type="text"
+          id="user-input"
+          class="terminal__input"
+          placeholder="Ask about Dibyanshu's experience, projects, skills..."
+          aria-label="Ask the AI a question"
+          autocomplete="off"
+        />
+        <button id="send-btn" class="terminal__send" aria-label="Send message">
+          <i class="fas fa-paper-plane" aria-hidden="true"></i>
+        </button>
+      </div>
+    </article>
+  </section>
+  </main>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <p class="footer__text">
+      DESIGNED &amp; ENGINEERED BY <span>DIBYANSHU</span> &copy; 2026
+    </p>
+    <nav class="footer__links" aria-label="Footer links">
+      <a href="https://www.linkedin.com/in/dibyanshu-286ba723a" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/dibyanshu122" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://b9-automation-frontend.vercel.app" target="_blank" rel="noopener">B9 Automation</a>
+      <a href="mailto:ddibyanshu2@gmail.com">Email</a>
+    </nav>
+  </footer>
+
+  <!-- ═══════════════════════════════════════
+       FLOATING SOCIAL ACTIONS
+  ═══════════════════════════════════════ -->
+  <div class="float-actions" role="navigation" aria-label="Quick contact">
+    <a href="https://wa.me/919628954948" target="_blank" rel="noopener noreferrer"
+       class="float-btn" id="fab-whatsapp" data-tooltip="WhatsApp" aria-label="Contact on WhatsApp">
+      <i class="fab fa-whatsapp" aria-hidden="true"></i>
+    </a>
+    <a href="https://www.linkedin.com/in/dibyanshu-286ba723a" target="_blank" rel="noopener noreferrer"
+       class="float-btn" id="fab-linkedin" data-tooltip="LinkedIn" aria-label="Connect on LinkedIn">
+      <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+    </a>
+    <a href="https://github.com/dibyanshu122" target="_blank" rel="noopener noreferrer"
+       class="float-btn" id="fab-github" data-tooltip="GitHub" aria-label="View GitHub">
+      <i class="fab fa-github" aria-hidden="true"></i>
+    </a>
+    <a href="mailto:ddibyanshu2@gmail.com"
+       class="float-btn" id="fab-email" data-tooltip="Email Me" aria-label="Send email">
+      <i class="far fa-envelope" aria-hidden="true"></i>
+    </a>
+  </div>
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
