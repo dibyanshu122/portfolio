@@ -358,7 +358,9 @@ body {
 .hero {
   min-height: 100vh;
   display: grid;
-  place-items: center;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-items: start;
   padding: 120px clamp(5%,10%,12%) 80px;
   position: relative;
   z-index: 2;
@@ -683,7 +685,7 @@ body {
 }
 
 /* ─── GRIDS ──────────────────────────────────────────────────── */
-.grid { display: grid; gap: 1.5rem; }
+.grid { display: grid; gap: 1.5rem; align-items: start; }
 .grid--2 { grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); }
 .grid--3 { grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); }
 .grid--4 { grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); }
@@ -702,6 +704,8 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  /* Cards take only as much height as their content needs */
+  height: fit-content;
 }
 .card::before {
   content: '';
