@@ -1,441 +1,570 @@
 /* ============================================================
-   DIBYANSHU PORTFOLIO — MASTER SCRIPT v3.0
-   3D Galaxy · Custom Cursor · Scroll Reveals · Magnetic Hover
-   Typewriter · AI Terminal · VanillaTilt
+   DIBYANSHU PORTFOLIO — ULTRA PREMIUM MASTER SCRIPT v4.0
+   Epic Preloader · 3D Torus Galaxy · Hero 3D Object
+   Magnetic · Scramble Text · Click Particles · AI Terminal
    ============================================================ */
-
 'use strict';
 
-/* ─── UTILS ──────────────────────────────────────────────────── */
-const $ = (sel) => document.querySelector(sel);
-const $$ = (sel) => document.querySelectorAll(sel);
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
 
-/* ─── 1. CUSTOM CURSOR ───────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   1. EPIC PRELOADER
+═══════════════════════════════════════════════════ */
+(function initPreloader() {
+  const preloader = $('#preloader');
+  const bar       = $('#preloaderBar');
+  const percent   = $('#preloaderPercent');
+  const canvas    = $('#preloaderCanvas');
+  if (!preloader) return;
+
+  // Tiny star-burst on preloader canvas
+  const ctx  = canvas.getContext('2d');
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const stars = Array.from({ length: 200 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.5,
+    o: Math.random(),
+    s: (Math.random() - 0.5) * 0.3,
+  }));
+
+  let rafPre;
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      s.o += s.s * 0.05;
+      if (s.o > 1 || s.o < 0) s.s *= -1;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,212,255,${Math.abs(s.o)})`;
+      ctx.fill();
+    });
+    rafPre = requestAnimationFrame(drawStars);
+  }
+  drawStars();
+
+  // Animate progress to 100%
+  let p = 0;
+  const interval = setInterval(() => {
+    p += Math.random() * 4 + 1;
+    if (p >= 100) p = 100;
+    bar.style.width = p + '%';
+    percent.textContent = Math.floor(p) + '%';
+    if (p >= 100) {
+      clearInterval(interval);
+      cancelAnimationFrame(rafPre);
+      setTimeout(() => {
+        preloader.classList.add('exit');
+        preloader.addEventListener('animationend', () => {
+          preloader.remove();
+          document.body.style.overflow = '';
+          // Trigger counters after preloader
+          startCounters();
+        }, { once: true });
+      }, 500);
+    }
+  }, 40);
+
+  document.body.style.overflow = 'hidden';
+})();
+
+/* ═══════════════════════════════════════════════════
+   2. CUSTOM CURSOR
+═══════════════════════════════════════════════════ */
 (function initCursor() {
   const dot  = $('#cursorDot');
   const ring = $('#cursorRing');
   if (!dot || !ring) return;
 
-  let mouseX = 0, mouseY = 0;
-  let ringX  = 0, ringY  = 0;
-  let rafId;
+  let mx = 0, my = 0, rx = 0, ry = 0;
 
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    dot.style.left = mouseX + 'px';
-    dot.style.top  = mouseY + 'px';
-  });
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+  }, { passive: true });
 
-  // Smooth ring lag
-  function animateRing() {
-    ringX += (mouseX - ringX) * 0.12;
-    ringY += (mouseY - ringY) * 0.12;
-    ring.style.left = ringX + 'px';
-    ring.style.top  = ringY + 'px';
-    rafId = requestAnimationFrame(animateRing);
-  }
-  animateRing();
+  (function lagRing() {
+    rx += (mx - rx) * 0.11;
+    ry += (my - ry) * 0.11;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(lagRing);
+  })();
 
-  // Hover grow effect on interactive elements
-  const hoverTargets = 'a, button, .card, .float-btn, input, .btn--primary, .btn--ghost';
-  document.addEventListener('mouseover', (e) => {
-    if (e.target.closest(hoverTargets)) {
+  const hoverSel = 'a,button,.card,.float-btn,input,.btn--primary,.btn--ghost,.marquee-item';
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest(hoverSel)) {
       dot.classList.add('hovering');
       ring.classList.add('hovering');
     }
   });
-  document.addEventListener('mouseout', (e) => {
-    if (e.target.closest(hoverTargets)) {
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest(hoverSel)) {
       dot.classList.remove('hovering');
       ring.classList.remove('hovering');
     }
   });
 })();
 
-/* ─── 2. SCROLL PROGRESS BAR ──────────────────────────────────── */
-(function initScrollProgress() {
+/* ═══════════════════════════════════════════════════
+   3. CLICK PARTICLE BURST
+═══════════════════════════════════════════════════ */
+(function initParticles() {
+  const container = $('#particles');
+  if (!container) return;
+
+  const colors = ['#00d4ff', '#7c3aed', '#f472b6', '#ffffff', '#00f2ff'];
+
+  document.addEventListener('click', e => {
+    const count = 12;
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const angle  = (i / count) * Math.PI * 2;
+      const dist   = 40 + Math.random() * 60;
+      const size   = 4 + Math.random() * 5;
+      const color  = colors[Math.floor(Math.random() * colors.length)];
+      p.style.cssText = `
+        left:${e.clientX}px; top:${e.clientY}px;
+        width:${size}px; height:${size}px;
+        background:${color};
+        box-shadow:0 0 8px ${color};
+        --tx:${Math.cos(angle) * dist}px;
+        --ty:${Math.sin(angle) * dist}px;
+      `;
+      container.appendChild(p);
+      setTimeout(() => p.remove(), 850);
+    }
+  });
+})();
+
+/* ═══════════════════════════════════════════════════
+   4. SCROLL PROGRESS BAR
+═══════════════════════════════════════════════════ */
+(function initScrollBar() {
   const bar = $('#scrollBar');
   if (!bar) return;
   window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const total    = document.body.scrollHeight - window.innerHeight;
-    bar.style.width = Math.min((scrolled / total) * 100, 100) + '%';
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    bar.style.width = Math.min(pct * 100, 100) + '%';
   }, { passive: true });
 })();
 
-/* ─── 3. STICKY NAV — ACTIVE LINK HIGHLIGHTING ───────────────── */
+/* ═══════════════════════════════════════════════════
+   5. STICKY NAV + ACTIVE LINKS
+═══════════════════════════════════════════════════ */
 (function initNav() {
-  const navbar = $('#navbar');
-  if (!navbar) return;
+  const nav   = $('#navbar');
+  const links = $$('.nav__links a');
+  if (!nav) return;
 
-  // Scrolled class for deeper blur
   window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 60);
+    nav.classList.toggle('scrolled', window.scrollY > 60);
   }, { passive: true });
 
-  // Active nav link on scroll
-  const sections = $$('section[id], main > section[id]');
-  const navLinks = $$('.nav__links a');
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        navLinks.forEach((link) => {
-          link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`);
-        });
+  const sections = $$('section[id]');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${e.target.id}`));
       }
     });
   }, { rootMargin: '-40% 0px -55% 0px' });
-
-  sections.forEach((s) => io.observe(s));
+  sections.forEach(s => io.observe(s));
 })();
 
-/* ─── 4. SCROLL REVEAL ANIMATIONS ────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   6. SCROLL REVEAL
+═══════════════════════════════════════════════════ */
 (function initReveal() {
-  const revealEls = $$('.reveal, .reveal-left, .reveal-right');
-  if (!revealEls.length) return;
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        // Respect transition-delay set inline
-        entry.target.classList.add('revealed');
-        io.unobserve(entry.target);
+  const els = $$('.reveal');
+  const io  = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.12 });
-
-  revealEls.forEach((el) => io.observe(el));
+  }, { threshold: 0.1 });
+  els.forEach(el => io.observe(el));
 })();
 
-/* ─── 5. TYPEWRITER EFFECT ───────────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   7. TEXT SCRAMBLE (section titles)
+═══════════════════════════════════════════════════ */
+(function initScramble() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&';
+
+  function scramble(el) {
+    const original = el.dataset.text || el.textContent;
+    let iteration  = 0;
+    clearInterval(el._scrambleTimer);
+    el._scrambleTimer = setInterval(() => {
+      el.textContent = original.split('').map((ch, i) => {
+        if (ch === ' ') return ' ';
+        if (i < iteration) return original[i];
+        return chars[Math.floor(Math.random() * chars.length)];
+      }).join('');
+      if (iteration >= original.length) {
+        clearInterval(el._scrambleTimer);
+        el.textContent = original;
+      }
+      iteration += .5;
+    }, 30);
+  }
+
+  const titles = $$('.scramble');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        setTimeout(() => scramble(e.target), 100);
+      }
+    });
+  }, { threshold: 0.5 });
+  titles.forEach(el => io.observe(el));
+})();
+
+/* ═══════════════════════════════════════════════════
+   8. TYPEWRITER
+═══════════════════════════════════════════════════ */
 (function initTypewriter() {
   const el = $('#typewriter');
   if (!el) return;
 
-  const phrases = [
-    'Developer',
-    'SaaS Founder',
-    'AI Architect',
-    'Agent Builder',
-    'System Designer',
-  ];
+  const phrases = ['Developer', 'SaaS Founder', 'AI Architect', 'Agent Builder', 'System Designer'];
+  let pi = 0, ci = 0, del = false;
 
-  let phraseIndex = 0;
-  let charIndex   = 0;
-  let isDeleting  = false;
-  let delay       = 120;
+  (function tick() {
+    const cur = phrases[pi];
+    el.textContent = del ? cur.slice(0, --ci) : cur.slice(0, ++ci);
+    const speed = del ? 55 : 115;
 
-  function type() {
-    const current = phrases[phraseIndex];
-    if (isDeleting) {
-      el.textContent = current.slice(0, --charIndex);
-      delay = 60;
+    if (!del && ci === cur.length) {
+      setTimeout(() => { del = true; tick(); }, 2200);
+    } else if (del && ci === 0) {
+      del = false;
+      pi  = (pi + 1) % phrases.length;
+      setTimeout(tick, 350);
     } else {
-      el.textContent = current.slice(0, ++charIndex);
-      delay = 120;
+      setTimeout(tick, speed);
     }
-
-    if (!isDeleting && charIndex === current.length) {
-      delay = 2000;
-      isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      phraseIndex = (phraseIndex + 1) % phrases.length;
-      delay = 400;
-    }
-
-    setTimeout(type, delay);
-  }
-  type();
+  })();
 })();
 
-/* ─── 6. MAGNETIC HOVER — BUTTONS ────────────────────────────── */
-(function initMagnetic() {
-  const magnetics = $$('.btn--primary, .btn--ghost, .float-btn, .nav__cta');
+/* ═══════════════════════════════════════════════════
+   9. HERO STATS COUNTER
+═══════════════════════════════════════════════════ */
+function startCounters() {
+  $$('.hero__stat-num').forEach(el => {
+    const target  = parseInt(el.dataset.target, 10);
+    const step    = Math.ceil(target / 60);
+    let current   = 0;
+    const timer   = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = current;
+      if (current >= target) clearInterval(timer);
+    }, 25);
+  });
+}
 
-  magnetics.forEach((el) => {
-    el.addEventListener('mousemove', (e) => {
-      const rect   = el.getBoundingClientRect();
-      const centerX = rect.left + rect.width  / 2;
-      const centerY = rect.top  + rect.height / 2;
-      const dx = (e.clientX - centerX) * 0.25;
-      const dy = (e.clientY - centerY) * 0.25;
+/* ═══════════════════════════════════════════════════
+   10. MAGNETIC HOVER
+═══════════════════════════════════════════════════ */
+(function initMagnetic() {
+  $$('.magnetic, .btn--primary, .btn--ghost, .nav__cta, .float-btn').forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const r  = el.getBoundingClientRect();
+      const dx = (e.clientX - r.left - r.width  / 2) * 0.28;
+      const dy = (e.clientY - r.top  - r.height / 2) * 0.28;
       el.style.transform = `translate(${dx}px, ${dy}px)`;
     });
-
     el.addEventListener('mouseleave', () => {
       el.style.transform = '';
-      el.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-      setTimeout(() => { el.style.transition = ''; }, 400);
+      el.style.transition = 'transform 0.45s cubic-bezier(0.16,1,0.3,1)';
+      setTimeout(() => el.style.transition = '', 450);
     });
   });
 })();
 
-/* ─── 7. VANILLA TILT ON CARDS ────────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   11. VANILLA TILT
+═══════════════════════════════════════════════════ */
 (function initTilt() {
   if (typeof VanillaTilt === 'undefined') return;
   VanillaTilt.init($$('.js-tilt'), {
-    max:       12,
-    speed:     400,
-    glare:     true,
-    'max-glare': 0.12,
-    scale:     1.02,
+    max: 12, speed: 400,
+    glare: true, 'max-glare': 0.12, scale: 1.02,
   });
 })();
 
-/* ─── 8. IMMERSIVE 3D GALAXY BACKGROUND (Three.js) ─────────────── */
+/* ═══════════════════════════════════════════════════
+   12. THREE.JS — 3D GALAXY BACKGROUND
+═══════════════════════════════════════════════════ */
 (function initGalaxy() {
   if (typeof THREE === 'undefined') return;
-
-  const canvas = $('#bgCanvas');
+  const canvas   = $('#bgCanvas');
   if (!canvas) return;
 
   const scene    = new THREE.Scene();
-  const camera   = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const camera   = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1000);
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   camera.position.z = 8;
 
-  /* ── Star layer factory ── */
-  function createStarLayer(count, spread, size, color) {
-    const geometry  = new THREE.BufferGeometry();
-    const positions = new Float32Array(count * 3);
-    for (let i = 0; i < count * 3; i++) {
-      positions[i] = (Math.random() - 0.5) * spread;
-    }
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const material = new THREE.PointsMaterial({
-      color,
-      size,
-      transparent: true,
-      opacity: 0.75,
-      sizeAttenuation: true,
-    });
-    return new THREE.Points(geometry, material);
+  // Stars
+  function starLayer(n, spread, sz, col) {
+    const geo = new THREE.BufferGeometry();
+    const pos = new Float32Array(n * 3);
+    for (let i = 0; i < n * 3; i++) pos[i] = (Math.random() - .5) * spread;
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    return new THREE.Points(geo, new THREE.PointsMaterial({ color: col, size: sz, transparent: true, opacity: .7, sizeAttenuation: true }));
   }
 
-  /* ── Nebula cloud (soft sphere clusters) ── */
-  function createNebula() {
-    const group    = new THREE.Group();
-    const colors   = [0x00d4ff, 0x7c3aed, 0x0062ff];
-    colors.forEach((col, i) => {
-      const geo = new THREE.BufferGeometry();
-      const pos = new Float32Array(300 * 3);
-      for (let j = 0; j < 300 * 3; j++) pos[j] = (Math.random() - 0.5) * 18;
-      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-      const mat = new THREE.PointsMaterial({ color: col, size: 0.06, transparent: true, opacity: 0.25 });
-      const pts = new THREE.Points(geo, mat);
-      pts.position.set((i - 1) * 6, (Math.random() - 0.5) * 4, -10);
-      group.add(pts);
-    });
-    return group;
-  }
+  const far  = starLayer(5000, 110, .04, 0x8ecfff);
+  const mid  = starLayer(3500,  75, .07, 0x00d4ff);
+  const near = starLayer(2000,  50, .11, 0xffffff);
 
-  const farLayer  = createStarLayer(5000, 100, 0.04, 0x8ecfff);
-  const midLayer  = createStarLayer(3500,  70, 0.07, 0x00d4ff);
-  const nearLayer = createStarLayer(2000,  45, 0.11, 0xffffff);
-  const nebula    = createNebula();
+  // Nebula clouds
+  const nebula = new THREE.Group();
+  [[0x00d4ff, 6, 0], [0x7c3aed, -5, 2], [0xf472b6, 3, -3]].forEach(([col, x, y]) => {
+    const g = new THREE.BufferGeometry();
+    const p = new Float32Array(400 * 3);
+    for (let i = 0; i < 400 * 3; i++) p[i] = (Math.random() - .5) * 20;
+    g.setAttribute('position', new THREE.BufferAttribute(p, 3));
+    const pts = new THREE.Points(g, new THREE.PointsMaterial({ color: col, size: .055, transparent: true, opacity: .18 }));
+    pts.position.set(x, y, -12);
+    nebula.add(pts);
+  });
 
-  scene.add(farLayer, midLayer, nearLayer, nebula);
+  scene.add(far, mid, near, nebula);
 
-  /* ── Mouse parallax ── */
-  let targetCamX = 0, targetCamY = 0;
-  document.addEventListener('mousemove', (e) => {
-    targetCamX = (e.clientX / window.innerWidth  - 0.5) * 1.8;
-    targetCamY = -(e.clientY / window.innerHeight - 0.5) * 1.8;
+  let tX = 0, tY = 0, scrollY = 0;
+  document.addEventListener('mousemove', e => {
+    tX = (e.clientX / innerWidth  - .5) * 2;
+    tY = -(e.clientY / innerHeight - .5) * 2;
   }, { passive: true });
+  window.addEventListener('scroll', () => { scrollY = pageYOffset; }, { passive: true });
 
-  /* ── Scroll depth ── */
-  let scrollY = 0;
-  window.addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
-
-  /* ── Animation loop ── */
-  let time = 0;
-  function animate() {
+  let t = 0;
+  (function animate() {
     requestAnimationFrame(animate);
-    time += 0.001;
+    t += .001;
+    camera.position.x += (tX - camera.position.x) * .04;
+    camera.position.y += (tY - camera.position.y) * .04;
+    camera.position.z  = 8 - scrollY * .0007;
 
-    // Smooth camera follow mouse
-    camera.position.x += (targetCamX - camera.position.x) * 0.04;
-    camera.position.y += (targetCamY - camera.position.y) * 0.04;
-    camera.position.z  = 8 - scrollY * 0.0008;
-
-    // Rotate layers at different speeds
-    farLayer.rotation.y  += 0.00025;
-    farLayer.rotation.x  += 0.00008;
-    midLayer.rotation.y  += 0.0005;
-    midLayer.rotation.x  += 0.00015;
-    nearLayer.rotation.y += 0.0009;
-    nebula.rotation.y    += 0.0002;
-    nebula.rotation.x     = Math.sin(time) * 0.05;
+    far.rotation.y  += .00022;
+    far.rotation.x  += .00007;
+    mid.rotation.y  += .00045;
+    mid.rotation.x  += .00012;
+    near.rotation.y += .0008;
+    nebula.rotation.y += .00018;
+    nebula.rotation.x  = Math.sin(t) * .04;
 
     renderer.render(scene, camera);
-  }
-  animate();
+  })();
 
-  /* ── Resize ── */
   window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.aspect = innerWidth / innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(innerWidth, innerHeight);
   }, { passive: true });
 })();
 
-/* ─── 9. HERO STATS COUNTER ANIMATION ────────────────────────── */
-(function initCounters() {
-  const statEls = $$('.hero__stat [style*="font-size:2rem"]');
+/* ═══════════════════════════════════════════════════
+   13. THREE.JS — HERO 3D FLOATING OBJECT (Torus Knot)
+═══════════════════════════════════════════════════ */
+(function initHero3D() {
+  if (typeof THREE === 'undefined') return;
+  const canvas = $('#heroCanvas');
+  if (!canvas) return;
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const el  = entry.target;
-      const raw = el.textContent.replace(/\D/g, '');
-      const suffix = el.textContent.replace(/[\d]/g, '');
-      if (!raw) return;
-      const target = parseInt(raw, 10);
-      let current  = 0;
-      const step   = Math.ceil(target / 50);
-      const timer  = setInterval(() => {
-        current = Math.min(current + step, target);
-        el.textContent = current + suffix;
-        if (current >= target) clearInterval(timer);
-      }, 30);
-      io.unobserve(el);
-    });
-  }, { threshold: 0.5 });
+  const W = canvas.clientWidth  || 400;
+  const H = canvas.clientHeight || 400;
 
-  statEls.forEach((el) => io.observe(el));
+  const scene    = new THREE.Scene();
+  const camera   = new THREE.PerspectiveCamera(50, W / H, 0.1, 100);
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setSize(W, H);
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setClearColor(0x000000, 0);
+  camera.position.set(0, 0, 4.5);
+
+  // Torus Knot
+  const geom = new THREE.TorusKnotGeometry(1, .32, 160, 20, 2, 3);
+
+  // Wireframe + solid layers
+  const solidMat = new THREE.MeshPhongMaterial({
+    color:     0x00d4ff,
+    emissive:  0x001a2e,
+    specular:  0x7c3aed,
+    shininess: 120,
+    transparent: true,
+    opacity: .12,
+  });
+  const wireMat  = new THREE.MeshBasicMaterial({
+    color:       0x00d4ff,
+    wireframe:   true,
+    transparent: true,
+    opacity:     .55,
+  });
+
+  const solid = new THREE.Mesh(geom, solidMat);
+  const wire  = new THREE.Mesh(geom, wireMat);
+  scene.add(solid, wire);
+
+  // Glowing point cloud around it
+  const dotGeo = new THREE.BufferGeometry();
+  const dotPos = new Float32Array(800 * 3);
+  for (let i = 0; i < 800 * 3; i++) dotPos[i] = (Math.random() - .5) * 5;
+  dotGeo.setAttribute('position', new THREE.BufferAttribute(dotPos, 3));
+  const dots = new THREE.Points(dotGeo, new THREE.PointsMaterial({
+    color: 0x00d4ff, size: .025, transparent: true, opacity: .5,
+  }));
+  scene.add(dots);
+
+  // Lights
+  scene.add(new THREE.AmbientLight(0x00d4ff, .4));
+  const pLight1 = new THREE.PointLight(0x00d4ff, 2, 8);
+  pLight1.position.set(3, 2, 2);
+  const pLight2 = new THREE.PointLight(0x7c3aed, 1.5, 8);
+  pLight2.position.set(-3, -2, 2);
+  scene.add(pLight1, pLight2);
+
+  let mouseX = 0, mouseY = 0;
+  window.addEventListener('mousemove', e => {
+    mouseX = (e.clientX / innerWidth  - .5) * 2;
+    mouseY = (e.clientY / innerHeight - .5) * 2;
+  }, { passive: true });
+
+  let t = 0;
+  (function loop() {
+    requestAnimationFrame(loop);
+    t += .008;
+
+    solid.rotation.x += .004;
+    solid.rotation.y += .006;
+    wire.rotation.x   = solid.rotation.x;
+    wire.rotation.y   = solid.rotation.y;
+    dots.rotation.y  += .003;
+
+    // Breathing scale
+    const s = 1 + Math.sin(t) * .04;
+    solid.scale.setScalar(s);
+    wire.scale.setScalar(s);
+
+    // Mouse follow
+    scene.rotation.y += (mouseX * .3 - scene.rotation.y) * .05;
+    scene.rotation.x += (-mouseY * .2 - scene.rotation.x) * .05;
+
+    // Pulsing light
+    pLight1.intensity = 1.5 + Math.sin(t * 2) * .5;
+    pLight2.intensity = 1.2 + Math.cos(t * 1.5) * .4;
+
+    renderer.render(scene, camera);
+  })();
+
+  // Responsive resize
+  const resizeHero = () => {
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    if (w === 0 || h === 0) return;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  };
+  window.addEventListener('resize', resizeHero, { passive: true });
 })();
 
-/* ─── 10. AI TERMINAL — GEMINI CHAT ──────────────────────────── */
-(function initAITerminal() {
-  const responseContainer = $('#ai-response');
-  const statusEl          = $('#ai-status');
-  const inputEl           = $('#user-input');
-  const sendBtn           = $('#send-btn');
-  if (!responseContainer || !inputEl || !sendBtn) return;
+/* ═══════════════════════════════════════════════════
+   14. AI TERMINAL — GEMINI CHAT
+═══════════════════════════════════════════════════ */
+(function initTerminal() {
+  const body   = $('#ai-response');
+  const status = $('#ai-status');
+  const input  = $('#user-input');
+  const btn    = $('#send-btn');
+  if (!body || !input || !btn) return;
 
   function appendLine(text, color = '#22c55e', prefix = '> ') {
-    const div = document.createElement('div');
-    div.style.color = color;
-    div.style.marginTop = '6px';
-    div.textContent = prefix + text;
-    responseContainer.appendChild(div);
-    responseContainer.scrollTop = responseContainer.scrollHeight;
-    return div;
+    const d = document.createElement('div');
+    d.style.cssText = `color:${color};margin-top:6px;line-height:1.6;`;
+    d.textContent   = prefix + text;
+    body.appendChild(d);
+    body.scrollTop  = body.scrollHeight;
+    return d;
   }
 
-  function typeText(div, text, onDone) {
+  function typeText(div, text, done) {
     let i = 0;
     div.textContent = '> ';
-    function tick() {
-      if (i < text.length) {
-        div.textContent += text[i++];
-        responseContainer.scrollTop = responseContainer.scrollHeight;
-        setTimeout(tick, 18);
-      } else if (onDone) {
-        onDone();
-      }
-    }
-    tick();
+    const t = setInterval(() => {
+      div.textContent += text[i++];
+      body.scrollTop   = body.scrollHeight;
+      if (i >= text.length) { clearInterval(t); done && done(); }
+    }, 16);
   }
 
-  async function callGemini(userInput) {
-    // Show user message
-    appendLine(userInput, '#ffffff', '> You: ');
-
-    // Status: thinking
-    statusEl.textContent = 'THINKING...';
-    statusEl.style.color = '#fbbf24';
-
-    const thinkingDiv = appendLine('Processing through Neural Core...', '#00d4ff');
+  async function callGemini(q) {
+    appendLine(q, '#e2e8f0', '> You: ');
+    status.textContent = 'THINKING...';
+    status.style.color = '#fbbf24';
+    const thinking = appendLine('Processing through Neural Core...', '#00d4ff');
 
     try {
-      const API_KEY = (typeof CONFIG !== 'undefined' && CONFIG.API_KEY) ? CONFIG.API_KEY : '';
-      if (!API_KEY) throw new Error('API key not configured');
+      const KEY = (typeof CONFIG !== 'undefined' && CONFIG.API_KEY) ? CONFIG.API_KEY : '';
+      if (!KEY) throw new Error('API key not configured in config.js');
 
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${KEY}`;
+      const sys = `You are Dibyanshu's AI assistant on his portfolio.
+Dibyanshu is a Full Stack & AI Developer and Founder of B9 Automation (India's first WhatsApp AI Agency Platform).
+Skills: FastAPI, Next.js, LangChain, LangGraph, RAG, PostgreSQL, AWS. 2+ years experience.
+B9 Automation: 86+ API endpoints, 100+ businesses, 95% retention, 1000+ concurrent sessions.
+Also built Nexus AI Insight Engine (multi-agent research platform).
+Answer concisely in under 120 words. Be professional but friendly.`;
 
-      const systemPrompt = `You are Dibyanshu's AI assistant embedded in his portfolio website. 
-You represent Dibyanshu — a Full Stack & AI Developer and Founder of B9 Automation (India's first WhatsApp AI Agency Platform).
-Key facts: 2+ years experience, expert in FastAPI, Next.js, LangChain, LangGraph, RAG pipelines, agentic AI systems.
-Serving 100+ businesses, built 86+ API endpoints, 95%+ retention rate. Based in New Delhi, India.
-Answer concisely and professionally. Keep responses under 150 words. Always be helpful and enthusiastic about tech.`;
-
-      const response = await fetch(url, {
+      const res  = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [{
-            parts: [{ text: systemPrompt + '\n\nUser asks: ' + userInput }]
-          }],
-          generationConfig: { maxOutputTokens: 300, temperature: 0.7 }
+          contents: [{ parts: [{ text: sys + '\n\nUser: ' + q }] }],
+          generationConfig: { maxOutputTokens: 250, temperature: .75 },
         }),
       });
+      const data = await res.json();
+      thinking.remove();
 
-      const data = await response.json();
-      thinkingDiv.remove();
+      const txt = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!txt) throw new Error(data.error?.message || 'No response');
 
-      if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-        const aiText = data.candidates[0].content.parts[0].text;
-        const answerDiv = document.createElement('div');
-        answerDiv.style.color = '#22c55e';
-        answerDiv.style.marginTop = '8px';
-        answerDiv.style.lineHeight = '1.6';
-        responseContainer.appendChild(answerDiv);
-        typeText(answerDiv, aiText, () => {
-          statusEl.textContent = 'ONLINE';
-          statusEl.style.color = '#22c55e';
-        });
-      } else {
-        throw new Error(data.error?.message || 'No response from AI');
-      }
-
+      const ansDiv = document.createElement('div');
+      ansDiv.style.cssText = 'color:#22c55e;margin-top:8px;line-height:1.65;';
+      body.appendChild(ansDiv);
+      typeText(ansDiv, txt, () => {
+        status.textContent = 'ONLINE';
+        status.style.color = '#22c55e';
+      });
     } catch (err) {
-      if (thinkingDiv.parentNode) thinkingDiv.remove();
+      if (thinking.parentNode) thinking.remove();
       appendLine(`SYSTEM ERROR: ${err.message}`, '#ff4444');
-      statusEl.textContent = 'OFFLINE';
-      statusEl.style.color = '#ff4444';
-      setTimeout(() => {
-        statusEl.textContent = 'ONLINE';
-        statusEl.style.color = '#22c55e';
-      }, 3000);
+      status.textContent = 'OFFLINE';
+      status.style.color = '#ff4444';
+      setTimeout(() => { status.textContent = 'ONLINE'; status.style.color = '#22c55e'; }, 3000);
     }
   }
 
-  function handleSend() {
-    const val = inputEl.value.trim();
-    if (!val) return;
-    inputEl.value = '';
-    callGemini(val);
+  function send() {
+    const v = input.value.trim();
+    if (!v) return;
+    input.value = '';
+    callGemini(v);
   }
 
-  sendBtn.addEventListener('click', handleSend);
-  inputEl.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') handleSend();
-  });
-})();
-
-/* ─── 11. SMOOTH SECTION ENTER — STAGGER CARDS ───────────────── */
-(function initCardStagger() {
-  $$('.grid').forEach((grid) => {
-    const cards = grid.querySelectorAll('.card');
-    cards.forEach((card, i) => {
-      if (!card.style.transitionDelay) {
-        card.style.transitionDelay = `${i * 0.08}s`;
-      }
-    });
-  });
-})();
-
-/* ─── 12. FOOTER YEAR AUTO-UPDATE ─────────────────────────────── */
-(function initFooterYear() {
-  const el = $('footer .footer__text');
-  if (el) {
-    el.innerHTML = el.innerHTML.replace('2026', new Date().getFullYear());
-  }
+  btn.addEventListener('click', send);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
 })();
