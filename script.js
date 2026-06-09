@@ -482,7 +482,7 @@ function startCounters() {
 })();
 
 /* ═══════════════════════════════════════════════════
-   14. AI TERMINAL — GEMINI CHAT
+   14. AI TERMINAL — GEMINI CHAT + SMART FALLBACK
 ═══════════════════════════════════════════════════ */
 (function initTerminal() {
   const body   = $('#ai-response');
@@ -491,9 +491,69 @@ function startCounters() {
   const btn    = $('#send-btn');
   if (!body || !input || !btn) return;
 
+  /* ── Hardcoded smart answers about Dibyanshu ── */
+  const KB = [
+    {
+      keys: ['who','dibyanshu','yourself','about','intro','tell me'],
+      ans: "I'm Dibyanshu — a Full Stack & AI Developer and SaaS Founder based in New Delhi, India. I founded B9 Automation, India's first WhatsApp AI Agency Platform, serving 100+ businesses. I specialise in agentic AI systems, RAG pipelines, FastAPI, Next.js, LangChain, and production-grade SaaS architecture."
+    },
+    {
+      keys: ['b9','automation','whatsapp','saas','startup','company','founded','founder'],
+      ans: "B9 Automation is India's first WhatsApp AI Agency Platform — live at b9-automation-frontend.vercel.app. It lets businesses deploy autonomous AI agents on WhatsApp using a visual drag-and-drop builder with 40+ nodes. It has 86+ FastAPI endpoints, 62+ PostgreSQL models, RAG pipelines (Groq + Gemini failover), and serves 100+ businesses with 95%+ retention."
+    },
+    {
+      keys: ['skill','tech','stack','use','language','framework','know'],
+      ans: "Dibyanshu's core stack: Backend — FastAPI, Python, Django, Node.js, Celery, Redis. Frontend — Next.js 15, React, TypeScript, Tailwind CSS. AI/LLM — LangChain, LangGraph, Groq Llama 3.3, Gemini 2.0 Flash, RAG pipelines, Pinecone. Databases — PostgreSQL, MongoDB, MySQL, Redis. Cloud — AWS EC2/S3/RDS, Docker, Vercel, GitHub Actions CI/CD."
+    },
+    {
+      keys: ['ai','agent','agentic','rag','langchain','langgraph','llm','gemini','groq'],
+      ans: "Dibyanshu builds production agentic AI systems: autonomous agents that plan, act, and self-correct using LangChain + LangGraph. He's built RAG pipelines with Groq Llama 3.3 + Gemini 2.0 Flash dynamic failover, achieving sub-1s response across 1,000+ concurrent sessions. He also built a 3-tier multi-agent pipeline (Researcher → Critic → Writer) for Nexus AI."
+    },
+    {
+      keys: ['project','nexus','crm','healthcare','built','portfolio','work'],
+      ans: "Key projects: 1) B9 Automation — WhatsApp AI SaaS (100+ businesses, LIVE). 2) Nexus AI Insight Engine — multi-agent research platform with LangGraph + Pinecone. 3) Full-Stack Auth & CRM Portal — Google OAuth 2.0, Razorpay, RBAC, zero security incidents. 4) Healthcare Microservices — 50K+ MAU, HIPAA-compliant, 99.5% uptime."
+    },
+    {
+      keys: ['experience','job','work','company','ringpass','phero','accenture'],
+      ans: "Dibyanshu has 2+ years experience: Founder at B9 Automation (Mar 2026–Present), Full Stack Developer at RingPass Services (Sep 2025–Present) building enterprise CRM with AI pipelines, Backend Developer at Phero Health Care (Oct 2023–Sep 2025) serving 50K+ MAU, and Data Analytics Simulation at Accenture via Forage."
+    },
+    {
+      keys: ['education','degree','btech','college','university','cgpa'],
+      ans: "Dibyanshu holds a B.Tech in Computer Science & Engineering from Rameshwaram Institute of Technology & Management, Lucknow (2019–2023) with a CGPA of 8.05/10. Coursework included DSA, DBMS, Web Development, Machine Learning, and Cloud Computing."
+    },
+    {
+      keys: ['certification','certificate','iit','google','hackerrank','achievement'],
+      ans: "Certifications: Python Programming from IIT Kanpur (2024), Google Analytics IQ (GAIQ) from Google (2024), Data Analytics & Visualization from Accenture/Forage (2024), and HackerRank 5-Star Problem Solver in Data Structures & Algorithms."
+    },
+    {
+      keys: ['contact','hire','email','phone','linkedin','reach','available'],
+      ans: "You can reach Dibyanshu at: Email — ddibyanshu2@gmail.com | Phone — +91-9628954948 | LinkedIn — linkedin.com/in/dibyanshu-286ba723a | GitHub — github.com/dibyanshu122. He's available for freelance projects and full-time opportunities!"
+    },
+    {
+      keys: ['aws','cloud','deploy','docker','devops','server','hosting'],
+      ans: "Dibyanshu deploys on AWS EC2/S3/RDS handling 100K+ requests/day, uses Vercel for Next.js frontends, Docker for containerisation, and GitHub Actions for CI/CD pipelines. He's set up auto-scaling with AWS RDS and EC2 for zero-downtime deployments."
+    },
+    {
+      keys: ['salary','pay','rate','cost','freelance','price','charge'],
+      ans: "For project rates and availability, please reach out directly at ddibyanshu2@gmail.com or WhatsApp +91-9628954948. Dibyanshu is open to both freelance projects and full-time positions."
+    },
+    {
+      keys: ['hello','hi','hey','namaste','hii','helo'],
+      ans: "Hey there! 👋 I'm Dibyanshu's AI assistant. I can tell you all about his skills, projects, experience, and how to hire him. What would you like to know?"
+    },
+  ];
+
+  function getLocalAnswer(q) {
+    const lower = q.toLowerCase();
+    for (const entry of KB) {
+      if (entry.keys.some(k => lower.includes(k))) return entry.ans;
+    }
+    return "Great question! Dibyanshu is a Full Stack & AI Developer and Founder of B9 Automation. He specialises in FastAPI, Next.js, LangChain, and agentic AI systems serving 100+ businesses. For specific questions, email him at ddibyanshu2@gmail.com 🚀";
+  }
+
   function appendLine(text, color = '#22c55e', prefix = '> ') {
     const d = document.createElement('div');
-    d.style.cssText = `color:${color};margin-top:6px;line-height:1.6;`;
+    d.style.cssText = `color:${color};margin-top:6px;line-height:1.65;font-family:var(--font-mono);`;
     d.textContent   = prefix + text;
     body.appendChild(d);
     body.scrollTop  = body.scrollHeight;
@@ -507,54 +567,69 @@ function startCounters() {
       div.textContent += text[i++];
       body.scrollTop   = body.scrollHeight;
       if (i >= text.length) { clearInterval(t); done && done(); }
-    }, 16);
+    }, 14);
   }
 
-  async function callGemini(q) {
+  async function handleQuery(q) {
     appendLine(q, '#e2e8f0', '> You: ');
     status.textContent = 'THINKING...';
     status.style.color = '#fbbf24';
     const thinking = appendLine('Processing through Neural Core...', '#00d4ff');
 
+    // Try Gemini API first
     try {
-      const KEY = (typeof CONFIG !== 'undefined' && CONFIG.API_KEY) ? CONFIG.API_KEY : '';
-      if (!KEY) throw new Error('API key not configured in config.js');
+      const KEY = (typeof CONFIG !== 'undefined' && (CONFIG.API_KEY || CONFIG.GEMINI_API_KEY))
+        ? (CONFIG.API_KEY || CONFIG.GEMINI_API_KEY) : '';
 
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${KEY}`;
-      const sys = `You are Dibyanshu's AI assistant on his portfolio.
-Dibyanshu is a Full Stack & AI Developer and Founder of B9 Automation (India's first WhatsApp AI Agency Platform).
-Skills: FastAPI, Next.js, LangChain, LangGraph, RAG, PostgreSQL, AWS. 2+ years experience.
-B9 Automation: 86+ API endpoints, 100+ businesses, 95% retention, 1000+ concurrent sessions.
-Also built Nexus AI Insight Engine (multi-agent research platform).
-Answer concisely in under 120 words. Be professional but friendly.`;
+      if (KEY) {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${KEY}`;
+        const sys = `You are Dibyanshu's AI portfolio assistant. Respond only about Dibyanshu.
+Facts: Full Stack & AI Developer, SaaS Founder, 2+ years experience, New Delhi India.
+Founded B9 Automation — India's first WhatsApp AI Agency Platform (b9-automation-frontend.vercel.app).
+B9: 86+ FastAPI endpoints, 62+ DB models, multi-tenant JWT auth, 100K+ req/day, 100+ businesses, 95%+ retention.
+Agentic AI: LangChain, LangGraph, RAG (Groq Llama 3.3 + Gemini 2.0 Flash failover), sub-1s response, 1000+ concurrent.
+Stack: FastAPI, Python, Django, Node.js, Next.js 15, React, TypeScript, PostgreSQL, MongoDB, Redis, Pinecone, AWS, Docker.
+Projects: B9 Automation (LIVE), Nexus AI Insight Engine (3-tier multi-agent), Full-Stack CRM Portal, Healthcare Microservices.
+Education: B.Tech CSE, CGPA 8.05, Rameshwaram Institute 2019-2023.
+Contact: ddibyanshu2@gmail.com | +91-9628954948.
+Answer in under 100 words, friendly and professional.`;
 
-      const res  = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: sys + '\n\nUser: ' + q }] }],
-          generationConfig: { maxOutputTokens: 250, temperature: .75 },
-        }),
-      });
-      const data = await res.json();
-      thinking.remove();
+        const res  = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: sys + '\n\nUser asks: ' + q }] }],
+            generationConfig: { maxOutputTokens: 200, temperature: 0.7 },
+          }),
+        });
+        const data = await res.json();
+        const txt  = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
-      const txt = data.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (!txt) throw new Error(data.error?.message || 'No response');
+        if (txt) {
+          if (thinking.parentNode) thinking.remove();
+          const ansDiv = document.createElement('div');
+          ansDiv.style.cssText = 'color:#22c55e;margin-top:8px;line-height:1.65;font-family:var(--font-mono);';
+          body.appendChild(ansDiv);
+          typeText(ansDiv, txt.trim(), () => {
+            status.textContent = 'ONLINE';
+            status.style.color = '#22c55e';
+          });
+          return;
+        }
+      }
+      throw new Error('Using local knowledge base');
 
+    } catch (_) {
+      // Fallback to local hardcoded answers
+      if (thinking.parentNode) thinking.remove();
+      const ans    = getLocalAnswer(q);
       const ansDiv = document.createElement('div');
-      ansDiv.style.cssText = 'color:#22c55e;margin-top:8px;line-height:1.65;';
+      ansDiv.style.cssText = 'color:#22c55e;margin-top:8px;line-height:1.65;font-family:var(--font-mono);';
       body.appendChild(ansDiv);
-      typeText(ansDiv, txt, () => {
+      typeText(ansDiv, ans, () => {
         status.textContent = 'ONLINE';
         status.style.color = '#22c55e';
       });
-    } catch (err) {
-      if (thinking.parentNode) thinking.remove();
-      appendLine(`SYSTEM ERROR: ${err.message}`, '#ff4444');
-      status.textContent = 'OFFLINE';
-      status.style.color = '#ff4444';
-      setTimeout(() => { status.textContent = 'ONLINE'; status.style.color = '#22c55e'; }, 3000);
     }
   }
 
@@ -562,7 +637,7 @@ Answer concisely in under 120 words. Be professional but friendly.`;
     const v = input.value.trim();
     if (!v) return;
     input.value = '';
-    callGemini(v);
+    handleQuery(v);
   }
 
   btn.addEventListener('click', send);

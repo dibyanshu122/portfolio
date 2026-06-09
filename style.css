@@ -685,7 +685,7 @@ body {
 }
 
 /* ─── GRIDS ──────────────────────────────────────────────────── */
-.grid { display: grid; gap: 1.5rem; align-items: start; }
+.grid { display: grid; gap: 1.5rem; align-items: stretch; }
 .grid--2 { grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); }
 .grid--3 { grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); }
 .grid--4 { grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); }
@@ -704,8 +704,8 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  /* Cards take only as much height as their content needs */
-  height: fit-content;
+  /* Equal height in same row */
+  height: 100%;
 }
 .card::before {
   content: '';
