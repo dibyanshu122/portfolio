@@ -247,7 +247,7 @@ const $$ = s => document.querySelectorAll(s);
   const el = $('#typewriter');
   if (!el) return;
 
-  const phrases = ['Developer', 'SaaS Founder', 'AI Architect', 'Agent Builder', 'System Designer'];
+  const phrases = ['Developer', 'AI Architect', 'Agent Builder', 'System Designer'];
   let pi = 0, ci = 0, del = false;
 
   (function tick() {
