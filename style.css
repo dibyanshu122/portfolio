@@ -96,33 +96,19 @@ body {
 /* ─── CUSTOM CURSOR ──────────────────────────────────────────── */
 .cursor-dot {
   position: fixed;
-  width: 8px; height: 8px;
-  background: var(--accent);
+  width: 12px; height: 12px;
+  background: #ffffff;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 10000;
+  z-index: 100000;
   transform: translate(-50%,-50%);
-  transition: background .3s, transform .1s;
-  box-shadow: 0 0 12px var(--accent), 0 0 30px rgba(0,212,255,.3);
-  mix-blend-mode: screen;
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  mix-blend-mode: difference;
+  will-change: transform, width, height;
 }
-.cursor-ring {
-  position: fixed;
-  width: 36px; height: 36px;
-  border: 1.5px solid rgba(0,212,255,.4);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: width .35s var(--ease-out), height .35s var(--ease-out),
-              border-color .3s, background .3s;
-}
-.cursor-dot.hovering  { transform: translate(-50%,-50%) scale(0); }
-.cursor-ring.hovering {
-  width: 46px;
-  height: 46px;
-  border-color: var(--accent);
-  background: rgba(0,212,255,.05);
+.cursor-dot.hovering {
+  width: 52px;
+  height: 52px;
 }
 
 /* Restore normal cursor on inputs so user can type */
@@ -1150,7 +1136,7 @@ input, textarea, [contenteditable] {
 ═══════════════════════════════════════════════════ */
 
 /* CURSOR TRAIL */
-.trail-dot{position:fixed;border-radius:50%;pointer-events:none;z-index:9997;background:var(--accent);mix-blend-mode:screen;will-change:transform,opacity}
+
 
 /* CURSOR-FOLLOWING SPOTLIGHT GLOW */
 .glow-border {

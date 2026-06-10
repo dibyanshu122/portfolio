@@ -75,41 +75,23 @@ const $$ = s => document.querySelectorAll(s);
    2. CUSTOM CURSOR
 ═══════════════════════════════════════════════════ */
 (function initCursor() {
-  const dot  = $('#cursorDot');
-  const ring = $('#cursorRing');
-  if (!dot || !ring) return;
+  const dot = $('#cursorDot');
+  if (!dot) return;
 
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
+  // Ultra-Premium Difference Blend Cursor (Instant tracking, zero lag)
   document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.left = mx + 'px';
-    dot.style.top  = my + 'px';
+    dot.style.left = e.clientX + 'px';
+    dot.style.top  = e.clientY + 'px';
   }, { passive: true });
 
-  (function lagRing() {
-    rx += (mx - rx) * 0.11;
-    ry += (my - ry) * 0.11;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(lagRing);
-  })();
-
-  // Only grow cursor on actual interactive elements — NOT on cards
-  const hoverSel = 'a, button, .float-btn, .btn--primary, .btn--ghost, .nav__cta, .project-card__link';
-  // Tiny ring on inputs — don't grow
+  const hoverSel = 'a, button, .float-btn, .btn--primary, .btn--ghost, .nav__cta, .project-card__link, .ai-chip, .cursor-hover';
   const inputSel = 'input, textarea';
 
   document.addEventListener('mouseover', e => {
     if (e.target.closest(inputSel)) {
-      // On input fields — shrink cursor dot, keep ring small
-      dot.classList.remove('hovering');
-      ring.classList.remove('hovering');
-      dot.style.opacity = '0';
+      dot.style.opacity = '0'; // Hide on input to show text cursor
     } else if (e.target.closest(hoverSel)) {
-      dot.classList.add('hovering');
-      ring.classList.add('hovering');
-      dot.style.opacity = '1';
+      dot.classList.add('hovering'); // Scale up over buttons
     }
   });
   document.addEventListener('mouseout', e => {
@@ -117,7 +99,6 @@ const $$ = s => document.querySelectorAll(s);
       dot.style.opacity = '1';
     } else if (e.target.closest(hoverSel)) {
       dot.classList.remove('hovering');
-      ring.classList.remove('hovering');
     }
   });
 })();
@@ -388,9 +369,9 @@ function startCounters() {
   }, { passive: true });
 })();
 
-/* ═══════════════════════════════════════════════════
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ 
    13. THREE.JS — HERO 3D FLOATING OBJECT (Torus Knot)
-═══════════════════════════════════════════════════ */
+═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  */
 (function initHero3D() {
   if (typeof THREE === 'undefined') return;
   const canvas = $('#heroCanvas');
@@ -499,36 +480,7 @@ function startCounters() {
 /* ═══════════════════════════════════════════════════
    15. CURSOR TRAIL
 ═══════════════════════════════════════════════════ */
-(function initCursorTrail() {
-  const count = 18;
-  const dots  = Array.from({ length: count }, (_, i) => {
-    const d    = document.createElement('div');
-    d.className = 'trail-dot';
-    const size  = Math.max(8 - i * 0.38, 2);
-    d.style.cssText = `width:${size}px;height:${size}px;opacity:0`;
-    document.body.appendChild(d);
-    return { el: d, x: -200, y: -200 };
-  });
-
-  let mx = -200, my = -200;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
-
-  (function loop() {
-    let lx = mx, ly = my;
-    dots.forEach((dot, i) => {
-      const f = Math.max(0.28 - i * 0.013, 0.04);
-      dot.x  += (lx - dot.x) * f;
-      dot.y  += (ly - dot.y) * f;
-      const s = 1 - i / count;
-      dot.el.style.left      = dot.x + 'px';
-      dot.el.style.top       = dot.y + 'px';
-      dot.el.style.opacity   = (s * 0.5).toString();
-      dot.el.style.transform = `translate(-50%,-50%) scale(${s})`;
-      lx = dot.x; ly = dot.y;
-    });
-    requestAnimationFrame(loop);
-  })();
-})();
+/* 15. CURSOR TRAIL - Removed */
 
 /* ═══════════════════════════════════════════════════
    16. 3D SKILL SPHERE
