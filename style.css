@@ -118,7 +118,20 @@ body {
               border-color .3s, background .3s;
 }
 .cursor-dot.hovering  { transform: translate(-50%,-50%) scale(0); }
-.cursor-ring.hovering { width: 64px; height: 64px; border-color: var(--accent); background: rgba(0,212,255,.04); }
+.cursor-ring.hovering {
+  width: 46px;
+  height: 46px;
+  border-color: var(--accent);
+  background: rgba(0,212,255,.05);
+}
+
+/* Restore normal cursor on inputs so user can type */
+input, textarea, [contenteditable] {
+  cursor: text !important;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 10;
+}
 
 /* ─── CLICK PARTICLES ────────────────────────────────────────── */
 .particle {

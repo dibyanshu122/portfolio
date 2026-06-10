@@ -95,15 +95,27 @@ const $$ = s => document.querySelectorAll(s);
     requestAnimationFrame(lagRing);
   })();
 
-  const hoverSel = 'a,button,.card,.float-btn,input,.btn--primary,.btn--ghost,.marquee-item';
+  // Only grow cursor on actual interactive elements — NOT on cards
+  const hoverSel = 'a, button, .float-btn, .btn--primary, .btn--ghost, .nav__cta, .project-card__link';
+  // Tiny ring on inputs — don't grow
+  const inputSel = 'input, textarea';
+
   document.addEventListener('mouseover', e => {
-    if (e.target.closest(hoverSel)) {
+    if (e.target.closest(inputSel)) {
+      // On input fields — shrink cursor dot, keep ring small
+      dot.classList.remove('hovering');
+      ring.classList.remove('hovering');
+      dot.style.opacity = '0';
+    } else if (e.target.closest(hoverSel)) {
       dot.classList.add('hovering');
       ring.classList.add('hovering');
+      dot.style.opacity = '1';
     }
   });
   document.addEventListener('mouseout', e => {
-    if (e.target.closest(hoverSel)) {
+    if (e.target.closest(inputSel)) {
+      dot.style.opacity = '1';
+    } else if (e.target.closest(hoverSel)) {
       dot.classList.remove('hovering');
       ring.classList.remove('hovering');
     }
