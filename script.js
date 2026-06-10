@@ -655,3 +655,236 @@ Answer in under 100 words, friendly and professional.`;
   btn.addEventListener('click', send);
   input.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
 })();
+
+/* ═══════════════════════════════════════════════════
+   15. CURSOR TRAIL
+═══════════════════════════════════════════════════ */
+(function initCursorTrail() {
+  const count = 18;
+  const dots  = Array.from({ length: count }, (_, i) => {
+    const d    = document.createElement('div');
+    d.className = 'trail-dot';
+    const size  = Math.max(8 - i * 0.38, 2);
+    d.style.cssText = `width:${size}px;height:${size}px;opacity:0`;
+    document.body.appendChild(d);
+    return { el: d, x: -200, y: -200 };
+  });
+
+  let mx = -200, my = -200;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+
+  (function loop() {
+    let lx = mx, ly = my;
+    dots.forEach((dot, i) => {
+      const f = Math.max(0.28 - i * 0.013, 0.04);
+      dot.x  += (lx - dot.x) * f;
+      dot.y  += (ly - dot.y) * f;
+      const s = 1 - i / count;
+      dot.el.style.left      = dot.x + 'px';
+      dot.el.style.top       = dot.y + 'px';
+      dot.el.style.opacity   = (s * 0.5).toString();
+      dot.el.style.transform = `translate(-50%,-50%) scale(${s})`;
+      lx = dot.x; ly = dot.y;
+    });
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ═══════════════════════════════════════════════════
+   16. 3D SKILL SPHERE
+═══════════════════════════════════════════════════ */
+(function initSkillSphere() {
+  const inner = document.getElementById('sphereInner');
+  if (!inner) return;
+
+  const techs = [
+    'FastAPI','Python','Next.js 15','React','TypeScript',
+    'LangChain','LangGraph','RAG','Groq','Gemini',
+    'PostgreSQL','MongoDB','Redis','Pinecone','MySQL',
+    'Node.js','Django','Celery','AWS EC2','Docker',
+    'Supabase','Tailwind'
+  ];
+  const n = techs.length;
+  const R = 138;
+
+  techs.forEach((tech, i) => {
+    const phi   = Math.acos(1 - 2 * (i + .5) / n);
+    const theta = Math.PI * (1 + Math.sqrt(5)) * i;
+    const yRot  = theta * (180 / Math.PI);
+    const xRot  = -(phi - Math.PI / 2) * (180 / Math.PI);
+
+    const tag = document.createElement('span');
+    tag.className   = 'sphere-tag';
+    tag.textContent = tech;
+    tag.style.transform = `rotateY(${yRot}deg) rotateX(${xRot}deg) translateZ(${R}px) translateX(-50%) translateY(-50%)`;
+    inner.appendChild(tag);
+  });
+})();
+
+/* ═══════════════════════════════════════════════════
+   17. PROJECT MODAL
+═══════════════════════════════════════════════════ */
+(function initProjectModal() {
+  const overlay  = document.getElementById('projectModal');
+  const closeBtn = document.getElementById('modalClose');
+  const modalBody = document.getElementById('modalBody');
+  if (!overlay || !closeBtn || !modalBody) return;
+
+  const PROJECTS = {
+    b9: {
+      live: true,
+      icon: 'fab fa-whatsapp',
+      title: 'B9 Automation — WhatsApp AI SaaS',
+      desc: `India's first WhatsApp AI Agency Platform with a visual drag-and-drop flow builder (40+ canvas nodes). Built a complete production SaaS from scratch.
+
+Key achievements:
+• 86+ FastAPI REST endpoints & 62+ PostgreSQL models
+• Multi-tenant JWT + Fernet AES-128-CBC auth — 100K+ req/day on AWS EC2
+• Autonomous agent builder: designs, deploys & self-corrects flows — zero human intervention after launch
+• RAG pipeline (Groq Llama 3.3 + Gemini 2.0 Flash failover) — sub-1s response across 1,000+ concurrent sessions
+• Agentic loop: AI-generated templates, lead scoring, next-best-action, prompt safety guardrails
+• Real-time: SSE typing indicators, Celery + Redis async campaign processor
+• 9 live integrations: Shopify, IndiaMART, Facebook Ads, Razorpay…
+• Tiered SaaS (Starter / Pro / Enterprise) — 100+ businesses, 95%+ retention`,
+      metrics: ['100+ Businesses','86+ API Endpoints','95%+ Retention','1,000+ Concurrent Sessions','100K+ Requests/Day','Sub-1s Response'],
+      tags: ['Next.js 15','FastAPI','Python','PostgreSQL','LangChain','LangGraph','Groq Llama 3.3','Gemini 2.0','RAG','Celery','Redis','AWS EC2','Razorpay'],
+      liveUrl: 'https://b9-automation-frontend.vercel.app',
+      ghUrl:   'https://github.com/dibyanshu122',
+    },
+    nexus: {
+      live: false,
+      icon: 'fas fa-brain',
+      title: 'Nexus AI Insight Engine',
+      desc: `A multi-agent AI research platform with a 3-tier autonomous pipeline powered by LangGraph.
+
+Architecture:
+• Researcher Agent: Searches the web via Tavily AI for real-time data
+• Critic Agent: Validates facts and flags inaccuracies
+• Writer Agent: Synthesises a structured, cited research report
+• LangGraph state machine manages handoffs and quality loops
+• Pinecone Vector DB for persistent semantic memory across sessions
+• Gemini 1.5 Flash as the primary LLM with RAG retrieval
+• Next.js frontend with real-time streaming output via SSE`,
+      metrics: ['3-Tier Agent Pipeline','Real-time Web Search','Persistent RAG Memory','Structured Report Output'],
+      tags: ['Next.js','FastAPI','LangGraph','LangChain','Gemini 1.5','Pinecone','Tavily AI','SSE Streaming'],
+      liveUrl: null,
+      ghUrl:   'https://github.com/dibyanshu122',
+    },
+    crm: {
+      live: false,
+      icon: 'fas fa-shield-halved',
+      title: 'Full-Stack Auth & CRM Portal',
+      desc: `Enterprise-grade CRM with rock-solid security and real-time payment infrastructure.
+
+Security features:
+• Google OAuth 2.0 with 256-bit state parameter CSRF protection
+• HTTP-only, Secure, SameSite=Strict cookies — zero XSS surface
+• RBAC with 4 roles: Admin / Manager / User / Viewer
+• Audit logging for all sensitive operations
+
+Payments & onboarding:
+• Razorpay + Rozgar Pay with webhook-driven retry logic
+• 99.8% transaction success across 10K+ daily active users
+• Nodemailer onboarding flow with branded email templates
+• Analytics dashboard with Recharts — zero security incidents`,
+      metrics: ['10K+ Daily Active Users','99.8% Payment Success','4-Level RBAC','Zero Security Incidents'],
+      tags: ['Next.js','Node.js','PostgreSQL','Google OAuth 2.0','Razorpay','Nodemailer','Recharts','RBAC'],
+      liveUrl: null,
+      ghUrl:   'https://github.com/dibyanshu122',
+    },
+    health: {
+      live: false,
+      icon: 'fas fa-heartbeat',
+      title: 'Healthcare Microservices Backend',
+      desc: `Scalable, HIPAA-compliant microservices architecture serving a healthcare platform.
+
+Infrastructure:
+• Django + Node.js microservices — 50K+ MAU, 100K+ daily API requests
+• 99.5% uptime with AWS EC2 auto-scaling and load balancing
+• AES-256 encryption for all PHI data at rest and in transit
+• RBAC with audit logging — zero data breach incidents over 2 years
+• HIPAA compliance throughout the stack
+
+Database optimisation:
+• Led MySQL → MongoDB migration
+• Cut query time from 500ms to 350ms (30% improvement)
+• Indexed hot queries and refactored N+1 patterns`,
+      metrics: ['50K+ Monthly Active Users','100K+ Daily API Requests','99.5% Uptime','30% Faster Queries','Zero Data Breaches'],
+      tags: ['Django','Node.js','MongoDB','MySQL','AWS EC2','AWS RDS','AES-256','HIPAA','RBAC'],
+      liveUrl: null,
+      ghUrl:   'https://github.com/dibyanshu122',
+    },
+  };
+
+  function buildModal(data) {
+    let html = '';
+    if (data.live) {
+      html += `<div class="modal-live-badge"><span></span> LIVE PROJECT</div>`;
+    }
+    html += `<div class="modal-title">${data.title}</div>`;
+    html += `<p class="modal-desc">${data.desc}</p>`;
+
+    html += `<div class="modal-section-label">Impact Metrics</div>`;
+    html += `<div class="modal-metrics">` +
+      data.metrics.map(m => `<span class="modal-metric">${m}</span>`).join('') +
+    `</div>`;
+
+    html += `<div class="modal-section-label">Tech Stack</div>`;
+    html += `<div class="modal-tags">` +
+      data.tags.map(t => `<span class="tag" style="color:var(--text-secondary)">${t}</span>`).join('') +
+    `</div>`;
+
+    html += `<div class="modal-links">`;
+    if (data.liveUrl) {
+      html += `<a href="${data.liveUrl}" target="_blank" rel="noopener" class="modal-link modal-link--primary"><i class="fas fa-external-link-alt"></i> Live Demo</a>`;
+    }
+    if (data.ghUrl) {
+      html += `<a href="${data.ghUrl}" target="_blank" rel="noopener" class="modal-link modal-link--ghost"><i class="fab fa-github"></i> GitHub</a>`;
+    }
+    html += `</div>`;
+    return html;
+  }
+
+  // Open modal on project card click
+  document.querySelectorAll('[data-project]').forEach(card => {
+    card.addEventListener('click', () => {
+      const key  = card.dataset.project;
+      const data = PROJECTS[key];
+      if (!data) return;
+
+      modalBody.innerHTML    = buildModal(data);
+      overlay.classList.add('open');
+      overlay.removeAttribute('aria-hidden');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    });
+  });
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+})();
+
+/* ═══════════════════════════════════════════════════
+   18. DRAG-TO-SCROLL (Projects)
+═══════════════════════════════════════════════════ */
+(function initDragScroll() {
+  const el = document.querySelector('.projects-hscroll');
+  if (!el) return;
+  let isDown = false, startX, scrollLeft;
+  el.addEventListener('mousedown',  e => { isDown = true; startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; });
+  el.addEventListener('mouseleave', () => { isDown = false; });
+  el.addEventListener('mouseup',    () => { isDown = false; });
+  el.addEventListener('mousemove',  e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - el.offsetLeft;
+    el.scrollLeft = scrollLeft - (x - startX) * 1.5;
+  });
+})();

@@ -1142,3 +1142,75 @@ input, textarea, [contenteditable] {
   .hero__actions { flex-direction: column; align-items: flex-start; }
   .float-actions { right: 12px; bottom: 18px; }
 }
+
+/* ═══════════════════════════════════════════════════
+   v5.0 ULTRA PREMIUM ADDITIONS
+   Cursor Trail · Flip Cards · Sphere · Modal ·
+   Gradient Border · Horizontal Scroll
+═══════════════════════════════════════════════════ */
+
+/* CURSOR TRAIL */
+.trail-dot{position:fixed;border-radius:50%;pointer-events:none;z-index:9997;background:var(--accent);mix-blend-mode:screen;will-change:transform,opacity}
+
+/* ANIMATED GRADIENT BORDER */
+@property --grad-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
+.glow-border{position:relative;isolation:isolate}
+.glow-border::after{content:'';position:absolute;inset:-1px;border-radius:inherit;background:conic-gradient(from var(--grad-angle),transparent 0%,transparent 60%,#00d4ff 75%,#7c3aed 88%,transparent 100%);z-index:-1;opacity:0;transition:opacity .4s;animation:gradBorderRotate 4s linear infinite}
+.glow-border:hover::after{opacity:1}
+@keyframes gradBorderRotate{to{--grad-angle:360deg}}
+
+/* 3D FLIP CARDS */
+.flip-wrap{perspective:1000px;height:210px;cursor:pointer}
+.flip-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .7s cubic-bezier(0.16,1,0.3,1);will-change:transform}
+.flip-wrap:hover .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--card-radius);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.75rem 1.5rem;gap:.6rem;border:1px solid var(--glass-border)}
+.flip-front{background:var(--glass-bg);backdrop-filter:var(--glass-blur)}
+.flip-back{background:linear-gradient(135deg,rgba(0,212,255,.08),rgba(124,58,237,.08));border-color:rgba(0,212,255,.25);transform:rotateY(180deg);backdrop-filter:var(--glass-blur)}
+.flip-icon{width:62px;height:62px;border-radius:16px;background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.18);display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--accent);transition:all .4s;flex-shrink:0}
+.flip-wrap:hover .flip-icon{box-shadow:0 0 28px rgba(0,212,255,.18);border-color:rgba(0,212,255,.4)}
+.flip-front h3,.flip-back h3{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--text-primary);margin:0}
+.flip-back p{font-size:.82rem;color:var(--text-secondary);line-height:1.7;margin:0}
+.flip-hint{font-size:.67rem;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;animation:hintPulse 2s ease-in-out infinite}
+@keyframes hintPulse{0%,100%{opacity:.4}50%{opacity:1}}
+.cert-icon{width:72px;height:72px;border-radius:50%;font-size:2rem;background-image:linear-gradient(#04080f,#04080f),linear-gradient(135deg,#00d4ff,#7c3aed);background-origin:border-box;background-clip:padding-box,border-box;border:2px solid transparent;box-shadow:0 0 24px rgba(0,212,255,.18)}
+.cert-issuer{font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:.5px}
+
+/* 3D SKILL SPHERE */
+.sphere-outer{width:340px;height:340px;margin:0 auto 4rem;perspective:800px}
+.sphere-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:sphereRotateY 22s linear infinite}
+@keyframes sphereRotateY{from{transform:rotateY(0deg) rotateX(12deg)}to{transform:rotateY(360deg) rotateX(12deg)}}
+.sphere-tag{position:absolute;top:50%;left:50%;transform-origin:0 0;font-family:var(--font-mono);font-size:.72rem;font-weight:600;color:var(--accent);padding:.22rem .7rem;border-radius:50px;background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.2);white-space:nowrap;cursor:default;user-select:none;letter-spacing:.5px;transition:background .3s,border-color .3s,color .3s;backface-visibility:visible}
+.sphere-tag:hover{background:rgba(0,212,255,.22);border-color:var(--accent);color:#fff}
+
+/* HORIZONTAL SCROLL PROJECTS */
+.projects-hscroll{display:flex;gap:1.5rem;overflow-x:auto;padding:1rem .5rem 2rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--accent) rgba(255,255,255,.04);cursor:grab}
+.projects-hscroll:active{cursor:grabbing}
+.projects-hscroll::-webkit-scrollbar{height:4px}
+.projects-hscroll::-webkit-scrollbar-thumb{background:linear-gradient(135deg,#00d4ff,#7c3aed);border-radius:2px}
+.projects-hscroll .project-card{flex:0 0 clamp(280px,38vw,400px);scroll-snap-align:start;min-height:340px;cursor:pointer;display:flex;flex-direction:column}
+.project-card__cta{margin-top:auto;padding-top:1rem;font-size:.78rem;color:var(--accent);font-family:var(--font-mono);letter-spacing:.5px;opacity:.6;transition:opacity .2s,transform .2s;display:flex;align-items:center;gap:.4rem}
+.project-card:hover .project-card__cta{opacity:1;transform:translateX(4px)}
+
+/* GLASSMORPHISM MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:50000;background:rgba(4,8,18,.88);backdrop-filter:blur(28px) saturate(180%);display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity .4s cubic-bezier(0.16,1,0.3,1)}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-content{position:relative;width:100%;max-width:740px;max-height:88vh;overflow-y:auto;background:rgba(6,12,28,.97);border:1px solid rgba(0,212,255,.28);border-radius:24px;padding:3rem;box-shadow:0 0 80px rgba(0,212,255,.12),0 40px 80px rgba(0,0,0,.6);transform:translateY(36px) scale(.96);transition:transform .45s cubic-bezier(0.16,1,0.3,1);scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
+.modal-overlay.open .modal-content{transform:translateY(0) scale(1)}
+.modal-content::-webkit-scrollbar{width:3px}
+.modal-content::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
+.modal-close{position:absolute;top:1.5rem;right:1.5rem;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#94a3b8;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s}
+.modal-close:hover{background:rgba(255,80,80,.15);border-color:rgba(255,80,80,.4);color:#ff5050;transform:rotate(90deg)}
+.modal-live-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.22rem .8rem;border-radius:50px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.28);color:#22c55e;font-size:.7rem;font-weight:700;letter-spacing:1px;margin-bottom:1rem}
+.modal-live-badge span{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:blink 1.5s infinite}
+.modal-title{font-family:var(--font-display);font-size:clamp(1.4rem,3vw,1.9rem);font-weight:700;color:#f1f5f9;margin-bottom:1rem;line-height:1.2}
+.modal-desc{font-size:.9rem;color:#94a3b8;line-height:1.85;white-space:pre-line;margin-bottom:1.75rem}
+.modal-section-label{font-size:.7rem;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:.75rem;font-family:var(--font-mono)}
+.modal-metrics{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.75rem}
+.modal-metric{padding:.35rem .9rem;border-radius:50px;background:rgba(0,212,255,.07);border:1px solid rgba(0,212,255,.2);font-size:.76rem;font-weight:600;color:var(--accent);font-family:var(--font-mono)}
+.modal-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.75rem}
+.modal-links{display:flex;gap:1rem;flex-wrap:wrap}
+.modal-link{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.5rem;border-radius:50px;text-decoration:none;font-size:.86rem;font-weight:700;transition:all .25s cubic-bezier(0.16,1,0.3,1)}
+.modal-link--primary{background:linear-gradient(135deg,#00d4ff,#7c3aed);color:#000}
+.modal-link--primary:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,212,255,.4)}
+.modal-link--ghost{border:1px solid rgba(255,255,255,.08);color:#f1f5f9;background:rgba(255,255,255,.03)}
+.modal-link--ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px)}

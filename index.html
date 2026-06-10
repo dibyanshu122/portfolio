@@ -6,49 +6,34 @@
   <meta name="description" content="Dibyanshu — Full Stack & AI Developer, SaaS Founder. Built B9 Automation: India's first WhatsApp AI Agency Platform." />
   <meta name="keywords" content="Dibyanshu, Full Stack Developer, AI Developer, SaaS Founder, B9 Automation, LangChain, FastAPI, Next.js, Agentic AI" />
   <meta name="author" content="Dibyanshu" />
-  <meta property="og:title" content="Dibyanshu | Full Stack & AI Developer" />
-  <meta property="og:description" content="Founder of B9 Automation — India's first WhatsApp AI Agency Platform." />
-  <meta property="og:type" content="website" />
   <title>Dibyanshu | Full Stack & AI Developer · SaaS Founder</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════
-     EPIC PRELOADER
-═══════════════════════════════════════════════════ -->
+<!-- PRELOADER -->
 <div id="preloader" aria-label="Loading" role="status">
   <canvas id="preloaderCanvas"></canvas>
-
   <div class="preloader__center">
     <div class="preloader__ring preloader__ring--outer"></div>
     <div class="preloader__ring preloader__ring--mid"></div>
     <div class="preloader__ring preloader__ring--inner"></div>
-    <div class="preloader__logo">
-      <span class="preloader__logo-d">D</span>
-    </div>
+    <div class="preloader__logo"><span class="preloader__logo-d">D</span></div>
   </div>
-
   <div class="preloader__bottom">
-    <div class="preloader__bar-wrap">
-      <div class="preloader__bar" id="preloaderBar"></div>
-    </div>
+    <div class="preloader__bar-wrap"><div class="preloader__bar" id="preloaderBar"></div></div>
     <div class="preloader__percent" id="preloaderPercent">0%</div>
     <div class="preloader__label">INITIALIZING SYSTEM</div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════
-     3D GALAXY CANVAS
-═══════════════════════════════════════════════════ -->
+<!-- BG CANVAS -->
 <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
 <!-- SCROLL PROGRESS -->
@@ -56,16 +41,14 @@
   <div class="scroll-progress-bar" id="scrollBar"></div>
 </div>
 
-<!-- CUSTOM CURSOR -->
+<!-- CURSOR -->
 <div class="cursor-dot"  id="cursorDot"  aria-hidden="true"></div>
 <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
-<!-- NOISE OVERLAY -->
+<!-- NOISE -->
 <div class="noise-overlay" aria-hidden="true"></div>
 
-<!-- ═══════════════════════════════════════════════════
-     NAVIGATION
-═══════════════════════════════════════════════════ -->
+<!-- ═══ NAV ═══ -->
 <header class="nav" id="navbar" role="banner">
   <a href="#home" class="nav__logo" aria-label="Dibyanshu">DIBYAN<span>SHU</span></a>
   <nav aria-label="Primary navigation">
@@ -83,42 +66,32 @@
   </a>
 </header>
 
-<!-- ═══════════════════════════════════════════════════
-     HERO
-═══════════════════════════════════════════════════ -->
 <main>
-<section class="hero" id="home" aria-labelledby="hero-title">
 
-  <!-- Aura blobs -->
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="home" aria-labelledby="hero-title">
   <div class="hero__aura" aria-hidden="true">
     <div class="hero__aura-blob hero__aura-blob--1"></div>
     <div class="hero__aura-blob hero__aura-blob--2"></div>
     <div class="hero__aura-blob hero__aura-blob--3"></div>
   </div>
-
-  <!-- 3D Hero Object -->
   <canvas id="heroCanvas" class="hero__3d-canvas" aria-hidden="true"></canvas>
-
-  <!-- Left Content -->
   <div class="hero__content">
     <span class="hero__badge">
       <span class="hero__badge-dot"></span>
       Available for freelance &amp; full-time
     </span>
-
     <h1 class="hero__title" id="hero-title">
       <span class="hero__title-line" data-text="Full Stack &amp; AI">Full Stack &amp; AI</span>
       <span class="hero__title-line hero__title-line--accent">
         <span id="typewriter" aria-live="polite"></span>
       </span>
     </h1>
-
     <p class="hero__subtitle">
       Hi, I'm <strong>Dibyanshu</strong> — Founder of <strong>B9 Automation</strong>,
       India's first WhatsApp AI Agency Platform. I build autonomous AI agents,
       RAG pipelines, and production-grade SaaS systems serving 100+ businesses.
     </p>
-
     <div class="hero__actions">
       <a href="#projects" class="btn--primary magnetic" id="btn-projects">
         <i class="fas fa-rocket" aria-hidden="true"></i> View Projects
@@ -127,43 +100,35 @@
         <i class="fas fa-external-link-alt" aria-hidden="true"></i> B9 Automation
       </a>
     </div>
-
-    <!-- Stats -->
     <div class="hero__stats">
       <div class="hero__stat">
-        <div class="hero__stat-num" data-target="100">0</div>
+        <div class="hero__stat-num odometer" data-target="100">0</div>
         <div class="hero__stat-label">Businesses+</div>
       </div>
       <div class="hero__stat-divider"></div>
       <div class="hero__stat">
-        <div class="hero__stat-num" data-target="86">0</div>
+        <div class="hero__stat-num odometer" data-target="86">0</div>
         <div class="hero__stat-label">API Endpoints+</div>
       </div>
       <div class="hero__stat-divider"></div>
       <div class="hero__stat">
-        <div class="hero__stat-num" data-target="95">0</div>
+        <div class="hero__stat-num odometer" data-target="95">0</div>
         <div class="hero__stat-label">Retention %</div>
       </div>
       <div class="hero__stat-divider"></div>
       <div class="hero__stat">
-        <div class="hero__stat-num" data-target="2">0</div>
+        <div class="hero__stat-num odometer" data-target="2">0</div>
         <div class="hero__stat-label">Yrs Experience+</div>
       </div>
     </div>
   </div>
-
-  <!-- Scroll Hint -->
   <div class="hero__scroll-hint">
-    <div class="hero__scroll-mouse">
-      <div class="hero__scroll-wheel"></div>
-    </div>
+    <div class="hero__scroll-mouse"><div class="hero__scroll-wheel"></div></div>
     <span>Scroll to explore</span>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════
-     TECH MARQUEE
-═══════════════════════════════════════════════════ -->
+<!-- MARQUEE -->
 <div class="marquee-wrapper" aria-hidden="true">
   <div class="marquee-track">
     <span class="marquee-item"><i class="fab fa-python"></i>Python</span>
@@ -180,9 +145,7 @@
     <span class="marquee-item"><i class="fab fa-docker"></i>Docker</span>
     <span class="marquee-item"><i class="fas fa-shield-alt"></i>RAG Pipelines</span>
     <span class="marquee-item"><i class="fab fa-whatsapp"></i>WhatsApp API</span>
-    <span class="marquee-item"><i class="fab fa-git-alt"></i>Git / CI-CD</span>
     <span class="marquee-item"><i class="fas fa-microchip"></i>Groq · Gemini</span>
-    <!-- duplicate -->
     <span class="marquee-item"><i class="fab fa-python"></i>Python</span>
     <span class="marquee-item"><i class="fas fa-bolt"></i>FastAPI</span>
     <span class="marquee-item"><i class="fab fa-react"></i>Next.js 15</span>
@@ -197,75 +160,150 @@
     <span class="marquee-item"><i class="fab fa-docker"></i>Docker</span>
     <span class="marquee-item"><i class="fas fa-shield-alt"></i>RAG Pipelines</span>
     <span class="marquee-item"><i class="fab fa-whatsapp"></i>WhatsApp API</span>
-    <span class="marquee-item"><i class="fab fa-git-alt"></i>Git / CI-CD</span>
     <span class="marquee-item"><i class="fas fa-microchip"></i>Groq · Gemini</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════
-     SKILLS
-═══════════════════════════════════════════════════ -->
+<!-- ═══ SKILLS ═══ -->
 <section class="section" id="skills" aria-labelledby="skills-title">
   <div class="section__header reveal">
     <span class="section__tag">What I work with</span>
     <h2 class="section__title scramble" id="skills-title" data-text="Technical Stack">Technical Stack</h2>
     <div class="section__line"></div>
   </div>
+
+  <!-- 3D Skill Sphere -->
+  <div class="sphere-outer reveal">
+    <div class="sphere-inner" id="sphereInner"></div>
+  </div>
+
+  <!-- Flip Cards Grid -->
   <div class="grid grid--4">
-    <article class="card skill-card reveal js-tilt" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
-      <div class="card__accent-bar"></div>
-      <div class="skill-card__icon"><i class="fas fa-bolt"></i></div>
-      <h3>Backend</h3>
-      <p>FastAPI · Python · Django · Node.js · SQLAlchemy · Alembic · Celery · Pydantic · Pytest</p>
-    </article>
-    <article class="card skill-card reveal js-tilt" style="--d:0.1s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
-      <div class="card__accent-bar"></div>
-      <div class="skill-card__icon"><i class="fab fa-react"></i></div>
-      <h3>Frontend</h3>
-      <p>Next.js 15 · React · TypeScript · Tailwind CSS · Zustand · Recharts · Framer Motion</p>
-    </article>
-    <article class="card skill-card reveal js-tilt" style="--d:0.2s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
-      <div class="card__accent-bar"></div>
-      <div class="skill-card__icon"><i class="fas fa-brain"></i></div>
-      <h3>Agentic AI</h3>
-      <p>LangChain · LangGraph · Multi-Agent Systems · Self-Correcting Agents · Prompt Safety</p>
-    </article>
-    <article class="card skill-card reveal js-tilt" style="--d:0.3s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
-      <div class="card__accent-bar"></div>
-      <div class="skill-card__icon"><i class="fas fa-microchip"></i></div>
-      <h3>AI / LLM</h3>
-      <p>Groq Llama 3.3 · Gemini 2.0 Flash · Claude AI · RAG Pipelines · Vector Embeddings</p>
-    </article>
-    <article class="card skill-card reveal js-tilt" style="--d:0.4s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
-      <div class="card__accent-bar"></div>
-      <div class="skill-card__icon"><i class="fas fa-database"></i></div>
-      <h3>Databases</h3>
-      <p>PostgreSQL · Supabase · MongoDB · MySQL · Redis · Pinecone Vector DB</p>
-    </article>
-    <article class="card skill-card reveal js-tilt" style="--d:0.5s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
-      <div class="card__accent-bar"></div>
-      <div class="skill-card__icon"><i class="fab fa-aws"></i></div>
-      <h3>Cloud / DevOps</h3>
-      <p>AWS EC2/S3/RDS · Vercel · Render · Docker · GitHub Actions · CI/CD</p>
-    </article>
-    <article class="card skill-card reveal js-tilt" style="--d:0.6s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
-      <div class="card__accent-bar"></div>
-      <div class="skill-card__icon"><i class="fab fa-whatsapp"></i></div>
-      <h3>Integrations</h3>
-      <p>Meta WhatsApp Cloud API · Razorpay · Shopify · IndiaMART · Facebook Ads · Telegram</p>
-    </article>
-    <article class="card skill-card reveal js-tilt" style="--d:0.7s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
-      <div class="card__accent-bar"></div>
-      <div class="skill-card__icon"><i class="fas fa-shield-halved"></i></div>
-      <h3>Security</h3>
-      <p>JWT · Fernet AES-128-CBC · OAuth 2.0 · RBAC · HIPAA · AES-256 Encryption</p>
-    </article>
+
+    <div class="flip-wrap reveal" style="--d:0s">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-icon"><i class="fas fa-bolt"></i></div>
+          <h3>Backend</h3>
+          <span class="flip-hint">Hover to explore</span>
+        </div>
+        <div class="flip-back">
+          <div class="flip-icon"><i class="fas fa-bolt"></i></div>
+          <h3>Backend</h3>
+          <p>FastAPI · Python · Django · Node.js · SQLAlchemy · Alembic · Celery · Pydantic · Pytest</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap reveal" style="--d:0.08s">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-icon"><i class="fab fa-react"></i></div>
+          <h3>Frontend</h3>
+          <span class="flip-hint">Hover to explore</span>
+        </div>
+        <div class="flip-back">
+          <div class="flip-icon"><i class="fab fa-react"></i></div>
+          <h3>Frontend</h3>
+          <p>Next.js 15 · React · TypeScript · Tailwind CSS · Zustand · Recharts · Framer Motion</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap reveal" style="--d:0.16s">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-icon"><i class="fas fa-brain"></i></div>
+          <h3>Agentic AI</h3>
+          <span class="flip-hint">Hover to explore</span>
+        </div>
+        <div class="flip-back">
+          <div class="flip-icon"><i class="fas fa-brain"></i></div>
+          <h3>Agentic AI</h3>
+          <p>LangChain · LangGraph · Multi-Agent Systems · Self-Correcting Agents · Prompt Safety</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap reveal" style="--d:0.24s">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-icon"><i class="fas fa-microchip"></i></div>
+          <h3>AI / LLM</h3>
+          <span class="flip-hint">Hover to explore</span>
+        </div>
+        <div class="flip-back">
+          <div class="flip-icon"><i class="fas fa-microchip"></i></div>
+          <h3>AI / LLM</h3>
+          <p>Groq Llama 3.3 · Gemini 2.0 Flash · Claude AI · RAG Pipelines · Vector Embeddings</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap reveal" style="--d:0.32s">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-icon"><i class="fas fa-database"></i></div>
+          <h3>Databases</h3>
+          <span class="flip-hint">Hover to explore</span>
+        </div>
+        <div class="flip-back">
+          <div class="flip-icon"><i class="fas fa-database"></i></div>
+          <h3>Databases</h3>
+          <p>PostgreSQL · Supabase · MongoDB · MySQL · Redis · Pinecone Vector DB</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap reveal" style="--d:0.40s">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-icon"><i class="fab fa-aws"></i></div>
+          <h3>Cloud / DevOps</h3>
+          <span class="flip-hint">Hover to explore</span>
+        </div>
+        <div class="flip-back">
+          <div class="flip-icon"><i class="fab fa-aws"></i></div>
+          <h3>Cloud / DevOps</h3>
+          <p>AWS EC2/S3/RDS · Vercel · Render · Docker · GitHub Actions · CI/CD Pipelines</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap reveal" style="--d:0.48s">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-icon"><i class="fab fa-whatsapp"></i></div>
+          <h3>Integrations</h3>
+          <span class="flip-hint">Hover to explore</span>
+        </div>
+        <div class="flip-back">
+          <div class="flip-icon"><i class="fab fa-whatsapp"></i></div>
+          <h3>Integrations</h3>
+          <p>Meta WhatsApp Cloud API · Razorpay · Shopify · IndiaMART · Facebook Ads · Telegram</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap reveal" style="--d:0.56s">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-icon"><i class="fas fa-shield-halved"></i></div>
+          <h3>Security</h3>
+          <span class="flip-hint">Hover to explore</span>
+        </div>
+        <div class="flip-back">
+          <div class="flip-icon"><i class="fas fa-shield-halved"></i></div>
+          <h3>Security</h3>
+          <p>JWT · Fernet AES-128-CBC · OAuth 2.0 · RBAC · HIPAA · AES-256 Encryption</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════
-     EXPERIENCE
-═══════════════════════════════════════════════════ -->
+<!-- ═══ EXPERIENCE ═══ -->
 <section class="section" id="experience" aria-labelledby="exp-title">
   <div class="section__header reveal">
     <span class="section__tag">Where I've built</span>
@@ -274,7 +312,7 @@
   </div>
   <div class="grid grid--2">
 
-    <article class="card exp-card reveal js-tilt" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+    <article class="card exp-card glow-border reveal js-tilt" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
       <div class="card__accent-bar"></div>
       <div class="exp-card__header">
         <div>
@@ -286,7 +324,7 @@
       <div class="exp-card__divider"></div>
       <ul class="exp-card__list">
         <li>Architected full production SaaS: 86+ FastAPI REST endpoints, 62+ PostgreSQL models, multi-tenant JWT + Fernet AES-128-CBC auth — handling 100K+ requests/day on AWS EC2</li>
-        <li>Built end-to-end Agentic AI system: autonomous agent builder that designs, deploys, and self-corrects WhatsApp flows — zero human intervention after launch</li>
+        <li>Built end-to-end Agentic AI: autonomous agent builder that designs, deploys, and self-corrects WhatsApp flows — zero human intervention after launch</li>
         <li>Engineered RAG pipeline (Groq Llama 3.3 + Gemini 2.0 Flash dynamic failover) — sub-1s response across 1,000+ concurrent sessions</li>
         <li>Designed agentic loop orchestration with AI-generated template builders, lead scoring engine, next-best-action suggestions, and prompt safety guardrails</li>
         <li>Built real-time infra: SSE typing indicators, Celery + Redis async campaign processor, 9 live integrations (Shopify, IndiaMART, Facebook Ads…)</li>
@@ -298,7 +336,7 @@
       </div>
     </article>
 
-    <article class="card exp-card reveal js-tilt" style="--d:0.15s" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+    <article class="card exp-card glow-border reveal js-tilt" style="--d:0.15s" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
       <div class="card__accent-bar"></div>
       <div class="exp-card__header">
         <div>
@@ -320,7 +358,7 @@
       </div>
     </article>
 
-    <article class="card exp-card reveal js-tilt" style="--d:0.3s" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+    <article class="card exp-card glow-border reveal js-tilt" style="--d:0.3s" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
       <div class="card__accent-bar"></div>
       <div class="exp-card__header">
         <div>
@@ -341,7 +379,7 @@
       </div>
     </article>
 
-    <article class="card exp-card reveal js-tilt" style="--d:0.45s" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+    <article class="card exp-card glow-border reveal js-tilt" style="--d:0.45s" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
       <div class="card__accent-bar"></div>
       <div class="exp-card__header">
         <div>
@@ -364,102 +402,100 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════
-     PROJECTS
-═══════════════════════════════════════════════════ -->
+<!-- ═══ PROJECTS ═══ -->
 <section class="section" id="projects" aria-labelledby="proj-title">
   <div class="section__header reveal">
     <span class="section__tag">What I've shipped</span>
     <h2 class="section__title scramble" id="proj-title" data-text="Featured Projects">Featured Projects</h2>
     <div class="section__line"></div>
+    <p style="color:var(--text-muted);font-size:.8rem;margin-top:1rem;letter-spacing:1px">
+      <i class="fas fa-hand-pointer" style="color:var(--accent)"></i> Click any card for full details
+    </p>
   </div>
-  <div class="grid grid--2">
 
-    <article class="card project-card reveal js-tilt" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.12" style="border-color:rgba(0,212,255,0.2)">
-      <div class="card__accent-bar"></div>
-      <div class="project-card__top">
-        <div class="project-card__icon"><i class="fab fa-whatsapp"></i></div>
-        <div class="project-card__links">
-          <a href="https://b9-automation-frontend.vercel.app" target="_blank" rel="noopener" class="project-card__link" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
-          <a href="https://github.com/dibyanshu122" target="_blank" rel="noopener" class="project-card__link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+  <!-- Horizontal scroll projects -->
+  <div class="projects-scroll-wrap">
+    <div class="projects-hscroll">
+
+      <article class="card project-card glow-border reveal" data-project="b9" style="border-color:rgba(0,212,255,0.2)">
+        <div class="card__accent-bar"></div>
+        <div class="project-card__top">
+          <div class="project-card__icon"><i class="fab fa-whatsapp"></i></div>
+          <div class="project-card__links">
+            <a href="https://b9-automation-frontend.vercel.app" target="_blank" rel="noopener" class="project-card__link" aria-label="Live Demo" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i></a>
+            <a href="https://github.com/dibyanshu122" target="_blank" rel="noopener" class="project-card__link" aria-label="GitHub" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
+          </div>
         </div>
-      </div>
-      <div class="project-card__live-badge"><span></span> LIVE · 100+ BUSINESSES</div>
-      <h3>B9 Automation — WhatsApp AI SaaS</h3>
-      <p>India's first WhatsApp AI Agency Platform. Visual drag-and-drop flow builder with 40+ canvas nodes. RAG over uploaded docs, agentic loop orchestration, AI-generated templates, lead scoring, and next-best-action engine.</p>
-      <div class="project-card__tags">
-        <span class="tag">Next.js 15</span><span class="tag">FastAPI</span><span class="tag">PostgreSQL</span>
-        <span class="tag">Groq Llama 3.3</span><span class="tag">Gemini 2.0</span><span class="tag">RAG</span>
-        <span class="tag">Celery</span><span class="tag">AWS</span>
-      </div>
-    </article>
-
-    <article class="card project-card reveal js-tilt" style="--d:0.15s" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.12">
-      <div class="card__accent-bar"></div>
-      <div class="project-card__top">
-        <div class="project-card__icon"><i class="fas fa-brain"></i></div>
-        <div class="project-card__links">
-          <a href="#" class="project-card__link" aria-label="Live"><i class="fas fa-external-link-alt"></i></a>
-          <a href="https://github.com/dibyanshu122" target="_blank" rel="noopener" class="project-card__link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <div class="project-card__live-badge"><span></span> LIVE · 100+ BUSINESSES</div>
+        <h3>B9 Automation</h3>
+        <p>India's first WhatsApp AI Agency Platform. Visual drag-and-drop flow builder, RAG over docs, agentic loop orchestration, lead scoring, AI-generated templates.</p>
+        <div class="project-card__tags">
+          <span class="tag">Next.js 15</span><span class="tag">FastAPI</span><span class="tag">Groq</span><span class="tag">RAG</span><span class="tag">AWS</span>
         </div>
-      </div>
-      <h3>Nexus AI Insight Engine</h3>
-      <p>Multi-agent AI research platform with 3-tier autonomous pipeline: Researcher (Tavily web search) → Critic (fact validation) → Writer (report synthesis). LangGraph state machine manages handoffs and quality loops. Pinecone vector DB for semantic memory.</p>
-      <div class="project-card__tags">
-        <span class="tag">Next.js</span><span class="tag">FastAPI</span><span class="tag">LangGraph</span>
-        <span class="tag">Gemini 1.5</span><span class="tag">Pinecone</span><span class="tag">Tavily AI</span>
-      </div>
-    </article>
+        <div class="project-card__cta">Click to view details <i class="fas fa-arrow-right"></i></div>
+      </article>
 
-    <article class="card project-card reveal js-tilt" style="--d:0.3s" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.12">
-      <div class="card__accent-bar"></div>
-      <div class="project-card__top">
-        <div class="project-card__icon"><i class="fas fa-shield-halved"></i></div>
-        <div class="project-card__links">
-          <a href="#" class="project-card__link" aria-label="Live"><i class="fas fa-external-link-alt"></i></a>
-          <a href="https://github.com/dibyanshu122" target="_blank" rel="noopener" class="project-card__link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <article class="card project-card glow-border reveal" data-project="nexus" style="--d:0.1s">
+        <div class="card__accent-bar"></div>
+        <div class="project-card__top">
+          <div class="project-card__icon"><i class="fas fa-brain"></i></div>
+          <div class="project-card__links">
+            <a href="https://github.com/dibyanshu122" target="_blank" rel="noopener" class="project-card__link" aria-label="GitHub" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
+          </div>
         </div>
-      </div>
-      <h3>Full-Stack Auth &amp; CRM Portal</h3>
-      <p>Enterprise CRM with Google OAuth 2.0 (256-bit), HTTP-only CSRF cookies, RBAC (Admin/Manager/User/Viewer). Real-time Razorpay payments, webhook retry logic, Nodemailer onboarding, analytics dashboard — zero security incidents.</p>
-      <div class="project-card__tags">
-        <span class="tag">Next.js</span><span class="tag">Node.js</span><span class="tag">PostgreSQL</span>
-        <span class="tag">OAuth 2.0</span><span class="tag">Razorpay</span><span class="tag">Nodemailer</span>
-      </div>
-    </article>
-
-    <article class="card project-card reveal js-tilt" style="--d:0.45s" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.12">
-      <div class="card__accent-bar"></div>
-      <div class="project-card__top">
-        <div class="project-card__icon"><i class="fas fa-heartbeat"></i></div>
-        <div class="project-card__links">
-          <a href="#" class="project-card__link" aria-label="Live"><i class="fas fa-external-link-alt"></i></a>
-          <a href="https://github.com/dibyanshu122" target="_blank" rel="noopener" class="project-card__link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <h3>Nexus AI Engine</h3>
+        <p>Multi-agent AI research platform with 3-tier autonomous pipeline: Researcher → Critic → Writer. LangGraph state machine with Pinecone vector memory.</p>
+        <div class="project-card__tags">
+          <span class="tag">LangGraph</span><span class="tag">Gemini 1.5</span><span class="tag">Pinecone</span><span class="tag">Tavily AI</span>
         </div>
-      </div>
-      <h3>Healthcare Microservices Backend</h3>
-      <p>Scalable Django + Node.js microservices — 50K+ MAU, 100K+ daily API requests, 99.5% uptime. HIPAA-compliant with AES-256, RBAC, audit logging. MySQL → MongoDB migration cut query time by 30%.</p>
-      <div class="project-card__tags">
-        <span class="tag">Django</span><span class="tag">Node.js</span><span class="tag">MongoDB</span>
-        <span class="tag">AWS EC2/RDS</span><span class="tag">HIPAA</span>
-      </div>
-    </article>
+        <div class="project-card__cta">Click to view details <i class="fas fa-arrow-right"></i></div>
+      </article>
 
+      <article class="card project-card glow-border reveal" data-project="crm" style="--d:0.2s">
+        <div class="card__accent-bar"></div>
+        <div class="project-card__top">
+          <div class="project-card__icon"><i class="fas fa-shield-halved"></i></div>
+          <div class="project-card__links">
+            <a href="https://github.com/dibyanshu122" target="_blank" rel="noopener" class="project-card__link" aria-label="GitHub" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3>Full-Stack CRM Portal</h3>
+        <p>Enterprise CRM with Google OAuth 2.0, HTTP-only CSRF cookies, RBAC. Real-time Razorpay payments, webhook retry logic — zero security incidents.</p>
+        <div class="project-card__tags">
+          <span class="tag">Next.js</span><span class="tag">OAuth 2.0</span><span class="tag">Razorpay</span><span class="tag">RBAC</span>
+        </div>
+        <div class="project-card__cta">Click to view details <i class="fas fa-arrow-right"></i></div>
+      </article>
+
+      <article class="card project-card glow-border reveal" data-project="health" style="--d:0.3s">
+        <div class="card__accent-bar"></div>
+        <div class="project-card__top">
+          <div class="project-card__icon"><i class="fas fa-heartbeat"></i></div>
+          <div class="project-card__links">
+            <a href="https://github.com/dibyanshu122" target="_blank" rel="noopener" class="project-card__link" aria-label="GitHub" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3>Healthcare Microservices</h3>
+        <p>Scalable Django + Node.js microservices — 50K+ MAU, HIPAA-compliant with AES-256. MySQL → MongoDB migration cut query time 30%.</p>
+        <div class="project-card__tags">
+          <span class="tag">Django</span><span class="tag">MongoDB</span><span class="tag">AWS EC2</span><span class="tag">HIPAA</span>
+        </div>
+        <div class="project-card__cta">Click to view details <i class="fas fa-arrow-right"></i></div>
+      </article>
+
+    </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════
-     EDUCATION + CERTIFICATIONS
-═══════════════════════════════════════════════════ -->
+<!-- ═══ EDUCATION ═══ -->
 <section class="section" id="education" aria-labelledby="edu-title">
   <div class="section__header reveal">
     <span class="section__tag">Academic background</span>
     <h2 class="section__title scramble" id="edu-title" data-text="Education">Education</h2>
     <div class="section__line"></div>
   </div>
-
   <div class="grid grid--2" style="max-width:860px;margin:0 auto">
-    <article class="card edu-card reveal js-tilt" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.12">
+    <article class="card edu-card glow-border reveal js-tilt" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.12">
       <div class="card__accent-bar"></div>
       <div class="edu-card__year">Jul 2019 – May 2023</div>
       <h3>B.Tech — Computer Science &amp; Engineering</h3>
@@ -467,7 +503,7 @@
       <p style="margin-top:.75rem;font-size:.82rem;color:var(--text-muted);line-height:1.7"><strong style="color:var(--text-secondary)">Coursework:</strong> DSA · DBMS · Web Dev · ML · Cloud Computing</p>
       <span class="edu-card__grade"><i class="fas fa-star"></i> CGPA: 8.05 / 10</span>
     </article>
-    <article class="card edu-card reveal js-tilt" style="--d:0.15s" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.12">
+    <article class="card edu-card glow-border reveal js-tilt" style="--d:0.15s" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.12">
       <div class="card__accent-bar"></div>
       <div class="edu-card__year">2018</div>
       <h3>Higher Secondary — 12th Grade</h3>
@@ -475,7 +511,7 @@
     </article>
   </div>
 
-  <!-- Certifications -->
+  <!-- Certifications — flip cards -->
   <div class="section__header reveal" style="margin-top:5rem;margin-bottom:2.5rem">
     <span class="section__tag">Validated expertise</span>
     <h2 class="section__title" style="font-size:clamp(1.6rem,3vw,2.2rem)">Certifications &amp; Achievements</h2>
@@ -483,40 +519,75 @@
   </div>
 
   <div class="grid grid--4">
-    <article class="card cert-card reveal js-tilt" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
-      <div class="card__accent-bar"></div>
-      <div class="cert-card__ring"><i class="fab fa-python"></i></div>
-      <h3>Python Programming</h3>
-      <div class="cert-card__issuer">IIT Kanpur</div>
-      <p class="cert-card__desc">Advanced Scripting &amp; Backend Logic — 2024</p>
-    </article>
-    <article class="card cert-card reveal js-tilt" style="--d:0.1s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
-      <div class="card__accent-bar"></div>
-      <div class="cert-card__ring"><i class="fab fa-google"></i></div>
-      <h3>Google Analytics IQ</h3>
-      <div class="cert-card__issuer">Google Certified</div>
-      <p class="cert-card__desc">GAIQ — Individual Qualification — 2024</p>
-    </article>
-    <article class="card cert-card reveal js-tilt" style="--d:0.2s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
-      <div class="card__accent-bar"></div>
-      <div class="cert-card__ring"><i class="fas fa-chart-pie"></i></div>
-      <h3>Data Analytics</h3>
-      <div class="cert-card__issuer">Accenture / Forage</div>
-      <p class="cert-card__desc">Data Analytics &amp; Visualization — 2024</p>
-    </article>
-    <article class="card cert-card reveal js-tilt" style="--d:0.3s" data-tilt data-tilt-max="12" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.15">
-      <div class="card__accent-bar"></div>
-      <div class="cert-card__ring"><i class="fab fa-hackerrank"></i></div>
-      <h3>HackerRank 5-Star</h3>
-      <div class="cert-card__issuer">HackerRank</div>
-      <p class="cert-card__desc">Data Structures &amp; Algorithms — Active</p>
-    </article>
+
+    <div class="flip-wrap reveal" style="--d:0s">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-icon cert-icon"><i class="fab fa-python"></i></div>
+          <h3>Python Programming</h3>
+          <span class="flip-hint">Hover for details</span>
+        </div>
+        <div class="flip-back">
+          <div class="flip-icon cert-icon"><i class="fab fa-python"></i></div>
+          <h3>Python Programming</h3>
+          <div class="cert-issuer">IIT Kanpur</div>
+          <p>Advanced Scripting &amp; Backend Logic — 2024</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap reveal" style="--d:0.1s">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-icon cert-icon"><i class="fab fa-google"></i></div>
+          <h3>Google Analytics IQ</h3>
+          <span class="flip-hint">Hover for details</span>
+        </div>
+        <div class="flip-back">
+          <div class="flip-icon cert-icon"><i class="fab fa-google"></i></div>
+          <h3>Google Analytics IQ</h3>
+          <div class="cert-issuer">Google Certified</div>
+          <p>GAIQ — Individual Qualification — 2024</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap reveal" style="--d:0.2s">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-icon cert-icon"><i class="fas fa-chart-pie"></i></div>
+          <h3>Data Analytics</h3>
+          <span class="flip-hint">Hover for details</span>
+        </div>
+        <div class="flip-back">
+          <div class="flip-icon cert-icon"><i class="fas fa-chart-pie"></i></div>
+          <h3>Data Analytics</h3>
+          <div class="cert-issuer">Accenture / Forage</div>
+          <p>Data Analytics &amp; Visualization — 2024</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-wrap reveal" style="--d:0.3s">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="flip-icon cert-icon"><i class="fab fa-hackerrank"></i></div>
+          <h3>HackerRank 5★</h3>
+          <span class="flip-hint">Hover for details</span>
+        </div>
+        <div class="flip-back">
+          <div class="flip-icon cert-icon"><i class="fab fa-hackerrank"></i></div>
+          <h3>HackerRank 5★</h3>
+          <div class="cert-issuer">HackerRank</div>
+          <p>Data Structures &amp; Algorithms — Active</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════
-     AI TERMINAL
-═══════════════════════════════════════════════════ -->
+<!-- ═══ AI TERMINAL ═══ -->
 <section class="section" id="terminal" aria-labelledby="terminal-title">
   <div class="section__header reveal">
     <span class="section__tag">Powered by Gemini</span>
@@ -551,11 +622,10 @@
     </div>
   </article>
 </section>
+
 </main>
 
-<!-- ═══════════════════════════════════════════════════
-     FOOTER
-═══════════════════════════════════════════════════ -->
+<!-- FOOTER -->
 <footer class="footer" role="contentinfo">
   <p class="footer__text">DESIGNED &amp; ENGINEERED BY <span>DIBYANSHU</span> &copy; 2026</p>
   <nav class="footer__links" aria-label="Footer links">
@@ -574,7 +644,17 @@
   <a href="mailto:ddibyanshu2@gmail.com" class="float-btn" id="fab-email" data-tooltip="Email Me" aria-label="Email"><i class="far fa-envelope"></i></a>
 </div>
 
-<!-- CLICK PARTICLE CONTAINER -->
+<!-- PROJECT MODAL -->
+<div id="projectModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose" aria-label="Close modal">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- CLICK PARTICLES -->
 <div id="particles" aria-hidden="true"></div>
 
 <script src="config.js"></script>
