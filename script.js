@@ -790,16 +790,16 @@ Database optimisation:
 
   /* ── Smart local KB ── */
   const KB = [
-    { keys:['who','dibyanshu','yourself','about','intro','tell me'], ans:"I'm Dibyanshu — Full Stack & AI Developer, Founder of B9 Automation (India's first WhatsApp AI Agency Platform). I build autonomous AI agents, RAG pipelines, and production SaaS serving 100+ businesses." },
-    { keys:['b9','automation','whatsapp','saas','startup','company','founded','founder'], ans:"B9 Automation is India's first WhatsApp AI Agency Platform — live at b9-automation-frontend.vercel.app. Visual drag-and-drop builder with 40+ nodes, 86+ FastAPI endpoints, RAG pipelines (Groq + Gemini failover), serving 100+ businesses with 95%+ retention." },
-    { keys:['skill','tech','stack','use','language','framework','know'], ans:"Core stack: Backend — FastAPI, Python, Django, Node.js, Celery, Redis. Frontend — Next.js 15, React, TypeScript, Tailwind. AI/LLM — LangChain, LangGraph, Groq Llama 3.3, Gemini 2.0 Flash, RAG, Pinecone. Cloud — AWS EC2/S3/RDS, Docker, Vercel, GitHub Actions." },
-    { keys:['ai','agent','agentic','rag','langchain','langgraph','llm','gemini','groq'], ans:"Dibyanshu builds production agentic AI: autonomous agents using LangChain + LangGraph that plan, act, and self-correct. RAG with Groq Llama 3.3 + Gemini 2.0 Flash failover — sub-1s response at 1,000+ concurrent sessions. Also built 3-tier multi-agent pipeline: Researcher → Critic → Writer." },
-    { keys:['project','nexus','crm','healthcare','built','portfolio','work'], ans:"Key projects: 1) B9 Automation — WhatsApp AI SaaS (LIVE). 2) Nexus AI Engine — 3-tier multi-agent research platform with LangGraph + Pinecone. 3) Full-Stack CRM — Google OAuth, Razorpay, RBAC, zero security incidents. 4) Healthcare Microservices — 50K+ MAU, HIPAA-compliant, 99.5% uptime." },
-    { keys:['experience','job','company','ringpass','phero','accenture'], ans:"2+ years experience: Founder at B9 Automation (Mar 2026–Present), Full Stack Dev at RingPass Services (Sep 2025–Present) building enterprise CRM with AI pipelines, Backend Dev at Phero Health Care (Oct 2023–Sep 2025) serving 50K+ MAU." },
-    { keys:['education','degree','btech','college','university','cgpa'], ans:"B.Tech in Computer Science & Engineering from Rameshwaram Institute of Technology & Management, Lucknow (2019–2023), CGPA 8.05/10. Coursework: DSA, DBMS, Web Dev, ML, Cloud Computing." },
-    { keys:['contact','hire','email','phone','linkedin','reach','available'], ans:"Reach Dibyanshu at: Email — ddibyanshu2@gmail.com | Phone — +91-9628954948 | LinkedIn — linkedin.com/in/dibyanshu-286ba723a | GitHub — github.com/dibyanshu122. Available for freelance and full-time!" },
-    { keys:['aws','cloud','deploy','docker','devops','server'], ans:"Dibyanshu deploys on AWS EC2/S3/RDS handling 100K+ req/day, Vercel for frontends, Docker for containerization, GitHub Actions for CI/CD with zero-downtime deployments." },
-    { keys:['hello','hi','hey','namaste','hii','helo'], ans:"Hello! 👋 I'm Dibyanshu's AI. I know everything about his skills, projects, and experience. What would you like to explore?" },
+    { keys:['who','dibyanshu','yourself','about','intro','tell me'], ans:"I'm Dibyanshu — Full Stack & AI Developer, Founder of B9 Automation. I build autonomous AI agents, RAG pipelines, and production SaaS." },
+    { keys:['b9','automation','whatsapp','saas','startup','company','founded','founder'], ans:"B9 Automation is my startup — a WhatsApp AI Agency Platform. It features a visual drag-and-drop builder, 86+ FastAPI endpoints, and RAG pipelines (Groq + Gemini failover). We are currently building and preparing for launch." },
+    { keys:['skill','tech','stack','use','language','framework','know'], ans:"Core stack: Backend — FastAPI, Python, Node.js. Frontend — Next.js 15, React, TypeScript. AI/LLM — LangChain, LangGraph, Groq, Gemini 2.0 Flash, RAG, Pinecone. Cloud — AWS, Docker, Vercel." },
+    { keys:['ai','agent','agentic','rag','langchain','langgraph','llm','gemini','groq'], ans:"I build production agentic AI: autonomous agents using LangChain + LangGraph that plan, act, and self-correct. Also built RAG pipelines with sub-1s response times and 3-tier multi-agent setups (Researcher → Critic → Writer)." },
+    { keys:['project','nexus','crm','healthcare','built','portfolio','work'], ans:"Key projects: 1) B9 Automation — WhatsApp AI SaaS. 2) Nexus AI Engine — multi-agent research platform. 3) Enterprise CRM with zero security incidents. 4) Healthcare Microservices serving 50K+ MAU." },
+    { keys:['experience','job','company','ringpass','phero','accenture'], ans:"Founder at B9 Automation (Mar 2026–Present), Full Stack Dev at RingPass Services (Sep 2025–Present), Backend Dev at Phero Health Care (Oct 2023–Sep 2025)." },
+    { keys:['education','degree','btech','college','university','cgpa'], ans:"B.Tech in Computer Science & Engineering from Rameshwaram Institute of Technology & Management, Lucknow (2019–2023), CGPA 8.05/10." },
+    { keys:['contact','hire','email','phone','linkedin','reach','available'], ans:"Email — ddibyanshu2@gmail.com | Phone — +91-9628954948 | LinkedIn — dibyanshu-286ba723a. Available for freelance and full-time opportunities!" },
+    { keys:['aws','cloud','deploy','docker','devops','server'], ans:"I deploy on AWS EC2/S3/RDS, Vercel for frontends, Docker for containerization, and use GitHub Actions for CI/CD with zero-downtime deployments." },
+    { keys:['hello','hi','hey','namaste','hii','helo'], ans:"Hello! 👋 I'm Dibyanshu's AI. I can answer questions about his skills, projects, and experience. What would you like to know?" },
   ];
 
   function localAnswer(q) {
@@ -821,13 +821,14 @@ Database optimisation:
       const KEY = (typeof CONFIG !== 'undefined' && (CONFIG.API_KEY || CONFIG.GEMINI_API_KEY))
         ? (CONFIG.API_KEY || CONFIG.GEMINI_API_KEY) : '';
       if (KEY) {
-        const sys = `You are Dibyanshu's AI portfolio assistant. Answer ONLY about Dibyanshu.
-Facts: Full Stack & AI Developer, Founder of B9 Automation (India's first WhatsApp AI Agency Platform).
-B9: 86+ FastAPI endpoints, 62+ DB models, JWT auth, 100K+ req/day, AWS EC2, 100+ businesses, 95% retention.
-Agentic AI: LangChain, LangGraph, RAG (Groq Llama 3.3 + Gemini 2.0 Flash), sub-1s response, 1000+ concurrent.
-Stack: FastAPI, Python, Next.js 15, React, TypeScript, PostgreSQL, MongoDB, Redis, Pinecone, Docker, AWS.
-Contact: ddibyanshu2@gmail.com | +91-9628954948.
-Be friendly, professional, under 80 words.`;
+        const sys = `You are Dibyanshu's AI portfolio assistant. Answer concisely and DIRECTLY address the user's question. Do NOT bring up B9 Automation unless specifically asked about projects, startups, or B9.
+Facts about Dibyanshu:
+- Full Stack & AI Developer, Founder of B9 Automation.
+- B9 Automation is a WhatsApp AI SaaS platform currently in development, featuring 86+ FastAPI endpoints and visual workflow builders.
+- Agentic AI: LangChain, LangGraph, RAG (Groq + Gemini), sub-1s response.
+- Stack: FastAPI, Python, Next.js 15, React, TypeScript, PostgreSQL, Pinecone, AWS.
+- Contact: ddibyanshu2@gmail.com | +91-9628954948.
+Rule: Be systematic, strictly answer what is asked without generic filler, under 60 words.`;
 
         const res  = await fetch(
           `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${KEY}`,
