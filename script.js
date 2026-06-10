@@ -1,16 +1,16 @@
-﻿/* ============================================================
-   DIBYANSHU PORTFOLIO â€” ULTRA PREMIUM MASTER SCRIPT v4.0
-   Epic Preloader Â· 3D Torus Galaxy Â· Hero 3D Object
-   Magnetic Â· Scramble Text Â· Click Particles Â· AI Terminal
+/* ============================================================
+   DIBYANSHU PORTFOLIO — ULTRA PREMIUM MASTER SCRIPT v4.0
+   Epic Preloader · 3D Torus Galaxy · Hero 3D Object
+   Magnetic · Scramble Text · Click Particles · AI Terminal
    ============================================================ */
 'use strict';
 
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    1. EPIC PRELOADER
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 (function initPreloader() {
   const preloader = $('#preloader');
   const bar       = $('#preloaderBar');
@@ -71,9 +71,9 @@ const $$ = s => document.querySelectorAll(s);
   document.body.style.overflow = 'hidden';
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    2. CUSTOM CURSOR
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 (function initCursor() {
   const dot  = $('#cursorDot');
   const ring = $('#cursorRing');
@@ -95,14 +95,14 @@ const $$ = s => document.querySelectorAll(s);
     requestAnimationFrame(lagRing);
   })();
 
-  // Only grow cursor on actual interactive elements â€” NOT on cards
+  // Only grow cursor on actual interactive elements — NOT on cards
   const hoverSel = 'a, button, .float-btn, .btn--primary, .btn--ghost, .nav__cta, .project-card__link';
-  // Tiny ring on inputs â€” don't grow
+  // Tiny ring on inputs — don't grow
   const inputSel = 'input, textarea';
 
   document.addEventListener('mouseover', e => {
     if (e.target.closest(inputSel)) {
-      // On input fields â€” shrink cursor dot, keep ring small
+      // On input fields — shrink cursor dot, keep ring small
       dot.classList.remove('hovering');
       ring.classList.remove('hovering');
       dot.style.opacity = '0';
@@ -122,9 +122,9 @@ const $$ = s => document.querySelectorAll(s);
   });
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    3. CLICK PARTICLE BURST
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 (function initParticles() {
   const container = $('#particles');
   if (!container) return;
@@ -154,9 +154,9 @@ const $$ = s => document.querySelectorAll(s);
   });
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    4. SCROLL PROGRESS BAR
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 (function initScrollBar() {
   const bar = $('#scrollBar');
   if (!bar) return;
@@ -166,9 +166,9 @@ const $$ = s => document.querySelectorAll(s);
   }, { passive: true });
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    5. STICKY NAV + ACTIVE LINKS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 (function initNav() {
   const nav   = $('#navbar');
   const links = $$('.nav__links a');
@@ -189,9 +189,9 @@ const $$ = s => document.querySelectorAll(s);
   sections.forEach(s => io.observe(s));
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    6. SCROLL REVEAL
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 (function initReveal() {
   const els = $$('.reveal');
   const io  = new IntersectionObserver(entries => {
@@ -205,9 +205,9 @@ const $$ = s => document.querySelectorAll(s);
   els.forEach(el => io.observe(el));
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    7. TEXT SCRAMBLE (section titles)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 (function initScramble() {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&';
 
@@ -240,9 +240,9 @@ const $$ = s => document.querySelectorAll(s);
   titles.forEach(el => io.observe(el));
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    8. TYPEWRITER
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 (function initTypewriter() {
   const el = $('#typewriter');
   if (!el) return;
@@ -267,9 +267,9 @@ const $$ = s => document.querySelectorAll(s);
   })();
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    9. HERO STATS COUNTER
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 function startCounters() {
   $$('.hero__stat-num').forEach(el => {
     const target  = parseInt(el.dataset.target, 10);
@@ -283,9 +283,9 @@ function startCounters() {
   });
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    10. MAGNETIC HOVER
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 (function initMagnetic() {
   $$('.magnetic, .btn--primary, .btn--ghost, .nav__cta, .float-btn').forEach(el => {
     el.addEventListener('mousemove', e => {
@@ -302,9 +302,9 @@ function startCounters() {
   });
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    11. VANILLA TILT
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 (function initTilt() {
   if (typeof VanillaTilt === 'undefined') return;
   VanillaTilt.init($$('.js-tilt'), {
@@ -313,9 +313,9 @@ function startCounters() {
   });
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   12. THREE.JS â€” 3D GALAXY BACKGROUND
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════════════
+   12. THREE.JS — 3D GALAXY BACKGROUND
+═══════════════════════════════════════════════════ */
 (function initGalaxy() {
   if (typeof THREE === 'undefined') return;
   const canvas   = $('#bgCanvas');
@@ -388,9 +388,9 @@ function startCounters() {
   }, { passive: true });
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   13. THREE.JS â€” HERO 3D FLOATING OBJECT (Torus Knot)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ═══════════════════════════════════════════════════
+   13. THREE.JS — HERO 3D FLOATING OBJECT (Torus Knot)
+═══════════════════════════════════════════════════ */
 (function initHero3D() {
   if (typeof THREE === 'undefined') return;
   const canvas = $('#heroCanvas');
@@ -496,9 +496,9 @@ function startCounters() {
 
 /* 14. AI TERMINAL - moved to section 20 (initAICore) */
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    15. CURSOR TRAIL
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 (function initCursorTrail() {
   const count = 18;
   const dots  = Array.from({ length: count }, (_, i) => {
@@ -530,9 +530,9 @@ function startCounters() {
   })();
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    16. 3D SKILL SPHERE
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 (function initSkillSphere() {
   const inner = document.getElementById('sphereInner');
   if (!inner) return;
@@ -561,9 +561,9 @@ function startCounters() {
   });
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    17. PROJECT MODAL
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 (function initProjectModal() {
   const overlay  = document.getElementById('projectModal');
   const closeBtn = document.getElementById('modalClose');
@@ -574,18 +574,18 @@ function startCounters() {
     b9: {
       live: true,
       icon: 'fab fa-whatsapp',
-      title: 'B9 Automation â€” WhatsApp AI SaaS',
+      title: 'B9 Automation — WhatsApp AI SaaS',
       desc: `India's first WhatsApp AI Agency Platform with a visual drag-and-drop flow builder (40+ canvas nodes). Built a complete production SaaS from scratch.
 
 Key achievements:
-â€¢ 86+ FastAPI REST endpoints & 62+ PostgreSQL models
-â€¢ Multi-tenant JWT + Fernet AES-128-CBC auth â€” 100K+ req/day on AWS EC2
-â€¢ Autonomous agent builder: designs, deploys & self-corrects flows â€” zero human intervention after launch
-â€¢ RAG pipeline (Groq Llama 3.3 + Gemini 2.0 Flash failover) â€” sub-1s response across 1,000+ concurrent sessions
-â€¢ Agentic loop: AI-generated templates, lead scoring, next-best-action, prompt safety guardrails
-â€¢ Real-time: SSE typing indicators, Celery + Redis async campaign processor
-â€¢ 9 live integrations: Shopify, IndiaMART, Facebook Ads, Razorpayâ€¦
-â€¢ Tiered SaaS (Starter / Pro / Enterprise) â€” 100+ businesses, 95%+ retention`,
+• 86+ FastAPI REST endpoints & 62+ PostgreSQL models
+• Multi-tenant JWT + Fernet AES-128-CBC auth — 100K+ req/day on AWS EC2
+• Autonomous agent builder: designs, deploys & self-corrects flows — zero human intervention after launch
+• RAG pipeline (Groq Llama 3.3 + Gemini 2.0 Flash failover) — sub-1s response across 1,000+ concurrent sessions
+• Agentic loop: AI-generated templates, lead scoring, next-best-action, prompt safety guardrails
+• Real-time: SSE typing indicators, Celery + Redis async campaign processor
+• 9 live integrations: Shopify, IndiaMART, Facebook Ads, Razorpay…
+• Tiered SaaS (Starter / Pro / Enterprise) — 100+ businesses, 95%+ retention`,
       metrics: ['100+ Businesses','86+ API Endpoints','95%+ Retention','1,000+ Concurrent Sessions','100K+ Requests/Day','Sub-1s Response'],
       tags: ['Next.js 15','FastAPI','Python','PostgreSQL','LangChain','LangGraph','Groq Llama 3.3','Gemini 2.0','RAG','Celery','Redis','AWS EC2','Razorpay'],
       liveUrl: 'https://b9-automation-frontend.vercel.app',
@@ -598,13 +598,13 @@ Key achievements:
       desc: `A multi-agent AI research platform with a 3-tier autonomous pipeline powered by LangGraph.
 
 Architecture:
-â€¢ Researcher Agent: Searches the web via Tavily AI for real-time data
-â€¢ Critic Agent: Validates facts and flags inaccuracies
-â€¢ Writer Agent: Synthesises a structured, cited research report
-â€¢ LangGraph state machine manages handoffs and quality loops
-â€¢ Pinecone Vector DB for persistent semantic memory across sessions
-â€¢ Gemini 1.5 Flash as the primary LLM with RAG retrieval
-â€¢ Next.js frontend with real-time streaming output via SSE`,
+• Researcher Agent: Searches the web via Tavily AI for real-time data
+• Critic Agent: Validates facts and flags inaccuracies
+• Writer Agent: Synthesises a structured, cited research report
+• LangGraph state machine manages handoffs and quality loops
+• Pinecone Vector DB for persistent semantic memory across sessions
+• Gemini 1.5 Flash as the primary LLM with RAG retrieval
+• Next.js frontend with real-time streaming output via SSE`,
       metrics: ['3-Tier Agent Pipeline','Real-time Web Search','Persistent RAG Memory','Structured Report Output'],
       tags: ['Next.js','FastAPI','LangGraph','LangChain','Gemini 1.5','Pinecone','Tavily AI','SSE Streaming'],
       liveUrl: null,
@@ -617,16 +617,16 @@ Architecture:
       desc: `Enterprise-grade CRM with rock-solid security and real-time payment infrastructure.
 
 Security features:
-â€¢ Google OAuth 2.0 with 256-bit state parameter CSRF protection
-â€¢ HTTP-only, Secure, SameSite=Strict cookies â€” zero XSS surface
-â€¢ RBAC with 4 roles: Admin / Manager / User / Viewer
-â€¢ Audit logging for all sensitive operations
+• Google OAuth 2.0 with 256-bit state parameter CSRF protection
+• HTTP-only, Secure, SameSite=Strict cookies — zero XSS surface
+• RBAC with 4 roles: Admin / Manager / User / Viewer
+• Audit logging for all sensitive operations
 
 Payments & onboarding:
-â€¢ Razorpay + Rozgar Pay with webhook-driven retry logic
-â€¢ 99.8% transaction success across 10K+ daily active users
-â€¢ Nodemailer onboarding flow with branded email templates
-â€¢ Analytics dashboard with Recharts â€” zero security incidents`,
+• Razorpay + Rozgar Pay with webhook-driven retry logic
+• 99.8% transaction success across 10K+ daily active users
+• Nodemailer onboarding flow with branded email templates
+• Analytics dashboard with Recharts — zero security incidents`,
       metrics: ['10K+ Daily Active Users','99.8% Payment Success','4-Level RBAC','Zero Security Incidents'],
       tags: ['Next.js','Node.js','PostgreSQL','Google OAuth 2.0','Razorpay','Nodemailer','Recharts','RBAC'],
       liveUrl: null,
@@ -639,16 +639,16 @@ Payments & onboarding:
       desc: `Scalable, HIPAA-compliant microservices architecture serving a healthcare platform.
 
 Infrastructure:
-â€¢ Django + Node.js microservices â€” 50K+ MAU, 100K+ daily API requests
-â€¢ 99.5% uptime with AWS EC2 auto-scaling and load balancing
-â€¢ AES-256 encryption for all PHI data at rest and in transit
-â€¢ RBAC with audit logging â€” zero data breach incidents over 2 years
-â€¢ HIPAA compliance throughout the stack
+• Django + Node.js microservices — 50K+ MAU, 100K+ daily API requests
+• 99.5% uptime with AWS EC2 auto-scaling and load balancing
+• AES-256 encryption for all PHI data at rest and in transit
+• RBAC with audit logging — zero data breach incidents over 2 years
+• HIPAA compliance throughout the stack
 
 Database optimisation:
-â€¢ Led MySQL â†’ MongoDB migration
-â€¢ Cut query time from 500ms to 350ms (30% improvement)
-â€¢ Indexed hot queries and refactored N+1 patterns`,
+• Led MySQL â†’ MongoDB migration
+• Cut query time from 500ms to 350ms (30% improvement)
+• Indexed hot queries and refactored N+1 patterns`,
       metrics: ['50K+ Monthly Active Users','100K+ Daily API Requests','99.5% Uptime','30% Faster Queries','Zero Data Breaches'],
       tags: ['Django','Node.js','MongoDB','MySQL','AWS EC2','AWS RDS','AES-256','HIPAA','RBAC'],
       liveUrl: null,
@@ -711,9 +711,9 @@ Database optimisation:
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    18. DRAG-TO-SCROLL (Projects)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 (function initDragScroll() {
   const el = document.querySelector('.projects-hscroll');
   if (!el) return;
@@ -729,9 +729,9 @@ Database optimisation:
   });
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    19. CURSOR-FOLLOWING SPOTLIGHT GLOW
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+═══════════════════════════════════════════════════ */
 (function initSpotlightGlow() {
   const cards = document.querySelectorAll('.glow-border');
   cards.forEach(card => {
@@ -747,10 +747,10 @@ Database optimisation:
   });
 })();
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════
    20. AI CORE UPGRADE
-   Auto-Greeting Â· Audio Wave Â· Quick Chips
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   Auto-Greeting · Audio Wave · Quick Chips
+═══════════════════════════════════════════════════ */
 (function initAICore() {
   const body    = $('#ai-response');
   const status  = $('#ai-status');
@@ -762,11 +762,11 @@ Database optimisation:
 
   let greeted = false;
 
-  /* â”€â”€ Wave helpers â”€â”€ */
+  /* ── Wave helpers ── */
   function waveOn()  { wave && wave.classList.add('active'); }
   function waveOff() { wave && wave.classList.remove('active'); }
 
-  /* â”€â”€ Append a line instantly â”€â”€ */
+  /* ── Append a line instantly ── */
   function line(text, color = '#22c55e', prefix = '> ') {
     const d = document.createElement('div');
     d.style.cssText = `color:${color};margin-top:6px;line-height:1.65;font-family:var(--font-mono);font-size:.85rem`;
@@ -776,7 +776,7 @@ Database optimisation:
     return d;
   }
 
-  /* â”€â”€ Type text char by char â”€â”€ */
+  /* ── Type text char by char ── */
   function typeInto(div, text, speed, done) {
     let i = 0;
     div.textContent = '> ';
@@ -787,7 +787,7 @@ Database optimisation:
     }, speed || 14);
   }
 
-  /* â”€â”€ Auto-greeting sequence â”€â”€ */
+  /* ── Auto-greeting sequence ── */
   function runGreeting() {
     if (greeted) return;
     greeted = true;
@@ -799,9 +799,9 @@ Database optimisation:
     const seq = [
       { delay: 0,    color: '#00d4ff', text: 'Initializing Dibyanshu AI Core...' },
       { delay: 900,  color: '#94a3b8', text: 'Loading knowledge base...' },
-      { delay: 1700, color: '#94a3b8', text: 'Neural pathways connected âœ“' },
+      { delay: 1700, color: '#94a3b8', text: 'Neural pathways connected ✓' },
       { delay: 2500, color: '#22c55e', text: 'SYSTEM READY', typed: true, speed: 60 },
-      { delay: 3200, color: '#f1f5f9', text: "Hey! I'm Dibyanshu's personal AI. Ask me anything â€” his projects, skills, or how to hire him.", typed: true, speed: 22 },
+      { delay: 3200, color: '#f1f5f9', text: "Hey! I'm Dibyanshu's personal AI. Ask me anything — his projects, skills, or how to hire him.", typed: true, speed: 22 },
     ];
 
     seq.forEach(({ delay, color, text, typed, speed }) => {
@@ -824,7 +824,7 @@ Database optimisation:
     });
   }
 
-  /* â”€â”€ IntersectionObserver â€” trigger greeting on scroll â”€â”€ */
+  /* ── IntersectionObserver — trigger greeting on scroll ── */
   const termSection = document.getElementById('terminal');
   if (termSection) {
     const obs = new IntersectionObserver(entries => {
@@ -836,27 +836,27 @@ Database optimisation:
     setTimeout(runGreeting, 600);
   }
 
-  /* â”€â”€ Smart local KB â”€â”€ */
+  /* ── Smart local KB ── */
   const KB = [
-    { keys:['who','dibyanshu','yourself','about','intro','tell me'], ans:"I'm Dibyanshu â€” Full Stack & AI Developer, Founder of B9 Automation (India's first WhatsApp AI Agency Platform). I build autonomous AI agents, RAG pipelines, and production SaaS serving 100+ businesses." },
-    { keys:['b9','automation','whatsapp','saas','startup','company','founded','founder'], ans:"B9 Automation is India's first WhatsApp AI Agency Platform â€” live at b9-automation-frontend.vercel.app. Visual drag-and-drop builder with 40+ nodes, 86+ FastAPI endpoints, RAG pipelines (Groq + Gemini failover), serving 100+ businesses with 95%+ retention." },
-    { keys:['skill','tech','stack','use','language','framework','know'], ans:"Core stack: Backend â€” FastAPI, Python, Django, Node.js, Celery, Redis. Frontend â€” Next.js 15, React, TypeScript, Tailwind. AI/LLM â€” LangChain, LangGraph, Groq Llama 3.3, Gemini 2.0 Flash, RAG, Pinecone. Cloud â€” AWS EC2/S3/RDS, Docker, Vercel, GitHub Actions." },
-    { keys:['ai','agent','agentic','rag','langchain','langgraph','llm','gemini','groq'], ans:"Dibyanshu builds production agentic AI: autonomous agents using LangChain + LangGraph that plan, act, and self-correct. RAG with Groq Llama 3.3 + Gemini 2.0 Flash failover â€” sub-1s response at 1,000+ concurrent sessions. Also built 3-tier multi-agent pipeline: Researcher â†’ Critic â†’ Writer." },
-    { keys:['project','nexus','crm','healthcare','built','portfolio','work'], ans:"Key projects: 1) B9 Automation â€” WhatsApp AI SaaS (LIVE). 2) Nexus AI Engine â€” 3-tier multi-agent research platform with LangGraph + Pinecone. 3) Full-Stack CRM â€” Google OAuth, Razorpay, RBAC, zero security incidents. 4) Healthcare Microservices â€” 50K+ MAU, HIPAA-compliant, 99.5% uptime." },
-    { keys:['experience','job','company','ringpass','phero','accenture'], ans:"2+ years experience: Founder at B9 Automation (Mar 2026â€“Present), Full Stack Dev at RingPass Services (Sep 2025â€“Present) building enterprise CRM with AI pipelines, Backend Dev at Phero Health Care (Oct 2023â€“Sep 2025) serving 50K+ MAU." },
-    { keys:['education','degree','btech','college','university','cgpa'], ans:"B.Tech in Computer Science & Engineering from Rameshwaram Institute of Technology & Management, Lucknow (2019â€“2023), CGPA 8.05/10. Coursework: DSA, DBMS, Web Dev, ML, Cloud Computing." },
-    { keys:['contact','hire','email','phone','linkedin','reach','available'], ans:"Reach Dibyanshu at: Email â€” ddibyanshu2@gmail.com | Phone â€” +91-9628954948 | LinkedIn â€” linkedin.com/in/dibyanshu-286ba723a | GitHub â€” github.com/dibyanshu122. Available for freelance and full-time!" },
+    { keys:['who','dibyanshu','yourself','about','intro','tell me'], ans:"I'm Dibyanshu — Full Stack & AI Developer, Founder of B9 Automation (India's first WhatsApp AI Agency Platform). I build autonomous AI agents, RAG pipelines, and production SaaS serving 100+ businesses." },
+    { keys:['b9','automation','whatsapp','saas','startup','company','founded','founder'], ans:"B9 Automation is India's first WhatsApp AI Agency Platform — live at b9-automation-frontend.vercel.app. Visual drag-and-drop builder with 40+ nodes, 86+ FastAPI endpoints, RAG pipelines (Groq + Gemini failover), serving 100+ businesses with 95%+ retention." },
+    { keys:['skill','tech','stack','use','language','framework','know'], ans:"Core stack: Backend — FastAPI, Python, Django, Node.js, Celery, Redis. Frontend — Next.js 15, React, TypeScript, Tailwind. AI/LLM — LangChain, LangGraph, Groq Llama 3.3, Gemini 2.0 Flash, RAG, Pinecone. Cloud — AWS EC2/S3/RDS, Docker, Vercel, GitHub Actions." },
+    { keys:['ai','agent','agentic','rag','langchain','langgraph','llm','gemini','groq'], ans:"Dibyanshu builds production agentic AI: autonomous agents using LangChain + LangGraph that plan, act, and self-correct. RAG with Groq Llama 3.3 + Gemini 2.0 Flash failover — sub-1s response at 1,000+ concurrent sessions. Also built 3-tier multi-agent pipeline: Researcher → Critic → Writer." },
+    { keys:['project','nexus','crm','healthcare','built','portfolio','work'], ans:"Key projects: 1) B9 Automation — WhatsApp AI SaaS (LIVE). 2) Nexus AI Engine — 3-tier multi-agent research platform with LangGraph + Pinecone. 3) Full-Stack CRM — Google OAuth, Razorpay, RBAC, zero security incidents. 4) Healthcare Microservices — 50K+ MAU, HIPAA-compliant, 99.5% uptime." },
+    { keys:['experience','job','company','ringpass','phero','accenture'], ans:"2+ years experience: Founder at B9 Automation (Mar 2026–Present), Full Stack Dev at RingPass Services (Sep 2025–Present) building enterprise CRM with AI pipelines, Backend Dev at Phero Health Care (Oct 2023–Sep 2025) serving 50K+ MAU." },
+    { keys:['education','degree','btech','college','university','cgpa'], ans:"B.Tech in Computer Science & Engineering from Rameshwaram Institute of Technology & Management, Lucknow (2019–2023), CGPA 8.05/10. Coursework: DSA, DBMS, Web Dev, ML, Cloud Computing." },
+    { keys:['contact','hire','email','phone','linkedin','reach','available'], ans:"Reach Dibyanshu at: Email — ddibyanshu2@gmail.com | Phone — +91-9628954948 | LinkedIn — linkedin.com/in/dibyanshu-286ba723a | GitHub — github.com/dibyanshu122. Available for freelance and full-time!" },
     { keys:['aws','cloud','deploy','docker','devops','server'], ans:"Dibyanshu deploys on AWS EC2/S3/RDS handling 100K+ req/day, Vercel for frontends, Docker for containerization, GitHub Actions for CI/CD with zero-downtime deployments." },
-    { keys:['hello','hi','hey','namaste','hii','helo'], ans:"Hello! ðŸ‘‹ I'm Dibyanshu's AI. I know everything about his skills, projects, and experience. What would you like to explore?" },
+    { keys:['hello','hi','hey','namaste','hii','helo'], ans:"Hello! 👋 I'm Dibyanshu's AI. I know everything about his skills, projects, and experience. What would you like to explore?" },
   ];
 
   function localAnswer(q) {
     const lower = q.toLowerCase();
     for (const e of KB) { if (e.keys.some(k => lower.includes(k))) return e.ans; }
-    return "Great question! Dibyanshu is a Full Stack & AI Developer specialising in FastAPI, Next.js, LangChain, and agentic AI. For specifics, email ddibyanshu2@gmail.com ðŸš€";
+    return "Great question! Dibyanshu is a Full Stack & AI Developer specialising in FastAPI, Next.js, LangChain, and agentic AI. For specifics, email ddibyanshu2@gmail.com 🚀";
   }
 
-  /* â”€â”€ Main query handler â”€â”€ */
+  /* ── Main query handler ── */
   async function handleQuery(q) {
     if (!q.trim()) return;
     line(q, '#e2e8f0', '> You: ');
@@ -904,7 +904,7 @@ Be friendly, professional, under 80 words.`;
     }
   }
 
-  /* â”€â”€ Quick chips â”€â”€ */
+  /* ── Quick chips ── */
   if (chips) {
     chips.querySelectorAll('.ai-chip').forEach(chip => {
       chip.addEventListener('click', () => {
@@ -914,7 +914,7 @@ Be friendly, professional, under 80 words.`;
     });
   }
 
-  /* â”€â”€ Send button + Enter â”€â”€ */
+  /* ── Send button + Enter ── */
   function send() {
     const v = input.value.trim();
     if (!v) return;

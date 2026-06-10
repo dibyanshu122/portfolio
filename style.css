@@ -1313,6 +1313,9 @@ input, textarea, [contenteditable] {
   cursor: pointer;
   transition: all .25s var(--ease-out);
   white-space: nowrap;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 20;
 }
 .ai-chip:hover {
   background: rgba(0,212,255,.15);
