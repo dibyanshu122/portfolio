@@ -94,6 +94,17 @@ body {
 }
 
 /* ─── CUSTOM CURSOR ──────────────────────────────────────────── */
+.cursor-aura {
+  position: fixed;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, rgba(0, 212, 255, 0) 60%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1; /* Acts as a background glow */
+  transform: translate(-50%, -50%);
+  will-change: left, top, opacity, transform;
+  transition: opacity 0.5s ease, transform 0.4s ease-out;
+}
 .cursor-dot {
   position: fixed;
   width: 12px; height: 12px;
