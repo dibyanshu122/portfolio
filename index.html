@@ -603,9 +603,22 @@
       </div>
       <div class="terminal__status" id="ai-status" aria-live="polite">ONLINE</div>
     </div>
-    <div class="terminal__body" id="ai-response" role="log">
-      <div style="color:#00d4ff">&gt; Initializing Dibyanshu AI Core...</div>
-      <div style="color:#22c55e;margin-top:.5rem">&gt; Hey! I'm Dibyanshu's AI assistant — ask me anything about his skills, projects, or experience.</div>
+    <div class="terminal__body" id="ai-response" role="log"></div>
+
+    <!-- Audio Wave — visible while AI is thinking/typing -->
+    <div class="ai-wave" id="aiWave" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span>
+    </div>
+
+    <!-- Quick Question Chips -->
+    <div class="ai-chips" id="aiChips" role="group" aria-label="Quick questions">
+      <button class="ai-chip" data-q="Tell me about B9 Automation"><i class="fab fa-whatsapp"></i> B9 Automation</button>
+      <button class="ai-chip" data-q="What is your tech stack?"><i class="fas fa-bolt"></i> Tech Stack</button>
+      <button class="ai-chip" data-q="What is your work experience?"><i class="fas fa-briefcase"></i> Experience</button>
+      <button class="ai-chip" data-q="Tell me about your agentic AI projects"><i class="fas fa-brain"></i> Agentic AI</button>
+      <button class="ai-chip" data-q="How can I hire or contact Dibyanshu?"><i class="fas fa-phone"></i> Hire Me</button>
     </div>
     <div class="terminal__input-row">
       <span class="terminal__prompt" aria-hidden="true">&gt;</span>

@@ -906,3 +906,181 @@ Database optimisation:
     });
   });
 })();
+
+/* ═══════════════════════════════════════════════════
+   20. AI CORE UPGRADE
+   Auto-Greeting · Audio Wave · Quick Chips
+═══════════════════════════════════════════════════ */
+(function initAICore() {
+  const body    = $('#ai-response');
+  const status  = $('#ai-status');
+  const input   = $('#user-input');
+  const btn     = $('#send-btn');
+  const wave    = document.getElementById('aiWave');
+  const chips   = document.getElementById('aiChips');
+  if (!body || !input || !btn) return;
+
+  let greeted = false;
+
+  /* ── Wave helpers ── */
+  function waveOn()  { wave && wave.classList.add('active'); }
+  function waveOff() { wave && wave.classList.remove('active'); }
+
+  /* ── Append a line instantly ── */
+  function line(text, color = '#22c55e', prefix = '> ') {
+    const d = document.createElement('div');
+    d.style.cssText = `color:${color};margin-top:6px;line-height:1.65;font-family:var(--font-mono);font-size:.85rem`;
+    d.textContent   = prefix + text;
+    body.appendChild(d);
+    body.scrollTop  = body.scrollHeight;
+    return d;
+  }
+
+  /* ── Type text char by char ── */
+  function typeInto(div, text, speed, done) {
+    let i = 0;
+    div.textContent = '> ';
+    const t = setInterval(() => {
+      div.textContent += text[i++];
+      body.scrollTop   = body.scrollHeight;
+      if (i >= text.length) { clearInterval(t); done && done(); }
+    }, speed || 14);
+  }
+
+  /* ── Auto-greeting sequence ── */
+  function runGreeting() {
+    if (greeted) return;
+    greeted = true;
+    body.innerHTML = '';
+    waveOn();
+    status.textContent = 'BOOTING...';
+    status.style.color = '#fbbf24';
+
+    const seq = [
+      { delay: 0,    color: '#00d4ff', text: 'Initializing Dibyanshu AI Core...' },
+      { delay: 900,  color: '#94a3b8', text: 'Loading knowledge base...' },
+      { delay: 1700, color: '#94a3b8', text: 'Neural pathways connected ✓' },
+      { delay: 2500, color: '#22c55e', text: 'SYSTEM READY', typed: true, speed: 60 },
+      { delay: 3200, color: '#f1f5f9', text: "Hey! I'm Dibyanshu's personal AI. Ask me anything — his projects, skills, or how to hire him.", typed: true, speed: 22 },
+    ];
+
+    seq.forEach(({ delay, color, text, typed, speed }) => {
+      setTimeout(() => {
+        if (typed) {
+          const d = document.createElement('div');
+          d.style.cssText = `color:${color};margin-top:8px;line-height:1.65;font-family:var(--font-mono);font-size:.85rem`;
+          body.appendChild(d);
+          typeInto(d, text, speed, () => {
+            if (delay === seq[seq.length - 1].delay) {
+              waveOff();
+              status.textContent = 'ONLINE';
+              status.style.color = '#22c55e';
+            }
+          });
+        } else {
+          line(text, color);
+        }
+      }, delay);
+    });
+  }
+
+  /* ── IntersectionObserver — trigger greeting on scroll ── */
+  const termSection = document.getElementById('terminal');
+  if (termSection) {
+    const obs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { runGreeting(); obs.disconnect(); }
+    }, { threshold: 0.25 });
+    obs.observe(termSection);
+  } else {
+    // Fallback: greet immediately
+    setTimeout(runGreeting, 600);
+  }
+
+  /* ── Smart local KB ── */
+  const KB = [
+    { keys:['who','dibyanshu','yourself','about','intro','tell me'], ans:"I'm Dibyanshu — Full Stack & AI Developer, Founder of B9 Automation (India's first WhatsApp AI Agency Platform). I build autonomous AI agents, RAG pipelines, and production SaaS serving 100+ businesses." },
+    { keys:['b9','automation','whatsapp','saas','startup','company','founded','founder'], ans:"B9 Automation is India's first WhatsApp AI Agency Platform — live at b9-automation-frontend.vercel.app. Visual drag-and-drop builder with 40+ nodes, 86+ FastAPI endpoints, RAG pipelines (Groq + Gemini failover), serving 100+ businesses with 95%+ retention." },
+    { keys:['skill','tech','stack','use','language','framework','know'], ans:"Core stack: Backend — FastAPI, Python, Django, Node.js, Celery, Redis. Frontend — Next.js 15, React, TypeScript, Tailwind. AI/LLM — LangChain, LangGraph, Groq Llama 3.3, Gemini 2.0 Flash, RAG, Pinecone. Cloud — AWS EC2/S3/RDS, Docker, Vercel, GitHub Actions." },
+    { keys:['ai','agent','agentic','rag','langchain','langgraph','llm','gemini','groq'], ans:"Dibyanshu builds production agentic AI: autonomous agents using LangChain + LangGraph that plan, act, and self-correct. RAG with Groq Llama 3.3 + Gemini 2.0 Flash failover — sub-1s response at 1,000+ concurrent sessions. Also built 3-tier multi-agent pipeline: Researcher → Critic → Writer." },
+    { keys:['project','nexus','crm','healthcare','built','portfolio','work'], ans:"Key projects: 1) B9 Automation — WhatsApp AI SaaS (LIVE). 2) Nexus AI Engine — 3-tier multi-agent research platform with LangGraph + Pinecone. 3) Full-Stack CRM — Google OAuth, Razorpay, RBAC, zero security incidents. 4) Healthcare Microservices — 50K+ MAU, HIPAA-compliant, 99.5% uptime." },
+    { keys:['experience','job','company','ringpass','phero','accenture'], ans:"2+ years experience: Founder at B9 Automation (Mar 2026–Present), Full Stack Dev at RingPass Services (Sep 2025–Present) building enterprise CRM with AI pipelines, Backend Dev at Phero Health Care (Oct 2023–Sep 2025) serving 50K+ MAU." },
+    { keys:['education','degree','btech','college','university','cgpa'], ans:"B.Tech in Computer Science & Engineering from Rameshwaram Institute of Technology & Management, Lucknow (2019–2023), CGPA 8.05/10. Coursework: DSA, DBMS, Web Dev, ML, Cloud Computing." },
+    { keys:['contact','hire','email','phone','linkedin','reach','available'], ans:"Reach Dibyanshu at: Email — ddibyanshu2@gmail.com | Phone — +91-9628954948 | LinkedIn — linkedin.com/in/dibyanshu-286ba723a | GitHub — github.com/dibyanshu122. Available for freelance and full-time!" },
+    { keys:['aws','cloud','deploy','docker','devops','server'], ans:"Dibyanshu deploys on AWS EC2/S3/RDS handling 100K+ req/day, Vercel for frontends, Docker for containerization, GitHub Actions for CI/CD with zero-downtime deployments." },
+    { keys:['hello','hi','hey','namaste','hii','helo'], ans:"Hello! 👋 I'm Dibyanshu's AI. I know everything about his skills, projects, and experience. What would you like to explore?" },
+  ];
+
+  function localAnswer(q) {
+    const lower = q.toLowerCase();
+    for (const e of KB) { if (e.keys.some(k => lower.includes(k))) return e.ans; }
+    return "Great question! Dibyanshu is a Full Stack & AI Developer specialising in FastAPI, Next.js, LangChain, and agentic AI. For specifics, email ddibyanshu2@gmail.com 🚀";
+  }
+
+  /* ── Main query handler ── */
+  async function handleQuery(q) {
+    if (!q.trim()) return;
+    line(q, '#e2e8f0', '> You: ');
+    status.textContent = 'THINKING...';
+    status.style.color = '#fbbf24';
+    waveOn();
+
+    // Try Gemini API
+    try {
+      const KEY = (typeof CONFIG !== 'undefined' && (CONFIG.API_KEY || CONFIG.GEMINI_API_KEY))
+        ? (CONFIG.API_KEY || CONFIG.GEMINI_API_KEY) : '';
+      if (KEY) {
+        const sys = `You are Dibyanshu's AI portfolio assistant. Answer ONLY about Dibyanshu.
+Facts: Full Stack & AI Developer, Founder of B9 Automation (India's first WhatsApp AI Agency Platform).
+B9: 86+ FastAPI endpoints, 62+ DB models, JWT auth, 100K+ req/day, AWS EC2, 100+ businesses, 95% retention.
+Agentic AI: LangChain, LangGraph, RAG (Groq Llama 3.3 + Gemini 2.0 Flash), sub-1s response, 1000+ concurrent.
+Stack: FastAPI, Python, Next.js 15, React, TypeScript, PostgreSQL, MongoDB, Redis, Pinecone, Docker, AWS.
+Contact: ddibyanshu2@gmail.com | +91-9628954948.
+Be friendly, professional, under 80 words.`;
+
+        const res  = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${KEY}`,
+          { method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ contents:[{parts:[{text:`${sys}\n\nUser: ${q}`}]}], generationConfig:{maxOutputTokens:180,temperature:.7} }) }
+        );
+        const data = await res.json();
+        const txt  = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (txt) {
+          waveOff();
+          const d = document.createElement('div');
+          d.style.cssText = 'color:#22c55e;margin-top:8px;line-height:1.65;font-family:var(--font-mono);font-size:.85rem';
+          body.appendChild(d);
+          typeInto(d, txt.trim(), 13, () => { status.textContent='ONLINE'; status.style.color='#22c55e'; });
+          return;
+        }
+      }
+      throw new Error('local');
+    } catch(_) {
+      waveOff();
+      const ans = localAnswer(q);
+      const d   = document.createElement('div');
+      d.style.cssText = 'color:#22c55e;margin-top:8px;line-height:1.65;font-family:var(--font-mono);font-size:.85rem';
+      body.appendChild(d);
+      typeInto(d, ans, 13, () => { status.textContent='ONLINE'; status.style.color='#22c55e'; });
+    }
+  }
+
+  /* ── Quick chips ── */
+  if (chips) {
+    chips.querySelectorAll('.ai-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const q = chip.dataset.q;
+        if (q) handleQuery(q);
+      });
+    });
+  }
+
+  /* ── Send button + Enter ── */
+  function send() {
+    const v = input.value.trim();
+    if (!v) return;
+    input.value = '';
+    handleQuery(v);
+  }
+  btn.addEventListener('click', send);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
+})();
