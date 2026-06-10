@@ -888,3 +888,21 @@ Database optimisation:
     el.scrollLeft = scrollLeft - (x - startX) * 1.5;
   });
 })();
+
+/* ═══════════════════════════════════════════════════
+   19. CURSOR-FOLLOWING SPOTLIGHT GLOW
+═══════════════════════════════════════════════════ */
+(function initSpotlightGlow() {
+  const cards = document.querySelectorAll('.glow-border');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top)  + 'px');
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.setProperty('--mx', '50%');
+      card.style.setProperty('--my', '50%');
+    });
+  });
+})();

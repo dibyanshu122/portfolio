@@ -1152,12 +1152,47 @@ input, textarea, [contenteditable] {
 /* CURSOR TRAIL */
 .trail-dot{position:fixed;border-radius:50%;pointer-events:none;z-index:9997;background:var(--accent);mix-blend-mode:screen;will-change:transform,opacity}
 
-/* ANIMATED GRADIENT BORDER */
-@property --grad-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
-.glow-border{position:relative;isolation:isolate}
-.glow-border::after{content:'';position:absolute;inset:-1px;border-radius:inherit;background:conic-gradient(from var(--grad-angle),transparent 0%,transparent 60%,#00d4ff 75%,#7c3aed 88%,transparent 100%);z-index:-1;opacity:0;transition:opacity .4s;animation:gradBorderRotate 4s linear infinite}
-.glow-border:hover::after{opacity:1}
-@keyframes gradBorderRotate{to{--grad-angle:360deg}}
+/* CURSOR-FOLLOWING SPOTLIGHT GLOW */
+.glow-border {
+  position: relative;
+  isolation: isolate;
+  --mx: 50%;
+  --my: 50%;
+}
+/* Inner spotlight that follows cursor */
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    500px circle at var(--mx) var(--my),
+    rgba(0,212,255,.10),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+/* Border highlight that follows cursor */
+.glow-border::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    280px circle at var(--mx) var(--my),
+    rgba(0,212,255,.45),
+    rgba(124,58,237,.15) 50%,
+    transparent 70%
+  );
+  z-index: -1;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+.glow-border:hover::before,
+.glow-border:hover::after { opacity: 1; }
 
 /* 3D FLIP CARDS */
 .flip-wrap{perspective:1000px;height:210px;cursor:pointer}
