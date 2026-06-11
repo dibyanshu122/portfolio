@@ -64,7 +64,45 @@
   <a href="mailto:ddibyanshu2@gmail.com" class="nav__cta" id="nav-cta">
     <i class="fas fa-paper-plane" aria-hidden="true"></i> Hire Me
   </a>
+  <!-- Hamburger (visible on mobile) -->
+  <button class="nav__hamburger" id="navHamburger" aria-label="Open menu" style="display:none">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+
+<!-- Mobile Drawer -->
+<div class="nav__overlay" id="navOverlay"></div>
+<div class="nav__mobile-drawer" id="navDrawer">
+  <a href="#home"       onclick="closeDrawer()">Home</a>
+  <a href="#skills"     onclick="closeDrawer()">Skills</a>
+  <a href="#experience" onclick="closeDrawer()">Experience</a>
+  <a href="#projects"   onclick="closeDrawer()">Projects</a>
+  <a href="#education"  onclick="closeDrawer()">Education</a>
+  <a href="#terminal"   onclick="closeDrawer()">AI Chat</a>
+  <a href="mailto:ddibyanshu2@gmail.com" class="nav__cta-mobile">
+    <i class="fas fa-paper-plane"></i> Hire Me
+  </a>
+</div>
+<script>
+  function closeDrawer(){
+    document.getElementById('navDrawer').classList.remove('open');
+    document.getElementById('navOverlay').classList.remove('open');
+  }
+  document.addEventListener('DOMContentLoaded',()=>{
+    const ham = document.getElementById('navHamburger');
+    const drawer = document.getElementById('navDrawer');
+    const overlay = document.getElementById('navOverlay');
+    // Show hamburger only on mobile
+    const mq = window.matchMedia('(max-width:900px)');
+    const toggle = ()=>{ ham.style.display = mq.matches ? 'flex' : 'none'; };
+    toggle(); mq.addEventListener('change', toggle);
+    ham.addEventListener('click',()=>{
+      drawer.classList.toggle('open');
+      overlay.classList.toggle('open');
+    });
+    overlay.addEventListener('click', closeDrawer);
+  });
+</script>
 
 <main>
 
