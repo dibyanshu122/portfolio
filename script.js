@@ -71,58 +71,7 @@ const $$ = s => document.querySelectorAll(s);
   document.body.style.overflow = 'hidden';
 })();
 
-/* ═══════════════════════════════════════════════════
-   2. CUSTOM CURSOR
-═══════════════════════════════════════════════════ */
-(function initCursor() {
-  const dot = $('#cursorDot');
-  const aura = $('#cursorAura');
-  if (!dot) return;
 
-  let mx = window.innerWidth / 2;
-  let my = window.innerHeight / 2;
-  let ax = mx, ay = my;
-
-  // Ultra-Premium Difference Blend Cursor (Instant tracking, zero lag)
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX;
-    my = e.clientY;
-    dot.style.left = mx + 'px';
-    dot.style.top  = my + 'px';
-  }, { passive: true });
-
-  if (aura) {
-    (function loopAura() {
-      ax += (mx - ax) * 0.08;
-      ay += (my - ay) * 0.08;
-      aura.style.left = ax + 'px';
-      aura.style.top  = ay + 'px';
-      requestAnimationFrame(loopAura);
-    })();
-  }
-
-  const hoverSel = 'a, button, .float-btn, .btn--primary, .btn--ghost, .nav__cta, .project-card__link, .ai-chip, .cursor-hover';
-  const inputSel = 'input, textarea';
-
-  document.addEventListener('mouseover', e => {
-    if (e.target.closest(inputSel)) {
-      dot.style.opacity = '0'; // Hide on input to show text cursor
-      if (aura) aura.style.opacity = '0';
-    } else if (e.target.closest(hoverSel)) {
-      dot.classList.add('hovering'); // Scale up over buttons
-      if (aura) aura.style.transform = 'translate(-50%, -50%) scale(1.5)';
-    }
-  });
-  document.addEventListener('mouseout', e => {
-    if (e.target.closest(inputSel)) {
-      dot.style.opacity = '1';
-      if (aura) aura.style.opacity = '1';
-    } else if (e.target.closest(hoverSel)) {
-      dot.classList.remove('hovering');
-      if (aura) aura.style.transform = 'translate(-50%, -50%) scale(1)';
-    }
-  });
-})();
 
 /* ═══════════════════════════════════════════════════
    3. CLICK PARTICLE BURST
