@@ -55,6 +55,7 @@ body {
   color: var(--text-primary);
   font-family: var(--font-body);
   overflow-x: hidden;
+  cursor: none;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -1483,3 +1484,25 @@ input, textarea, [contenteditable] {
 }
 .ai-chip:active { transform: translateY(0); }
 .ai-chip i { font-size: .75rem; }
+
+/* Cursor */
+.cursor{
+position:fixed;
+width:12px;
+height:12px;
+background:var(--accent);
+border-radius:50%;
+pointer-events:none;
+z-index:4000;
+box-shadow:0 0 15px var(--accent);
+}
+.cursor-trail{
+position:fixed;
+width:30px;
+height:30px;
+border:1px solid var(--accent);
+border-radius:50%;
+pointer-events:none;
+z-index:3999;
+opacity:0.5;
+}
