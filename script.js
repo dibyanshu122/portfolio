@@ -775,7 +775,7 @@ Database optimisation:
     // Education
     { keys:['education','degree','btech','college','university','cgpa','study','studied','qualification'], ans:"B.Tech in Computer Science & Engineering from Rameshwaram Institute of Technology & Management, Lucknow (2019–2023), CGPA 8.05/10. Relevant coursework: DSA, DBMS, ML, Cloud Computing, Web Development." },
     // Contact / Hire
-    { keys:['contact','hire','email','phone','linkedin','reach','available','freelance','fulltime','salary'], ans:"📧 ddibyanshu2@gmail.com | 📱 +91-9628954948 | LinkedIn: linkedin.com/in/dibyanshu-286ba723a | GitHub: github.com/dibyanshu122 — Open to full-time roles, freelance projects, and AI consulting." },
+    { keys:['contact','hire','email','phone','linkedin','reach','available','freelance','fulltime','salary'], ans:"📧 ddibyanshu2@gmail.com | 📱 +91-9628954948 | LinkedIn: linkedin.com/in/dibyanshu-singh-ai/ | GitHub: github.com/dibyanshu122 — Open to full-time roles, freelance projects, and AI consulting." },
     // Cloud / DevOps
     { keys:['aws','cloud','deploy','docker','devops','server','ci','cd','deployment','infra'], ans:"I deploy on AWS EC2/S3/RDS, containerize with Docker, use GitHub Actions for CI/CD with zero-downtime deployments, and host frontends on Vercel. Experienced with Redis for caching/queues and PostgreSQL/MongoDB for databases." },
     // FastAPI / Backend

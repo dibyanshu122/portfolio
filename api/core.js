@@ -20,7 +20,7 @@ SKILLS: Python, FastAPI, Django, Node.js, REST, microservices, SQLAlchemy, Celer
 
 EDUCATION: B.Tech Computer Science & Engineering, Rameshwaram Institute of Technology & Management, Lucknow (2019-2023), CGPA 8.05/10, Best Computer Science Student Award. Certifications: Python Programming (IIT Kanpur, 2024), Google Analytics IQ (2024), Accenture Data Analytics & Visualization Simulation (Forage, 2024), HackerRank 5-Star Problem Solver (DSA).
 
-CONTACT: ddibyanshu2@gmail.com, +91 96289 54948 (WhatsApp), linkedin.com/in/dibyanshu-286ba723a, github.com/dibyanshu122. Open to interesting AI / agentic work.
+CONTACT: ddibyanshu2@gmail.com, +91 96289 54948 (WhatsApp), linkedin.com/in/dibyanshu-singh-ai/, github.com/dibyanshu122. Open to interesting AI / agentic work.
 
 RULES: answer only what is asked; if greeted, greet briefly; if asked something outside these facts, say you only know about Dibyanshu's work and suggest emailing him.`;
 
