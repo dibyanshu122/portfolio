@@ -39,8 +39,13 @@ function limited(ip) {
   return arr.length > 20;
 }
 
+const GONE = /not found|no longer available|not supported|deprecated/i;
+const BUSY = /high demand|unavailable|overloaded|try again|resource exhausted/i;
+
 async function generate(apiKey, prompt) {
   let last = 'empty answer';
+  for (let pass = 0; pass < 2; pass++) {
+  if (pass) await new Promise(r => setTimeout(r, 900));
   for (const model of MODELS) {
     const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
       method: 'POST',
@@ -55,8 +60,10 @@ async function generate(apiKey, prompt) {
     const text = c && c.content && c.content.parts && c.content.parts[0] && c.content.parts[0].text;
     if (text) return { text: text.trim(), model };
     last = (data && data.error && data.error.message) || `HTTP ${r.status}`;
-    // only move on to the next model when this one is gone; quota/auth errors are the same for every model
-    if (!/not found|no longer available|not supported|deprecated/i.test(last)) break;
+    // move on when this model is gone or overloaded; quota/auth errors are the same for every model, so stop
+    if (!GONE.test(last) && !BUSY.test(last)) return { error: last };
+  }
+  if (!BUSY.test(last)) break;
   }
   return { error: last };
 }
