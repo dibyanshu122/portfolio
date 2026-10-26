@@ -51,8 +51,11 @@ nav ul a.oldlink{color:var(--accent);opacity:.85}
 .btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
 section{position:relative}
-.hero{min-height:88vh;display:flex;align-items:center;padding-block:110px 48px}
-.hero-inner{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;max-width:720px}
+.hero{position:relative;min-height:88vh;display:flex;align-items:center;padding-block:110px 48px}
+.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr);gap:24px;max-width:720px}
+/* full-width name behind the hero, between the canvas and the copy */
+.hero-wm{position:absolute;left:50%;top:50%;z-index:0;width:100vw;text-align:center;font:800 9.8vw/1 var(--display);letter-spacing:-.01em;white-space:nowrap;color:rgba(232,232,234,.05);-webkit-text-stroke:1px rgba(232,232,234,.10);pointer-events:none;user-select:none;animation:wmIn 1.6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes wmIn{from{opacity:0;transform:translate(-50%,-50%) scale(.96)}to{opacity:1;transform:translate(-50%,-50%)}}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--muted)}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber)}
 h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(40px,min(6.4vw,11vh),88px);line-height:.98;letter-spacing:-.03em;text-wrap:balance}
@@ -248,6 +251,7 @@ button.card{text-align:left;font:inherit;cursor:none;width:100%}
 <a class="oldlink-m" href="old/">OLD PORTFOLIO ↗</a>
 <main class="ui" id="top">
   <section class="hero wrap" id="hero">
+    <div class="hero-wm" aria-hidden="true">DIBYANSHU</div>
     <div class="hero-inner">
       <div class="eyebrow"><span class="dot"></span><span id="scr" data-text="SENIOR AI ENGINEER · SPM MEDICARE · NOIDA">SENIOR AI ENGINEER · SPM MEDICARE · NOIDA</span></div>
       <h1 id="h1">I build agents that run <span class="acc">businesses.</span></h1>
