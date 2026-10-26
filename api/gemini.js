@@ -51,7 +51,7 @@ Guidelines:
 `;
 
         // Google retires models without notice, so try a short list in order.
-        const models = [process.env.GEMINI_MODEL, 'gemini-3.8-flash', 'gemini-flash-latest', 'gemini-2.5-flash']
+        const models = [process.env.GEMINI_MODEL, 'gemini-3.8-flash', 'gemini-3.5-flash-lite', 'gemini-3.7-flash', 'gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.1-flash-lite', 'gemini-flash-lite-latest']
             .filter((m, i, a) => m && a.indexOf(m) === i);
         let data = null;
         for (const model of models) {

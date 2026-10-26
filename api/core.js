@@ -26,7 +26,9 @@ CONTACT: ddibyanshu2@gmail.com, +91 96289 54948 (WhatsApp), linkedin.com/in/diby
 RULES: answer only what is asked; if greeted, greet briefly; if asked something outside these facts, say you only know about Dibyanshu's work and suggest emailing him.`;
 
 // Google retires models without notice, so try a short list in order.
-const MODELS = [process.env.GEMINI_MODEL, 'gemini-3.8-flash', 'gemini-flash-latest', 'gemini-2.5-flash']
+// Each model has its own free-tier daily quota, so a longer list = more questions per day.
+// Check what the key can use with: GET /api/core
+const MODELS = [process.env.GEMINI_MODEL, 'gemini-3.8-flash', 'gemini-3.5-flash-lite', 'gemini-3.7-flash', 'gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-3.1-flash-lite', 'gemini-flash-lite-latest']
   .filter((m, i, a) => m && a.indexOf(m) === i);
 
 // Per-instance rate limit: 20 questions per IP per 10 minutes.
