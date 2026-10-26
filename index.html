@@ -74,7 +74,10 @@ h1 .acc{color:var(--accent)}
 h2{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(36px,5vw,64px);line-height:1;letter-spacing:-.03em;text-wrap:balance}
 .sub{margin:0;max-width:38ch;font-size:15px;line-height:1.6;color:var(--muted)}
 
-.skills{min-height:100vh;padding-block:96px;display:flex;flex-direction:column;justify-content:space-between}
+.skills{min-height:150vh}
+.skills-pin{position:sticky;top:0;height:100vh;box-sizing:border-box;padding-block:96px 48px;display:flex;flex-direction:column;justify-content:space-between}
+@media(max-width:860px){.skills{min-height:0}.skills-pin{position:static;height:auto;min-height:100vh;padding-block:96px}}
+@media(min-width:861px) and (max-height:720px){.skills-pin{padding-block:72px 20px}.panel{padding:20px;gap:12px}}
 .panel{margin-left:auto;width:min(100%,400px);display:flex;flex-direction:column;gap:18px;padding:28px;border:1px solid var(--line);border-radius:20px;background:color-mix(in srgb,var(--surface) 86%,transparent);backdrop-filter:blur(10px)}
 .panel .meta{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--muted)}
 .panel .meta em{font-style:normal;color:var(--accent)}
@@ -254,7 +257,8 @@ button.card{text-align:left;font:inherit;cursor:none;width:100%}
     <div class="scrollcue"><i></i>SCROLL · THE CORE FOLLOWS</div>
   </section>
 
-  <section class="skills wrap" id="skills">
+  <section class="skills" id="skills">
+   <div class="skills-pin wrap">
     <div class="sec-head reveal">
       <div><p class="kicker">TECHNICAL STACK</p><h2>Eight systems.<br>One core.</h2></div>
       <p class="sub">Hover any node and the Core lights the thread to it. Every tool here has shipped to production.</p>
@@ -265,6 +269,7 @@ button.card{text-align:left;font:inherit;cursor:none;width:100%}
       <p id="pd">Autonomous agent builders that design, deploy and self-correct WhatsApp flows. Zero human intervention after launch.</p>
       <div class="chips" id="pc"></div>
     </div>
+   </div>
   </section>
 
   <section class="flow" id="workflow">
@@ -723,20 +728,28 @@ function renderBloom(){
 const secs=['hero','skills','workflow','experience','projects','contact'].map(id=>document.getElementById(id));
 function stageAt(y){
   const vh=innerHeight;const keys=[0];for(let i=1;i<secs.length;i++)keys.push(secs[i].offsetTop-vh*0.45);
-  for(let i=0;i<keys.length-1;i++){if(y<keys[i+1]){const t=clamp((y-keys[i])/(keys[i+1]-keys[i]),0,1);return i+t*t*(3-2*t);}}
+  for(let i=0;i<keys.length-1;i++){if(y<keys[i+1]){const a=i===1?Math.max(keys[1],keys[2]-vh*0.55):keys[i];const t=clamp((y-a)/(keys[i+1]-a),0,1);return i+t*t*(3-2*t);}}
   return keys.length-1;
 }
-const S={x:0,y:0,s:0.001,mix:0,wmix:0,ring:1,cx:0,cy:0,cz:7,amp:0.14};
-const K={x:[1.2,0,0,-2.3,2.2,0],y:[0,0.15,0,0.4,0,0.1],s:[1,0.62,0.4,0.4,0.5,1.3],ring:[1,0.3,0,0.35,0.6,1],
-         cx:[0,1.4,0,-1.6,0.9,0],cy:[0,0.5,0.2,0.7,-0.4,0.2],cz:[7,6.6,7.8,6.4,6.8,6.2],amp:[0.14,0.07,0.05,0.1,0.08,0.18]};
+if('scrollRestoration' in history)history.scrollRestoration='manual';if(!location.hash)scrollTo({top:0,behavior:'instant'});
+const S={x:0,y:0,s:0.001,mix:0,wmix:0,ring:1,cx:0,cy:0,cz:7,amp:0.14,la:0.5};
+const K={x:[1.2,0,0,-2.3,2.2,0],y:[0,0.15,0,0.4,0,0.1],s:[0.85,0.62,0.4,0.4,0.5,1.3],ring:[1,0.3,0,0.35,0.6,1],
+         cx:[0,0,0,-1.6,0.9,0],cy:[0,0,0.2,0.7,-0.4,0.2],cz:[7,6.6,7.8,6.4,6.8,6.2],amp:[0.14,0.07,0.05,0.1,0.08,0.18],
+         la:[0.5,0,0.5,0.5,0.5,0.5]};
 const mob=()=>innerWidth<860;
+// hero: keep the globe in the right half (camera lookAt halves the offset, hence the large x)
+const heroX=()=>7*Math.tan(camera.fov*Math.PI/360)*(innerWidth/innerHeight)*HERO_X;const HERO_X=1.08;
+// rotation speed multiplier for the core, cages, rings and orbiting nodes
+const SPIN=0.45;
+// skills: globe + nodes fit the open space left of the skill card
+const panelEl=document.getElementById('panel'),skHead=document.querySelector('#skills .sec-head');let skFit=1;
 
 /* ---------- loop ---------- */
 const clock=new THREE.Clock();const camT=new THREE.Vector2();const tmp=new THREE.Vector3();const mouseW=new THREE.Vector3(99,99,0);let burst=0;const t0=performance.now();
 const gridEl=document.getElementById('gridfx');const flowStage=document.querySelector('.flow-stage');
 let lastT=0,lastScroll=-1;
 function frame(){
-  const t=clock.getElapsedTime();const dt=Math.min(t-lastT,0.1);lastT=t;
+  const t=clock.getElapsedTime();const dt=Math.min(t-lastT,0.1);lastT=t;const tr=t*SPIN;
   const st=stageAt(scrollY);const i=Math.floor(st),f=st-i,j=Math.min(i+1,5);
   // auto-fit the active flow into the open band between heading and panel
   const fl=flows[curFlow];const FB=FLOWS[curFlow].bb;const llm=fl.byId.llm.pos;
@@ -747,7 +760,12 @@ function frame(){
   const fscale=ppu/basePPU;const blockH=unitsH*ppu+labelPx;const blockTop=bandTop+(bandBot-bandTop-blockH)/2;
   const gy=(innerHeight/2-blockTop)/basePPU-(FB.maxy+nodeHalf)*fscale;const gx=((bandL+bandR)/2-innerWidth/2)/basePPU-((FB.maxx+FB.minx)/2)*fscale;
   const flowY=gy,flowX=gx;
-  K.x[2]=gx+llm.x*fscale;K.y[2]=gy+llm.y*fscale;K.s[2]=0.4*fscale;K.cz[2]=8.1;K.cy[2]=0;K.cx[2]=0;
+  if(!mob()){const hr=skHead.getBoundingClientRect(),pr=panelEl.getBoundingClientRect();
+    const bL=hr.left,bR=Math.max(bL+240,pr.left-24),bT=hr.bottom+12,bB=innerHeight-32;
+    const sppu=innerHeight/(2*K.cz[1]*Math.tan(camera.fov*Math.PI/360));
+    skFit=clamp(Math.min(((bR-bL)/2-75)/(2.7*sppu),((bB-bT)/2-62)/(2.1*sppu)),0.4,1);
+    K.x[1]=((bL+bR)/2-innerWidth/2)/sppu;K.y[1]=(innerHeight/2-((bT+bB)/2-28))/sppu;K.s[1]=0.62*skFit;}
+  K.x[0]=heroX();K.x[2]=gx+llm.x*fscale;K.y[2]=gy+llm.y*fscale;K.s[2]=0.4*fscale;K.cz[2]=8.1;K.cy[2]=0;K.cx[2]=0;
   // stage 2 is pinned: hold its values across the pin, transition only in the last 15%
   const ff=i===2?clamp((f-0.85)/0.15,0,1):f;
   const k=key=>lerp(K[key][i],K[key][j],ff);
@@ -758,27 +776,27 @@ function frame(){
   if(scrollY!==lastScroll){lastScroll=scrollY;const g=Math.min(TOTAL-1,Math.floor(prog*TOTAL));if(g!==FSTART[curFlow]+curStep)setGlobal(g);}
   const intro=clamp((performance.now()-t0)/1800,0,1);const ie=1-Math.pow(1-intro,3);
   S.x=lerp(S.x,tx,0.06);S.y=lerp(S.y,ty,0.06);S.s=lerp(S.s,ts*ie,0.07);S.mix=lerp(S.mix,mix,0.08);S.wmix=lerp(S.wmix,wmix,0.08);S.ring=lerp(S.ring,k('ring')*ie,0.06);
-  S.cx=lerp(S.cx,mob()?0:k('cx'),0.05);S.cy=lerp(S.cy,k('cy'),0.05);S.cz=lerp(S.cz,k('cz'),0.05);S.amp=lerp(S.amp,k('amp'),0.05);
+  S.cx=lerp(S.cx,mob()?0:k('cx'),0.05);S.cy=lerp(S.cy,k('cy'),0.05);S.cz=lerp(S.cz,k('cz'),0.05);S.amp=lerp(S.amp,k('amp'),0.05);S.la=lerp(S.la,k('la'),0.05);
 
   uTime.value=t;uAmp.value=reduce?0:S.amp;pU.uIntro.value=intro;
   coreGroup.position.set(S.x,S.y,0);coreGroup.scale.setScalar(S.s*(1+Math.sin(t*0.8)*0.015));
   const px=(mx/innerWidth-0.5),py=(my/innerHeight-0.5);
-  core.rotation.y=t*0.1+px*0.6;core.rotation.x=py*0.45;
-  cageA.rotation.y=-t*0.08;cageA.rotation.x=t*0.05;cageB.rotation.y=t*0.12;cageB.rotation.z=-t*0.07;
-  shell.rotation.y=t*0.04;halo.material.opacity=0.6*(0.5+S.ring*0.5)*(1-S.wmix*0.75);halo.scale.setScalar(6.5*(1-S.wmix*0.55));pU.uShrink.value=S.wmix;
+  core.rotation.y=tr*0.1+px*0.6;core.rotation.x=py*0.45;
+  cageA.rotation.y=-tr*0.08;cageA.rotation.x=tr*0.05;cageB.rotation.y=tr*0.12;cageB.rotation.z=-tr*0.07;
+  shell.rotation.y=tr*0.04;halo.material.opacity=0.6*(0.5+S.ring*0.5)*(1-S.wmix*0.75);halo.scale.setScalar(6.5*(1-S.wmix*0.55));pU.uShrink.value=S.wmix;
 
   tmp.set(px*2,-py*2,0.5).unproject(camera);tmp.sub(camera.position).normalize();const tt=-camera.position.z/tmp.z;mouseW.copy(camera.position).add(tmp.multiplyScalar(tt));
   const near=mouseW.distanceTo(coreGroup.position)<1.5*S.s&&!coarse;burst=lerp(burst,near?1:0,0.08);pU.uBurst.value=burst;
   shell.updateMatrixWorld();shell.worldToLocal(pU.uMouse.value.copy(mouseW));
 
-  ringGroups.forEach((g,n)=>{g.position.copy(coreGroup.position);g.scale.setScalar(S.s);g.rotation.y+=0.0025*(n?-1:1);g.rotation.z=ringDefs[n].tilt[2]+px*0.2;g.updateMatrixWorld();});
+  ringGroups.forEach((g,n)=>{g.position.copy(coreGroup.position);g.scale.setScalar(S.s);g.rotation.y+=0.0025*SPIN*(n?-1:1);g.rotation.z=ringDefs[n].tilt[2]+px*0.2;g.updateMatrixWorld();});
   ringMat.opacity=0.5*S.ring*(1-S.wmix);const orbitOn=S.wmix<0.2;ringGroups.forEach(g=>g.visible=orbitOn);
   const hideNodes=!orbitOn;
   const lp=lineGeo.attributes.position.array;
   nodes.forEach((nd,n)=>{
-    const g=ringGroups[nd.ring];const r=ringDefs[nd.ring].r;const a=nd.ang+t*ringDefs[nd.ring].speed;
+    const g=ringGroups[nd.ring];const r=ringDefs[nd.ring].r;const a=nd.ang+tr*ringDefs[nd.ring].speed;
     tmp.set(Math.cos(a)*r,0,Math.sin(a)*r).applyMatrix4(g.matrixWorld);nd.hero.copy(tmp);
-    const sk=nd.skill.clone().multiplyScalar(mob()?0.62:1).add(new THREE.Vector3(S.x,S.y,0));
+    const sk=nd.skill.clone().multiplyScalar(mob()?0.62:skFit).add(new THREE.Vector3(S.x,S.y,0));
     nd.m.position.lerpVectors(nd.hero,sk,S.mix);nd.m.visible=!hideNodes;
     const on=n===active&&S.mix>0.5;nd.sp.scale.setScalar(on?1.2:0.5);nd.m.material.color.set(on?0x2DE2C8:0xE8E8EA);
     lp[n*6]=coreGroup.position.x;lp[n*6+1]=coreGroup.position.y;lp[n*6+2]=0;lp[n*6+3]=nd.m.position.x;lp[n*6+4]=nd.m.position.y;lp[n*6+5]=nd.m.position.z;
@@ -812,7 +830,7 @@ function frame(){
 
   dust.rotation.y=t*0.015;dust.rotation.x=t*0.008;
   camT.x=lerp(camT.x,px*0.5*(1-S.wmix*0.8),0.05);camT.y=lerp(camT.y,-py*0.35*(1-S.wmix*0.8),0.05);
-  camera.position.set(S.cx+camT.x,S.cy+camT.y,S.cz);camera.lookAt(S.wmix>0.5?0:S.x*0.5,S.wmix>0.5?0:S.y*0.5,0);
+  camera.position.set(S.cx+camT.x,S.cy+camT.y,S.cz);camera.lookAt(S.wmix>0.5?0:S.x*S.la,S.wmix>0.5?0:S.y*S.la,0);
   rim.position.set(coreGroup.position.x+2.5,coreGroup.position.y+1.5,2.5);rim2.position.set(coreGroup.position.x-2.5,coreGroup.position.y-2,2);
 
   cx=lerp(cx,mx,0.25);cy=lerp(cy,my,0.25);cur.style.transform=`translate(${cx}px,${cy}px)`;
