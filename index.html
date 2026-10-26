@@ -10,10 +10,13 @@
 <meta property="og:description" content="Agents, RAG, and the model under them. Production AI systems at 100K+ requests a day.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://portfolio-nine-coral-57.vercel.app/">
-<meta property="og:image" content="https://portfolio-nine-coral-57.vercel.app/og.png">
+<meta property="og:image" content="https://portfolio-nine-coral-57.vercel.app/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://portfolio-nine-coral-57.vercel.app/og.jpg">
+<link rel="canonical" href="https://portfolio-nine-coral-57.vercel.app/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Dibyanshu Singh","jobTitle":"Senior AI Engineer","worksFor":{"@type":"Organization","name":"SPM Medicare Pvt. Ltd."},"url":"https://portfolio-nine-coral-57.vercel.app/","email":"mailto:ddibyanshu2@gmail.com","telephone":"+91 96289 54948","address":{"@type":"PostalAddress","addressLocality":"Noida","addressCountry":"IN"},"sameAs":["https://www.linkedin.com/in/dibyanshu-singh-ai/","https://github.com/dibyanshu122"],"knowsAbout":["LangChain","LangGraph","RAG","Agentic AI","FastAPI","Next.js","PostgreSQL","AWS"]}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2712%27 fill=%27%2309090B%27 stroke=%27%232DE2C8%27 stroke-width=%272%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%274%27 fill=%27%23E8E8EA%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -31,7 +34,7 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);overflow-x:hidden;cursor:none}
 @media (pointer:coarse){body{cursor:auto}}
 a{color:inherit}
-#stage{position:fixed;inset:0;z-index:0}
+#stage{position:fixed;inset:0;z-index:0;transition:opacity .5s}
 #stage canvas{display:block;width:100%;height:100%}
 #grain{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;opacity:.045;mix-blend-mode:screen}
 #gridfx{position:fixed;inset:0;z-index:1;pointer-events:none;background-image:linear-gradient(rgba(232,232,234,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(232,232,234,.09) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),#000 0%,transparent 100%);mask-image:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),#000 0%,transparent 100%)}
@@ -62,6 +65,8 @@ section{position:relative}
 /* full-width name behind the hero, between the canvas and the copy */
 .hero-wm{position:absolute;left:50%;top:50%;z-index:0;width:100vw;text-align:center;font:800 9.8vw/1 var(--display);letter-spacing:-.01em;white-space:nowrap;color:rgba(232,232,234,.05);-webkit-text-stroke:1px rgba(232,232,234,.10);pointer-events:none;user-select:none;animation:wmIn 1.6s cubic-bezier(.2,.8,.2,1) both}
 @keyframes wmIn{from{opacity:0;transform:translate(-50%,-50%) scale(.96)}to{opacity:1;transform:translate(-50%,-50%)}}
+.eyebrow .avail{margin-left:12px;padding:5px 10px;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:999px;color:var(--accent);font-size:10px;letter-spacing:.14em;white-space:nowrap}
+@media(max-width:860px){.eyebrow{flex-wrap:wrap;row-gap:8px}.eyebrow .avail{margin-left:0}}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--muted)}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber)}
 h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(40px,min(6.4vw,11vh),88px);line-height:.98;letter-spacing:-.03em;text-wrap:balance}
@@ -85,7 +90,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(36px,5vw,
 
 .skills{min-height:150vh}
 .skills-pin{position:sticky;top:0;height:100vh;box-sizing:border-box;padding-block:96px 48px;display:flex;flex-direction:column;justify-content:space-between}
-@media(max-width:860px){.skills{min-height:0}.skills-pin{position:static;height:auto;min-height:100vh;padding-block:96px}}
+@media(max-width:860px){.skills{min-height:0}.skills-pin{position:static;height:auto;min-height:0;padding-block:96px 48px}}
+/* mobile: the globe gets its own band between heading and card, labels become a row of tabs */
+.skills-stage,.skill-tabs{display:none}
+@media(max-width:860px){.skills-stage{display:block;height:min(64vw,260px);margin:8px 0 18px}.skill-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}.skill-tabs button{padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:none;color:var(--muted);font:500 12px var(--body)}.skill-tabs button.active{color:var(--fg);border-color:var(--accent)}
+.label:not(.fl){display:none}.label.fl{display:none}.label.fl.active,.label.fl.core{display:block}}
 @media(min-width:861px) and (max-height:720px){.skills-pin{padding-block:72px 20px}.panel{padding:20px;gap:12px}.skills h2{font-size:40px;white-space:nowrap}.skills h2 br{display:none}}
 .panel{margin-left:auto;width:min(100%,400px);display:flex;flex-direction:column;gap:18px;padding:28px;border:1px solid var(--line);border-radius:20px;background:color-mix(in srgb,var(--surface) 86%,transparent);backdrop-filter:blur(10px)}
 .panel .meta{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--muted)}
@@ -152,6 +161,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(36px,5vw,
 .term-form .tp{color:var(--accent);font-size:13px}
 .term-form input{flex:1;min-width:0;height:40px;border:0;background:none;color:var(--fg);font:400 13px var(--mono);outline:none}
 .term-form input::placeholder{color:var(--muted)}
+.term-bar em.off{color:#f2b85a}
+.term-body .cta{display:flex;flex-wrap:wrap;gap:8px;padding-top:4px}
+.term-body .cta .btn{height:34px;padding:0 14px;font-size:12px}
 .tsend{height:36px;padding:0 16px;border-radius:999px;border:0;background:var(--accent);color:#09090B;font:500 12px var(--mono);cursor:none}
 .tsend:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .term-form:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(45,226,200,.14)}
@@ -165,6 +177,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(36px,5vw,
 .contact .inner{display:flex;flex-direction:column;gap:28px;align-items:flex-start}
 .contact h2{font-size:clamp(40px,7vw,104px)}
 .mail{font-family:var(--mono);font-size:14px;color:var(--muted);user-select:all}
+footer a{color:inherit;text-decoration:none}footer a:hover{color:var(--accent)}
 footer{padding-block:28px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
 footer a{color:var(--muted);text-decoration:none}
 footer a:hover{color:var(--fg)}
@@ -250,16 +263,15 @@ button.card{text-align:left;font:inherit;cursor:none;width:100%}
 
 <nav class="ui">
   <a class="logo" href="#top" data-mag>DIBYANSHU<b>_</b></a>
-  <ul><li><a href="#skills">Skills</a></li><li><a href="#experience">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li><li><a href="old/" class="oldlink" title="The previous version of this site">Old portfolio ↗</a></li></ul>
+  <ul><li><a href="#skills">Skills</a></li><li><a href="#experience">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li><li><a href="resume.pdf" target="_blank" rel="noopener">Resume</a></li></ul>
   <a class="btn ghost" href="#contact" data-mag>HIRE ME</a>
 </nav>
 
-<a class="oldlink-m" href="old/">OLD PORTFOLIO ↗</a>
 <main class="ui" id="top">
   <section class="hero wrap" id="hero">
     <div class="hero-wm" aria-hidden="true">DIBYANSHU</div>
     <div class="hero-inner">
-      <div class="eyebrow"><span class="dot"></span><span id="scr" data-text="SENIOR AI ENGINEER · SPM MEDICARE · NOIDA">SENIOR AI ENGINEER · SPM MEDICARE · NOIDA</span></div>
+      <div class="eyebrow"><span class="dot"></span><span id="scr" data-text="SENIOR AI ENGINEER · SPM MEDICARE · NOIDA">SENIOR AI ENGINEER · SPM MEDICARE · NOIDA</span><span class="avail">● OPEN TO AI / AGENTIC WORK</span></div>
       <h1 id="h1">I build agents that run <span class="acc">businesses.</span></h1>
       <p class="lede"><b>Dibyanshu Singh</b>, AI Engineer &amp; Software Developer. 3+ years shipping production LLM, RAG and agentic systems. Built <b>B9 Automation</b>, a WhatsApp AI platform used by 100+ businesses at 100K+ requests a day with sub-1s replies.</p>
       <div class="ctas"><a class="btn primary" href="#projects" data-mag>View projects →</a><a class="btn" href="#core" data-mag>Talk to the Core</a></div>
@@ -274,6 +286,8 @@ button.card{text-align:left;font:inherit;cursor:none;width:100%}
       <div><p class="kicker">TECHNICAL STACK</p><h2>Eight systems.<br> One core.</h2></div>
       <p class="sub">Hover any node and the Core lights the thread to it. Every tool here has shipped to production.</p>
     </div>
+    <div class="skills-stage" aria-hidden="true"></div>
+    <div class="skill-tabs" id="stabs" role="tablist" aria-label="Skill groups"></div>
     <div class="panel reveal" id="panel">
       <div class="meta"><span id="pm">NODE 03 / 08</span><em>● CONNECTED</em></div>
       <h3 id="pt">Agentic AI</h3>
@@ -312,7 +326,7 @@ button.card{text-align:left;font:inherit;cursor:none;width:100%}
   </section>
 
   <section class="projects wrap" id="projects">
-    <div class="sec-head reveal"><div><p class="kicker">SHIPPED</p><h2>Work in orbit.</h2></div><p class="sub">Move your cursor over a card. It tilts toward you with a light glare, the cheapest trick that reads as 3D.</p></div>
+    <div class="sec-head reveal"><div><p class="kicker">SHIPPED</p><h2>Work in orbit.</h2></div><p class="sub">Three systems in production. Open a card for the architecture, the numbers and the code.</p></div>
     <div class="cards reveal">
       <button class="card wide" type="button" data-proj="b9"><div class="glare"></div><div class="meta"><span>FLAGSHIP · BUILT &amp; RUN BY ME</span><em>LIVE · 100+ BUSINESSES</em></div><h3>B9 Automation</h3><p>Multi-tenant WhatsApp AI SaaS. 86+ REST endpoints, 62+ PostgreSQL models, JWT auth, 9 live integrations on AWS EC2. Agentic core: autonomous agent builder, RAG over business documents, Groq Llama 3.3 + Gemini 2.0 Flash failover, lead scoring, prompt-safety guardrails. No-code 37-node flow builder, Celery + Redis campaign engine, Razorpay tiered billing. Sub-1s replies across 1,000+ concurrent sessions, 95%+ retention.</p><div class="tags"><span>Next.js</span><span>FastAPI</span><span>PostgreSQL</span><span>Groq</span><span>Gemini</span><span>RAG</span><span>Celery</span><span>Redis</span><span>AWS</span></div><div class="more">OPEN CASE STUDY →</div></button>
       <button class="card" type="button" data-proj="nexus"><div class="glare"></div><div class="meta"><span>PROJECT</span><em>LIVE</em></div><h3>Nexus AI Insight Engine</h3><p>3-tier multi-agent research system (Researcher, Critic, Writer) with live web search, Pinecone RAG memory, sub-2s responses and PDF export.</p><div class="tags"><span>Next.js</span><span>FastAPI</span><span>LangGraph</span><span>Gemini</span><span>Pinecone</span><span>Tavily</span></div><div class="more">OPEN CASE STUDY →</div></button>
@@ -332,9 +346,9 @@ button.card{text-align:left;font:inherit;cursor:none;width:100%}
   </section>
 
   <section class="corechat wrap" id="core">
-    <div class="sec-head reveal"><div><p class="kicker">DIBYANSHU AI CORE</p><h2>Ask the Core.</h2></div><p class="sub">A small agent over my own resume and projects, running on Gemini 2.0 Flash. Ask it like you would ask me.</p></div>
+    <div class="sec-head reveal"><div><p class="kicker">DIBYANSHU AI CORE</p><h2>Ask the Core.</h2></div><p class="sub">A small agent over my own resume and projects, running on Gemini. Ask it like you would ask me.</p></div>
     <div class="term reveal" role="group" aria-label="AI Core terminal">
-      <div class="term-bar"><span>DIBYANSHU-AI-CORE</span><em id="tstate">● ONLINE · GEMINI 2.0 FLASH</em></div>
+      <div class="term-bar"><span>DIBYANSHU-AI-CORE</span><em id="tstate">● READY</em></div>
       <div class="term-body" id="tbody">
         <div class="line a">Ask me anything about Dibyanshu: experience, B9 Automation, the stack, availability. Answers come from his resume and projects.</div>
       </div>
@@ -347,11 +361,11 @@ button.card{text-align:left;font:inherit;cursor:none;width:100%}
     <div class="inner reveal">
       <p class="kicker">NEXT</p>
       <h2>Let's build something autonomous.</h2>
-      <div class="ctas"><a class="btn primary" href="https://wa.me/919628954948" target="_blank" rel="noopener" data-mag>WhatsApp me</a><a class="btn" href="https://www.linkedin.com/in/dibyanshu-singh-ai/" target="_blank" rel="noopener" data-mag>LinkedIn</a><a class="btn" href="https://github.com/dibyanshu122" target="_blank" rel="noopener" data-mag>GitHub</a></div>
+      <div class="ctas"><a class="btn primary" href="https://wa.me/919628954948" target="_blank" rel="noopener" data-mag>WhatsApp me</a><a class="btn" href="https://www.linkedin.com/in/dibyanshu-singh-ai/" target="_blank" rel="noopener" data-mag>LinkedIn</a><a class="btn" href="https://github.com/dibyanshu122" target="_blank" rel="noopener" data-mag>GitHub</a><a class="btn" href="resume.pdf" target="_blank" rel="noopener" data-mag>Resume ↓</a></div>
       <div class="mailrow"><span class="mail" id="mail">ddibyanshu2@gmail.com</span><button class="copy" id="copy" type="button">Copy</button><span class="mail">+91 96289 54948 · Noida, India</span></div>
     </div>
   </section>
-  <footer class="wrap"><span>DESIGNED &amp; ENGINEERED BY DIBYANSHU SINGH © 2026</span><span>PROTOTYPE · THREE.JS · NO FRAMEWORK</span></footer>
+  <footer class="wrap"><span>DESIGNED &amp; ENGINEERED BY DIBYANSHU SINGH © 2026</span><span><a href="https://github.com/dibyanshu122/portfolio" target="_blank" rel="noopener">SOURCE ON GITHUB</a> · THREE.JS, NO FRAMEWORK · <a href="old/">PREVIOUS VERSION</a></span></footer>
 </main>
 
 
@@ -451,11 +465,15 @@ document.querySelectorAll('.card').forEach(card=>{
     [/educat|college|degree|btech|cgpa/i,'B.Tech in Computer Science from Rameshwaram Institute of Technology & Management, Lucknow (2019-2023), CGPA 8.05, Best Computer Science Student Award.']];
   const local=q=>{for(const [re,a] of LOCAL)if(re.test(q))return a;return 'I can answer about his experience, B9 Automation, the tech stack, projects, education or how to reach him. Try one of the chips below.';};
   const add=(cls,txt)=>{const d=document.createElement('div');d.className='line '+cls;if(cls==='q'){const s=document.createElement('span');s.textContent='>';d.appendChild(s);d.appendChild(document.createTextNode(' '+txt));}else d.textContent=txt;body.appendChild(d);body.scrollTop=body.scrollHeight;return d;};
-  const typeInto=(el,txt)=>{let i=0;el.textContent='';const id=setInterval(()=>{el.textContent=txt.slice(0,++i);body.scrollTop=body.scrollHeight;if(i>=txt.length)clearInterval(id);},12);};
+  const typeInto=(el,txt,cb)=>{let i=0;el.textContent='';const id=setInterval(()=>{el.textContent=txt.slice(0,++i);body.scrollTop=body.scrollHeight;if(i>=txt.length){clearInterval(id);if(cb)cb();}},12);};
+  const setState=(t,off)=>{state.textContent=t;state.classList.toggle('off',!!off);};
+  const addCta=()=>{const d=document.createElement('div');d.className='line cta';d.innerHTML='<a class="btn primary" href="https://wa.me/919628954948" target="_blank" rel="noopener">WhatsApp</a><a class="btn" href="mailto:ddibyanshu2@gmail.com">Email</a><a class="btn" href="resume.pdf" target="_blank" rel="noopener">Resume</a>';body.appendChild(d);body.scrollTop=body.scrollHeight;};
   let busy=false;
-  async function ask(q){q=q.trim();if(!q||busy)return;busy=true;add('q',q);inp.value='';state.textContent='● THINKING';const a=add('a','…');
-    let txt='';try{const r=await fetch('/api/core',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({q})});if(r.ok){const d=await r.json();txt=(d&&d.text)||'';}}catch(e){}
-    if(!txt)txt=local(q);typeInto(a,txt.trim());state.textContent='● ONLINE · GEMINI 2.0 FLASH';busy=false;}
+  async function ask(q){q=q.trim();if(!q||busy)return;busy=true;add('q',q);inp.value='';setState('● THINKING');const a=add('a','…');
+    let txt='',model='';try{const r=await fetch('/api/core',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({q})});if(r.ok){const d=await r.json();txt=(d&&d.text)||'';model=(d&&d.model)||'';}}catch(e){}
+    const live=!!txt;if(!txt)txt=local(q);
+    typeInto(a,txt.trim(),()=>{if(/hire|available|contact|email|phone|freelance|reach|call/i.test(q))addCta();});
+    setState(live?'● ONLINE · '+(model||'gemini').toUpperCase():'● LOCAL MODE · ANSWERS FROM THIS PAGE',!live);busy=false;}
   form.addEventListener('submit',e=>{e.preventDefault();ask(inp.value);});
   document.querySelectorAll('#tchips button').forEach(b=>b.addEventListener('click',()=>ask(b.getAttribute('data-q'))));
 })();
@@ -475,11 +493,11 @@ const SK=[
  {n:'Integrations',d:'Nine live third-party integrations running in production on B9.',c:['Meta WhatsApp Cloud API','Razorpay','Shopify','IndiaMART','Facebook Ads','Google Sheets']},
  {n:'Security',d:'Multi-tenant auth and compliance with zero breach incidents across two years of healthcare data.',c:['JWT','OAuth 2.0','RBAC','CSRF','Fernet (AES)','AES-256 at rest','HIPAA']}
 ];
-const labelsEl=document.getElementById('labels'); const labels=[]; let active=2;
-function setActive(i){active=i;labels.forEach((l,j)=>l.classList.toggle('active',j===i));
+const labelsEl=document.getElementById('labels'),stabs=document.getElementById('stabs'); const labels=[]; let active=2;
+function setActive(i){active=i;labels.forEach((l,j)=>l.classList.toggle('active',j===i));stabs.querySelectorAll('button').forEach((b,j)=>b.classList.toggle('active',j===i));
   document.getElementById('pm').textContent='NODE 0'+(i+1)+' / 08';document.getElementById('pt').textContent=SK[i].n;document.getElementById('pd').textContent=SK[i].d;
   document.getElementById('pc').innerHTML=SK[i].c.map(c=>'<span>'+c+'</span>').join('');}
-SK.forEach((s,i)=>{const l=document.createElement('button');l.className='label';l.type='button';l.textContent=s.n;l.addEventListener('mouseenter',()=>setActive(i));l.addEventListener('click',()=>setActive(i));labelsEl.appendChild(l);labels.push(l);});
+SK.forEach((s,i)=>{const l=document.createElement('button');l.className='label';l.type='button';l.textContent=s.n;l.addEventListener('mouseenter',()=>setActive(i));l.addEventListener('click',()=>setActive(i));labelsEl.appendChild(l);labels.push(l);const b=document.createElement('button');b.type='button';b.textContent=s.n;b.addEventListener('click',()=>setActive(i));stabs.appendChild(b);});
 setActive(2);
 
 /* ---------- workflow data: node kinds box | db | doc | core | out | wp(waypoint, invisible) ---------- */
@@ -714,7 +732,7 @@ const dN=coarse?100:300;const dp=new Float32Array(dN*3);for(let i=0;i<dN*3;i++)d
 const dust=new THREE.Points(new THREE.BufferGeometry().setAttribute('position',new THREE.BufferAttribute(dp,3)),new THREE.PointsMaterial({color:0xE8E8EA,size:0.03,transparent:true,opacity:0.3,depthWrite:false}));scene.add(dust);
 
 /* bloom */
-const BLOOM=!coarse&&!reduce;
+let BLOOM=!coarse&&!reduce;
 let rtScene,rtA,rtB;
 function makeRT(){const w=innerWidth*DPR,h=innerHeight*DPR;const o={minFilter:THREE.LinearFilter,magFilter:THREE.LinearFilter,format:THREE.RGBAFormat,depthBuffer:true};
   rtScene=new THREE.WebGLRenderTarget(w,h,o);const o2={...o,depthBuffer:false};rtA=new THREE.WebGLRenderTarget(w/2|0,h/2|0,o2);rtB=new THREE.WebGLRenderTarget(w/2|0,h/2|0,o2);}
@@ -744,7 +762,7 @@ function stageAt(y){
 }
 if('scrollRestoration' in history)history.scrollRestoration='manual';if(!location.hash)scrollTo({top:0,behavior:'instant'});
 const S={x:0,y:0,s:0.001,mix:0,wmix:0,ring:1,cx:0,cy:0,cz:7,amp:0.14,la:0.5};
-const K={x:[1.2,0,0,-2.3,2.2,0],y:[0,0.15,0,0.4,0,0.1],s:[0.85,0.62,0.4,0.4,0.5,1.3],ring:[1,0.3,0,0.35,0.6,1],
+const K={x:[1.2,0,0,-2.3,2.4,0],y:[0,0.15,0,0.4,-1.5,0.1],s:[0.85,0.62,0.4,0.4,0.5,1.3],ring:[1,0.3,0,0.35,0.6,1],
          cx:[0,0,0,-1.6,0.9,0],cy:[0,0,0.2,0.7,-0.4,0.2],cz:[7,6.6,7.8,6.4,6.8,6.2],amp:[0.14,0.07,0.05,0.1,0.08,0.18],
          la:[0.5,0,0.5,0.5,0.5,0.5]};
 const mob=()=>innerWidth<860;
@@ -753,7 +771,9 @@ const heroX=()=>7*Math.tan(camera.fov*Math.PI/360)*(innerWidth/innerHeight)*HERO
 // rotation speed multiplier for the core, cages, rings and orbiting nodes
 const SPIN=0.45;
 // skills: globe + nodes fit the open space left of the skill card
-const panelEl=document.getElementById('panel'),skHead=document.querySelector('#skills .sec-head');let skFit=1;
+const panelEl=document.getElementById('panel'),skHead=document.querySelector('#skills .sec-head'),skStage=document.querySelector('.skills-stage');let skFit=1;
+// adaptive quality: if the first seconds run slow, drop bloom and render at 1x
+let fpsN=0,fpsT=0,degraded=false,lastDim=null;
 
 /* ---------- loop ---------- */
 const clock=new THREE.Clock();const camT=new THREE.Vector2();const tmp=new THREE.Vector3();const mouseW=new THREE.Vector3(99,99,0);let burst=0;const t0=performance.now();
@@ -771,16 +791,21 @@ function frame(){
   const fscale=ppu/basePPU;const blockH=unitsH*ppu+labelPx;const blockTop=bandTop+(bandBot-bandTop-blockH)/2;
   const gy=(innerHeight/2-blockTop)/basePPU-(FB.maxy+nodeHalf)*fscale;const gx=((bandL+bandR)/2-innerWidth/2)/basePPU-((FB.maxx+FB.minx)/2)*fscale;
   const flowY=gy,flowX=gx;
-  if(!mob()){const hr=skHead.getBoundingClientRect(),pr=panelEl.getBoundingClientRect();
-    const bL=hr.left,bR=Math.max(bL+240,pr.left-24),bT=hr.bottom+12,bB=innerHeight-32;
+  {const m=mob();const hr=skHead.getBoundingClientRect(),pr=panelEl.getBoundingClientRect(),sr=skStage.getBoundingClientRect();
+    // desktop: the space left of the card, below the heading. mobile: the .skills-stage band
+    const bL=m?sr.left:hr.left,bR=m?sr.right:Math.max(hr.left+240,pr.left-24),bT=m?sr.top:hr.bottom+12,bB=m?sr.bottom:innerHeight-32;
     const sppu=innerHeight/(2*K.cz[1]*Math.tan(camera.fov*Math.PI/360));
-    skFit=clamp(Math.min(((bR-bL)/2-75)/(2.7*sppu),((bB-bT)/2-56)/(2.1*sppu)),0.4,1);
-    K.x[1]=((bL+bR)/2-innerWidth/2)/sppu;K.y[1]=(innerHeight/2-((bT+bB)/2-28))/sppu;K.s[1]=0.55*skFit;}
-  K.x[0]=heroX();K.x[2]=gx+llm.x*fscale;K.y[2]=gy+llm.y*fscale;K.s[2]=0.4*fscale;K.cz[2]=8.1;K.cy[2]=0;K.cx[2]=0;
+    skFit=clamp(Math.min(((bR-bL)/2-(m?30:75))/(2.7*sppu),((bB-bT)/2-(m?10:56))/(2.1*sppu)),m?0.2:0.4,1);
+    K.x[1]=((bL+bR)/2-innerWidth/2)/sppu;K.y[1]=(innerHeight/2-((bT+bB)/2-(m?0:28)))/sppu;K.s[1]=0.55*skFit;
+    // phones: hero globe tucks into the top-right corner above the headline; canvas dims after the workflow
+    K.x[0]=m?1.3:heroX();K.y[0]=m?3.1:0;K.s[0]=m?0.3:0.85;if(m){K.x[3]=K.x[4]=K.x[5]=0;}else{K.x[3]=-2.3;K.x[4]=2.4;K.x[5]=0;}
+    const dim=m&&st>2.6;if(dim!==lastDim){lastDim=dim;stage.style.opacity=dim?0.4:1;}}
+  if(!degraded&&!reduce&&t>2){fpsN++;fpsT+=dt;if(fpsT>3){if(fpsN/fpsT<32){degraded=true;BLOOM=false;renderer.setPixelRatio(1);}fpsN=0;fpsT=0;}}
+  K.x[2]=gx+llm.x*fscale;K.y[2]=gy+llm.y*fscale;K.s[2]=0.4*fscale;K.cz[2]=8.1;K.cy[2]=0;K.cx[2]=0;
   // stage 2 is pinned: hold its values across the pin, transition only in the last 15%
   const ff=i===2?clamp((f-0.85)/0.15,0,1):f;
   const k=key=>lerp(K[key][i],K[key][j],ff);
-  const tx=mob()&&i!==2&&j!==2?0:k('x'),ty=mob()&&i===0?1.45:k('y'),ts=mob()&&i!==2&&j!==2?k('s')*0.7:k('s');
+  const tx=k('x'),ty=k('y'),ts=mob()&&i>=3?k('s')*0.7:k('s');
   const mix=Math.max(0,1-Math.abs(st-1)),wmix=clamp(Math.min((st-1.55)/0.45,(3.0-st)/0.12),0,1);
   // scroll scrub: progress through the pinned section drives the step
   const prog=clamp((scrollY-wsec.offsetTop)/(wsec.offsetHeight-innerHeight),0,1);
@@ -807,7 +832,7 @@ function frame(){
   nodes.forEach((nd,n)=>{
     const g=ringGroups[nd.ring];const r=ringDefs[nd.ring].r;const a=nd.ang+tr*ringDefs[nd.ring].speed;
     tmp.set(Math.cos(a)*r,0,Math.sin(a)*r).applyMatrix4(g.matrixWorld);nd.hero.copy(tmp);
-    const sk=nd.skill.clone().multiplyScalar(mob()?0.62:skFit).add(new THREE.Vector3(S.x,S.y,0));
+    const sk=nd.skill.clone().multiplyScalar(skFit).add(new THREE.Vector3(S.x,S.y,0));
     nd.m.position.lerpVectors(nd.hero,sk,S.mix);nd.m.visible=!hideNodes;
     const on=n===active&&S.mix>0.5;nd.sp.scale.setScalar(on?1.2:0.5);nd.m.material.color.set(on?0x2DE2C8:0xE8E8EA);
     lp[n*6]=coreGroup.position.x;lp[n*6+1]=coreGroup.position.y;lp[n*6+2]=0;lp[n*6+3]=nd.m.position.x;lp[n*6+4]=nd.m.position.y;lp[n*6+5]=nd.m.position.z;
@@ -853,5 +878,6 @@ frame();
 addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();if(BLOOM){rtScene.dispose();rtA.dispose();rtB.dispose();makeRT();}});
 })();
 </script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

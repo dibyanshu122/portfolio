@@ -25,9 +25,10 @@ Core Competencies (Technical Stack):
 - Infrastructure: AWS (EC2), Vercel, Git, VPS Hosting.
 
 Professional Journey:
-1. Full Stack Developer @ Anantya.ai (Sep 2025 – Present): Architected real-time data flows using Webhooks (Salesforce, Zoho, IndiaMART). Engineered secure Node APIs and PostgreSQL schemas.
-2. Backend Developer @ Phero Health Care (Aug 2023 – Sep 2025): Designed scalable architectures using Django. Optimized databases by 30% and managed AWS EC2 deployments.
-3. Data Analyst (Simulation) @ Accenture: Cleaned and modeled complex datasets (7+ sources) to deliver high-level business insights via Power BI.
+1. Senior AI Engineer @ SPM Medicare Pvt. Ltd. (Aug 2026 – Present, Noida): Production LLM and agentic features with LangChain + LangGraph (tool calling, evaluation, guardrails), RAG over domain documents, FastAPI + PostgreSQL + AWS end to end.
+2. Full Stack Developer @ RingPass Services (Sep 2025 – Aug 2026): 3-tier multi-agent system (Researcher, Critic, Writer) on LangGraph + Pinecone; Next.js + PostgreSQL enterprise CRM with Google OAuth 2.0 and RBAC; Razorpay webhooks at 99.8% success.
+3. Backend Developer @ Phero Health Care (Aug 2023 – Sep 2025): Django + Node.js microservices at 100K+ daily requests, 99.5% uptime, MySQL to MongoDB migration, HIPAA-compliant RBAC on AWS EC2/RDS.
+4. Builder of B9 Automation: multi-tenant WhatsApp AI SaaS (FastAPI, PostgreSQL, Groq + Gemini failover, RAG, no-code flow builder).
 
 Educational Background:
 - B.Tech in Computer Science: Rameshwaram Institute (RITM), Lucknow. Graduated with an impressive 8.05 CGPA.
@@ -49,19 +50,24 @@ Guidelines:
 3. BREVITY: Be professional and concise.
 `;
 
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
-
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ 
-                    parts: [{ text: systemPrompt + "\n\nUser Question: " + userInput }] 
-                }]
-            })
-        });
-
-        const data = await response.json();
+        // Google retires models without notice, so try a short list in order.
+        const models = [process.env.GEMINI_MODEL, 'gemini-3.8-flash', 'gemini-flash-latest', 'gemini-2.5-flash']
+            .filter((m, i, a) => m && a.indexOf(m) === i);
+        let data = null;
+        for (const model of models) {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${API_KEY}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{ text: systemPrompt + "\n\nUser Question: " + userInput }]
+                    }]
+                })
+            });
+            data = await response.json();
+            const msg = data && data.error && data.error.message || '';
+            if (!data.error || !/not found|no longer available|not supported|deprecated/i.test(msg)) break;
+        }
         res.status(200).json(data);
 
     } catch (error) {

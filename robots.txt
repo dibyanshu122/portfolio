@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /old/
+Disallow: /new/
+Disallow: /api/
+
+Sitemap: https://portfolio-nine-coral-57.vercel.app/sitemap.xml

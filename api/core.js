@@ -1,6 +1,7 @@
 // Backend for the "Ask the Core" terminal on /new/.
 // Separate from api/gemini.js so the old site keeps working unchanged.
 // Uses the same GEMINI_API_KEY environment variable on Vercel.
+// Optional GEMINI_MODEL overrides the model; the list below is tried in order.
 
 const FACTS = `You are Dibyanshu Singh's AI portfolio assistant ("the Core"). Answer directly and accurately from these facts only. Never invent anything. Max 80 words. Friendly, professional, third person ("he").
 
@@ -24,7 +25,44 @@ CONTACT: ddibyanshu2@gmail.com, +91 96289 54948 (WhatsApp), linkedin.com/in/diby
 
 RULES: answer only what is asked; if greeted, greet briefly; if asked something outside these facts, say you only know about Dibyanshu's work and suggest emailing him.`;
 
+// Google retires models without notice, so try a short list in order.
+const MODELS = [process.env.GEMINI_MODEL, 'gemini-3.8-flash', 'gemini-flash-latest', 'gemini-2.5-flash']
+  .filter((m, i, a) => m && a.indexOf(m) === i);
+
+// Per-instance rate limit: 20 questions per IP per 10 minutes.
+const hits = new Map();
+function limited(ip) {
+  const now = Date.now(), win = 10 * 60 * 1000;
+  const arr = (hits.get(ip) || []).filter(t => now - t < win);
+  arr.push(now); hits.set(ip, arr);
+  if (hits.size > 5000) hits.clear();
+  return arr.length > 20;
+}
+
+async function generate(apiKey, prompt) {
+  let last = 'empty answer';
+  for (const model of MODELS) {
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { maxOutputTokens: 200, temperature: 0.6 }
+      })
+    });
+    const data = await r.json();
+    const c = data && data.candidates && data.candidates[0];
+    const text = c && c.content && c.content.parts && c.content.parts[0] && c.content.parts[0].text;
+    if (text) return { text: text.trim(), model };
+    last = (data && data.error && data.error.message) || `HTTP ${r.status}`;
+    // only move on to the next model when this one is gone; quota/auth errors are the same for every model
+    if (!/not found|no longer available|not supported|deprecated/i.test(last)) break;
+  }
+  return { error: last };
+}
+
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' });
   try {
     let body = req.body;
@@ -32,23 +70,16 @@ export default async function handler(req, res) {
     const q = String((body && body.q) || '').slice(0, 400).trim();
     if (!q) return res.status(400).json({ error: 'Missing q' });
 
+    const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || (req.socket && req.socket.remoteAddress) || 'unknown';
+    if (limited(ip)) return res.status(429).json({ error: 'Too many questions, try again in a few minutes' });
+
     const API_KEY = process.env.GEMINI_API_KEY;
     if (!API_KEY) return res.status(500).json({ error: 'GEMINI_API_KEY not configured' });
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
-    const r = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: FACTS + '\n\nUser: ' + q }] }],
-        generationConfig: { maxOutputTokens: 200, temperature: 0.6 }
-      })
-    });
-    const data = await r.json();
-    const text = data && data.candidates && data.candidates[0] && data.candidates[0].content &&
-      data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text;
-    if (!text) return res.status(502).json({ error: 'No answer', details: data && data.error ? data.error.message : undefined });
-    res.status(200).json({ text: text.trim() });
+    const out = await generate(API_KEY, FACTS + '\n\nUser: ' + q);
+    console.log('[core]', JSON.stringify({ q, model: out.model || null, error: out.error || null }));
+    if (!out.text) return res.status(502).json({ error: 'No answer', details: out.error });
+    res.status(200).json({ text: out.text, model: out.model });
   } catch (error) {
     res.status(500).json({ error: 'Server Error', details: error.message });
   }

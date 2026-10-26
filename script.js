@@ -808,7 +808,7 @@ Database optimisation:
     try {
       const KEY = (typeof CONFIG !== 'undefined' && (CONFIG.API_KEY || CONFIG.GEMINI_API_KEY))
         ? (CONFIG.API_KEY || CONFIG.GEMINI_API_KEY) : '';
-      if (KEY) {
+      {
         const sys = `You are Dibyanshu's AI portfolio assistant. Answer DIRECTLY and ACCURATELY based only on these facts. Never make up information.
 
 ABOUT DIBYANSHU:
@@ -841,11 +841,12 @@ RULES:
 - Max 70 words`;
 
 
-        const res  = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${KEY}`,
+        // client key (config.js, local only) or the server route /api/gemini on Vercel
+        const res  = KEY ? await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${KEY}`,
           { method:'POST', headers:{'Content-Type':'application/json'},
             body: JSON.stringify({ contents:[{parts:[{text:`${sys}\n\nUser: ${q}`}]}], generationConfig:{maxOutputTokens:180,temperature:.7} }) }
-        );
+        ) : await fetch('/api/gemini', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ userInput: q }) });
         const data = await res.json();
         const txt  = data.candidates?.[0]?.content?.parts?.[0]?.text;
         if (txt) {
