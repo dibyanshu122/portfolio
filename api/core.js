@@ -70,6 +70,15 @@ async function generate(apiKey, prompt) {
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
+  // GET lists the models this key can call (names only), handy when Google retires one again
+  if (req.method === 'GET') {
+    const key = process.env.GEMINI_API_KEY;
+    if (!key) return res.status(500).json({ error: 'GEMINI_API_KEY not configured' });
+    const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=100&key=' + key);
+    const d = await r.json();
+    const models = (d.models || []).filter(m => (m.supportedGenerationMethods || []).includes('generateContent')).map(m => m.name.replace('models/', ''));
+    return res.status(200).json({ tried: MODELS, available: models, error: d.error ? d.error.message : undefined });
+  }
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' });
   try {
     let body = req.body;
