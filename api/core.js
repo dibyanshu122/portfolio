@@ -39,7 +39,7 @@ function limited(ip) {
   return arr.length > 20;
 }
 
-const GONE = /not found|no longer available|not supported|deprecated/i;
+const GONE = /not found|no longer available|not supported|deprecated|exceeded your current quota|quota exceeded/i;
 const BUSY = /high demand|unavailable|overloaded|try again|resource exhausted/i;
 
 async function generate(apiKey, prompt) {
@@ -60,7 +60,7 @@ async function generate(apiKey, prompt) {
     const text = c && c.content && c.content.parts && c.content.parts[0] && c.content.parts[0].text;
     if (text) return { text: text.trim(), model };
     last = (data && data.error && data.error.message) || `HTTP ${r.status}`;
-    // move on when this model is gone or overloaded; quota/auth errors are the same for every model, so stop
+    // move on when this model is gone, out of its own daily quota, or overloaded; auth errors are the same everywhere, so stop
     if (!GONE.test(last) && !BUSY.test(last)) return { error: last };
   }
   if (!BUSY.test(last)) break;

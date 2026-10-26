@@ -66,7 +66,7 @@ Guidelines:
             });
             data = await response.json();
             const msg = data && data.error && data.error.message || '';
-            if (!data.error || !/not found|no longer available|not supported|deprecated|high demand|unavailable|overloaded|try again/i.test(msg)) break;
+            if (!data.error || !/not found|no longer available|not supported|deprecated|high demand|unavailable|overloaded|try again|exceeded your current quota|quota exceeded/i.test(msg)) break;
         }
         res.status(200).json(data);
 
