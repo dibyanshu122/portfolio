@@ -497,18 +497,18 @@ function startCounters() {
       live: true,
       icon: 'fab fa-whatsapp',
       title: 'B9 Automation — WhatsApp AI SaaS',
-      desc: `India's first WhatsApp AI Agency Platform with a visual drag-and-drop flow builder (40+ canvas nodes). Built a complete production SaaS from scratch.
+      desc: `WhatsApp AI agency platform with a visual drag-and-drop flow builder (37 canvas nodes). Built a complete production SaaS from scratch.
 
 Key achievements:
 • 86+ FastAPI REST endpoints & 62+ PostgreSQL models
-• Multi-tenant JWT + Fernet AES-128-CBC auth — 100K+ req/day on AWS EC2
+• Multi-tenant JWT + Fernet AES-128-CBC auth on AWS EC2
 • Autonomous agent builder: designs, deploys & self-corrects flows — zero human intervention after launch
-• RAG pipeline (Groq Llama 3.3 + Gemini 2.0 Flash failover) — sub-1s response across 1,000+ concurrent sessions
+• RAG pipeline with Groq Llama 3.3 + Gemini 2.0 Flash failover
 • Agentic loop: AI-generated templates, lead scoring, next-best-action, prompt safety guardrails
 • Real-time: SSE typing indicators, Celery + Redis async campaign processor
 • 9 live integrations: Shopify, IndiaMART, Facebook Ads, Razorpay…
-• Tiered SaaS (Starter / Pro / Enterprise) — 100+ businesses, 95%+ retention`,
-      metrics: ['100+ Businesses','86+ API Endpoints','95%+ Retention','1,000+ Concurrent Sessions','100K+ Requests/Day','Sub-1s Response'],
+• Tiered SaaS (Starter / Pro / Enterprise) with Razorpay billing`,
+      metrics: ['86+ API Endpoints','62+ PostgreSQL Models','9 Live Integrations','37 Flow Nodes','Multi-tenant Auth','Groq + Gemini Failover'],
       tags: ['Next.js 15','FastAPI','Python','PostgreSQL','LangChain','LangGraph','Groq Llama 3.3','Gemini 2.0','RAG','Celery','Redis','AWS EC2','Razorpay'],
       liveUrl: 'https://b9-automation-frontend.vercel.app',
       ghUrl:   'https://github.com/dibyanshu122',
@@ -767,7 +767,7 @@ Database optimisation:
     // Skills / Tech
     { keys:['skill','tech','stack','use','language','framework','know','tools','expertise'], ans:"Backend: FastAPI, Python, Node.js, Celery, Redis. Frontend: Next.js 15, React, TypeScript, Tailwind. AI/LLM: LangChain, LangGraph, Groq Llama 3.3, Gemini 2.0 Flash, RAG, Pinecone, OpenAI. Cloud: AWS EC2/S3/RDS, Docker, Vercel, GitHub Actions, PostgreSQL, MongoDB." },
     // Agentic AI
-    { keys:['ai','agent','agentic','rag','langchain','langgraph','llm','gemini','groq','pipeline','vector','autonomous'], ans:"I build production agentic AI systems: autonomous agents using LangChain + LangGraph that plan, act, and self-correct. RAG pipelines with sub-1s response times, Pinecone vector memory, Groq/Gemini failover. Also built a 3-tier multi-agent pipeline: Researcher → Critic → Writer (Nexus AI Engine)." },
+    { keys:['ai','agent','agentic','rag','langchain','langgraph','llm','gemini','groq','pipeline','vector','autonomous'], ans:"I build production agentic AI systems: autonomous agents using LangChain + LangGraph that plan, act, and self-correct. low-latency RAG pipelines with Pinecone vector memory, Groq/Gemini failover. Also built a 3-tier multi-agent pipeline: Researcher → Critic → Writer (Nexus AI Engine)." },
     // Projects
     { keys:['project','nexus','crm','healthcare','built','portfolio','work','built','made','show'], ans:"Key projects: 1) B9 Automation — WhatsApp AI SaaS (in development). 2) Nexus AI Engine — 3-tier multi-agent research platform, live at nexus-ai-insight-engine.vercel.app. 3) Full-Stack Auth & CRM Portal — Google OAuth 2.0, Razorpay, RBAC, zero security incidents. 4) Healthcare Microservices — 50K+ MAU, HIPAA-compliant." },
     // Experience / Work

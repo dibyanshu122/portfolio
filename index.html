@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dibyanshu Singh — AI Engineer · Agents, RAG &amp; LLM systems</title>
-<meta name="description" content="Dibyanshu Singh, AI Engineer &amp; Software Developer. Production LLM, RAG and agentic AI systems. Builder of B9 Automation, a WhatsApp AI platform used by 100+ businesses.">
+<meta name="description" content="Dibyanshu Singh, AI Engineer &amp; Software Developer. Production LLM, RAG and agentic AI systems. Builder of B9 Automation, a multi-tenant WhatsApp AI platform.">
 <meta name="theme-color" content="#09090B">
 <meta property="og:title" content="Dibyanshu Singh — AI Engineer">
-<meta property="og:description" content="Agents, RAG, and the model under them. Production AI systems at 100K+ requests a day.">
+<meta property="og:description" content="Agents, RAG, and the model under them. Production AI systems, built end to end.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://portfolio-nine-coral-57.vercel.app/">
 <meta property="og:image" content="https://portfolio-nine-coral-57.vercel.app/og.jpg">
@@ -177,6 +177,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(36px,5vw,
 .contact .inner{display:flex;flex-direction:column;gap:28px;align-items:flex-start}
 .contact h2{font-size:clamp(40px,7vw,104px)}
 .mail{font-family:var(--mono);font-size:14px;color:var(--muted);user-select:all}
+nav ul .oldlink{font-size:12px;color:var(--muted);opacity:.85}nav ul .oldlink:hover{color:var(--accent);opacity:1}
 footer a{color:inherit;text-decoration:none}footer a:hover{color:var(--accent)}
 footer{padding-block:28px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
 footer a{color:var(--muted);text-decoration:none}
@@ -263,7 +264,7 @@ button.card{text-align:left;font:inherit;cursor:none;width:100%}
 
 <nav class="ui">
   <a class="logo" href="#top" data-mag>DIBYANSHU<b>_</b></a>
-  <ul><li><a href="#skills">Skills</a></li><li><a href="#experience">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li><li><a href="resume.pdf" target="_blank" rel="noopener">Resume</a></li></ul>
+  <ul><li><a href="#skills">Skills</a></li><li><a href="#experience">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li><li><a href="resume.pdf" target="_blank" rel="noopener">Resume</a></li><li><a href="old/" class="oldlink" title="The previous version of this site">Old ↗</a></li></ul>
   <a class="btn ghost" href="#contact" data-mag>HIRE ME</a>
 </nav>
 
@@ -273,9 +274,9 @@ button.card{text-align:left;font:inherit;cursor:none;width:100%}
     <div class="hero-inner">
       <div class="eyebrow"><span class="dot"></span><span id="scr" data-text="SENIOR AI ENGINEER · SPM MEDICARE · NOIDA">SENIOR AI ENGINEER · SPM MEDICARE · NOIDA</span><span class="avail">● OPEN TO AI / AGENTIC WORK</span></div>
       <h1 id="h1">I build agents that run <span class="acc">businesses.</span></h1>
-      <p class="lede"><b>Dibyanshu Singh</b>, AI Engineer &amp; Software Developer. 3+ years shipping production LLM, RAG and agentic systems. Built <b>B9 Automation</b>, a WhatsApp AI platform used by 100+ businesses at 100K+ requests a day with sub-1s replies.</p>
+      <p class="lede"><b>Dibyanshu Singh</b>, AI Engineer &amp; Software Developer. 3+ years shipping production LLM, RAG and agentic systems. Built <b>B9 Automation</b>, a multi-tenant WhatsApp AI platform: 86+ API endpoints, 9 live integrations and an agent builder that runs customer flows on its own.</p>
       <div class="ctas"><a class="btn primary" href="#projects" data-mag>View projects →</a><a class="btn" href="#core" data-mag>Talk to the Core</a></div>
-      <div class="stats"><div><b>100+</b>BUSINESSES ON B9</div><div><b>100K</b>REQ / DAY</div><div><b>&lt;1s</b>AI REPLY</div><div><b>3+</b>YRS SHIPPING</div></div>
+      <div class="stats"><div><b>86+</b>API ENDPOINTS ON B9</div><div><b>9</b>LIVE INTEGRATIONS</div><div><b>37</b>FLOW-BUILDER NODES</div><div><b>3+</b>YRS SHIPPING</div></div>
     </div>
     <div class="scrollcue"><i></i>SCROLL · THE CORE FOLLOWS</div>
   </section>
@@ -328,7 +329,7 @@ button.card{text-align:left;font:inherit;cursor:none;width:100%}
   <section class="projects wrap" id="projects">
     <div class="sec-head reveal"><div><p class="kicker">SHIPPED</p><h2>Work in orbit.</h2></div><p class="sub">Three systems in production. Open a card for the architecture, the numbers and the code.</p></div>
     <div class="cards reveal">
-      <button class="card wide" type="button" data-proj="b9"><div class="glare"></div><div class="meta"><span>FLAGSHIP · BUILT &amp; RUN BY ME</span><em>LIVE · 100+ BUSINESSES</em></div><h3>B9 Automation</h3><p>Multi-tenant WhatsApp AI SaaS. 86+ REST endpoints, 62+ PostgreSQL models, JWT auth, 9 live integrations on AWS EC2. Agentic core: autonomous agent builder, RAG over business documents, Groq Llama 3.3 + Gemini 2.0 Flash failover, lead scoring, prompt-safety guardrails. No-code 37-node flow builder, Celery + Redis campaign engine, Razorpay tiered billing. Sub-1s replies across 1,000+ concurrent sessions, 95%+ retention.</p><div class="tags"><span>Next.js</span><span>FastAPI</span><span>PostgreSQL</span><span>Groq</span><span>Gemini</span><span>RAG</span><span>Celery</span><span>Redis</span><span>AWS</span></div><div class="more">OPEN CASE STUDY →</div></button>
+      <button class="card wide" type="button" data-proj="b9"><div class="glare"></div><div class="meta"><span>FLAGSHIP · BUILT &amp; RUN BY ME</span><em>LIVE · MULTI-TENANT</em></div><h3>B9 Automation</h3><p>Multi-tenant WhatsApp AI SaaS. 86+ REST endpoints, 62+ PostgreSQL models, JWT auth, 9 live integrations on AWS EC2. Agentic core: autonomous agent builder, RAG over business documents, Groq Llama 3.3 + Gemini 2.0 Flash failover, lead scoring, prompt-safety guardrails. No-code 37-node flow builder, Celery + Redis campaign engine, Razorpay tiered billing.</p><div class="tags"><span>Next.js</span><span>FastAPI</span><span>PostgreSQL</span><span>Groq</span><span>Gemini</span><span>RAG</span><span>Celery</span><span>Redis</span><span>AWS</span></div><div class="more">OPEN CASE STUDY →</div></button>
       <button class="card" type="button" data-proj="nexus"><div class="glare"></div><div class="meta"><span>PROJECT</span><em>LIVE</em></div><h3>Nexus AI Insight Engine</h3><p>3-tier multi-agent research system (Researcher, Critic, Writer) with live web search, Pinecone RAG memory, sub-2s responses and PDF export.</p><div class="tags"><span>Next.js</span><span>FastAPI</span><span>LangGraph</span><span>Gemini</span><span>Pinecone</span><span>Tavily</span></div><div class="more">OPEN CASE STUDY →</div></button>
       <button class="card" type="button" data-proj="crm"><div class="glare"></div><div class="meta"><span>PROJECT</span><em>LIVE</em></div><h3>Full-Stack Auth &amp; CRM Portal</h3><p>Enterprise CRM with Google OAuth 2.0, RBAC, CSRF protection, real-time Razorpay payments, admin analytics dashboard and automated credential emails via Nodemailer.</p><div class="tags"><span>Next.js</span><span>Node.js</span><span>PostgreSQL</span><span>OAuth 2.0</span><span>Razorpay</span></div><div class="more">OPEN CASE STUDY →</div></button>
     </div>
@@ -457,7 +458,7 @@ document.querySelectorAll('.card').forEach(card=>{
 (function(){
   const body=document.getElementById('tbody'),form=document.getElementById('tform'),inp=document.getElementById('tin'),state=document.getElementById('tstate');if(!form)return;
 
-  const LOCAL=[[/b9|whatsapp|automation/i,'B9 Automation is a multi-tenant WhatsApp AI SaaS Dibyanshu built and runs: 100+ businesses, 100K+ requests a day, sub-1s replies. 86+ FastAPI endpoints, LangGraph agent builder, RAG over business documents, Groq + Gemini failover, Razorpay billing on AWS.'],
+  const LOCAL=[[/b9|whatsapp|automation/i,'B9 Automation is a multi-tenant WhatsApp AI SaaS Dibyanshu built and runs: 86+ FastAPI endpoints, 62+ PostgreSQL models, 9 live integrations, LangGraph agent builder, RAG over business documents, Groq + Gemini failover, Razorpay billing on AWS.'],
     [/stack|tech|skill|tool/i,'Python, FastAPI, Django and Node on the backend; Next.js 15, React and TypeScript on the front; LangChain, LangGraph, RAG with Pinecone and pgvector; Groq Llama 3.3 and Gemini 2.0 Flash; PostgreSQL, MongoDB, Redis; AWS, Docker, GitHub Actions.'],
     [/experience|work|job|career|ringpass|phero|spm/i,'Senior AI Engineer at SPM Medicare (Aug 2026-now), before that Full Stack Developer at RingPass Services (multi-agent LangGraph pipeline, enterprise CRM, 99.8% payment success) and Backend Developer at Phero Health Care (100K+ daily requests, HIPAA-compliant, 99.5% uptime).'],
     [/agent|rag|llm|langgraph|ai/i,'He builds agents as LangGraph state machines: intent detection, a planner with tool calling, observe-and-correct loops, guardrails before anything is sent. RAG runs on chunked, embedded documents in Pinecone with tenant filters and Groq-to-Gemini failover.'],
@@ -525,7 +526,7 @@ const FLOWS=[
    {id:'obs',k:'box',l:'Observe',p:[2.3,1.25],d:'The tool result goes back into state. If it failed, the planner sees the error and self-corrects: retry, fallback or escalate. This is the loop.',t:['Self-correcting loops','Retry + backoff','Celery']},
    {id:'guard',k:'box',l:'Guardrails',p:[0.9,-1.25],d:'Before anything leaves, a checker scans for prompt injection, PII leaks, off-brand claims and tone. Blocked replies are rewritten or routed to a human.',t:['Prompt safety','LLM Evaluation','RBAC']},
    {id:'reply',k:'box',l:'Reply',p:[2.3,-1.25],d:'The answer is sent, lead score updated, next-best-action suggested to the business dashboard.',t:['Lead scoring','SSE','Next.js dashboard']},
-   {id:'out',k:'out',l:'Customer',p:[3.6,-1.25],d:'Sub-1s round trip across 1,000+ concurrent sessions. Zero human intervention after the flow is launched.',t:['100K+ req/day','AWS EC2','Redis']}
+   {id:'out',k:'out',l:'Customer',p:[3.6,-1.25],d:'The reply goes back through the WhatsApp Cloud API. Zero human intervention after the flow is launched.',t:['Groq + Gemini failover','AWS EC2','Redis']}
   ],
   edges:[['user','intent'],['intent','llm'],['llm','tool'],['tool','obs'],['obs','llm'],['llm','guard'],['guard','reply'],['reply','out']],
   steps:['user','intent','llm','tool','obs','llm','guard','reply','out']},
@@ -545,9 +546,9 @@ const FLOWS=[
 
 /* ---------- project case studies ---------- */
 const PROJ={
- b9:{status:'LIVE · 100+ BUSINESSES · BUILT & RUN BY ME',title:'B9 Automation',sum:'Multi-tenant WhatsApp AI SaaS. A business connects its WhatsApp number, uploads its documents, drags together a flow, and an agent handles customers end to end: answers, orders, payments, lead scoring.',
+ b9:{status:'LIVE · MULTI-TENANT · BUILT & RUN BY ME',title:'B9 Automation',sum:'Multi-tenant WhatsApp AI SaaS. A business connects its WhatsApp number, uploads its documents, drags together a flow, and an agent handles customers end to end: answers, orders, payments, lead scoring.',
   steps:[['Webhook ingress','Meta WhatsApp Cloud API events hit FastAPI, signature-verified, tenant resolved from the phone number id.'],['Agent core','LangGraph planner with tool calling; RAG over the tenant’s documents; Groq Llama 3.3 with Gemini 2.0 Flash failover.'],['Flow builder','No-code 37-node canvas in Next.js. Flows compile to a state machine the agent follows and can self-correct.'],['Campaign engine','Celery + Redis workers for broadcasts and drip campaigns; rate-limited per tenant.'],['Billing + integrations','Razorpay tiered plans (Starter / Pro / Enterprise); 9 live integrations incl. Shopify, IndiaMART, Facebook Ads, Google Sheets.'],['Infra','AWS EC2, PostgreSQL (62+ models), JWT + Fernet multi-tenant auth, SSE typing indicators, monitoring.']],
-  metrics:[['86+','REST ENDPOINTS'],['100K+','REQUESTS / DAY'],['<1s','AI REPLY'],['95%+','RETENTION']],
+  metrics:[['86+','REST ENDPOINTS'],['62+','POSTGRES MODELS'],['9','LIVE INTEGRATIONS'],['37','FLOW NODES']],
   stack:['Next.js 15','FastAPI','PostgreSQL','LangGraph','Groq','Gemini','RAG','Celery','Redis','Razorpay','AWS EC2'],
   links:[['Live demo','https://b9-automation-frontend.vercel.app'],['GitHub','https://github.com/dibyanshu122/B9-Automation--frontend']]},
  nexus:{status:'LIVE · PROJECT',title:'Nexus AI Insight Engine',sum:'A 3-tier multi-agent research system. Ask a question; a Researcher gathers live web sources, a Critic checks them, a Writer produces a cited report you can export as PDF.',
